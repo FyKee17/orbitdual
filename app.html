@@ -913,6 +913,10 @@ let S = store.get('orbit.state', null) || {
   model:'blend2', mode:'passo',
   xp:0, streak:1
 };
+// migração: se o modelo salvo (de uma versão antiga, ex: 'nano'/'core'/'max')
+// não existir mais na lista atual, volta pro primeiro modelo disponível
+// em vez de deixar S.model apontar pra um id inexistente e quebrar a tela.
+if(!MODELOS.some(m=>m.id===S.model)) S.model = MODELOS[0].id;
 const save = () => store.set('orbit.state', S);
 const $  = (s,r=document) => r.querySelector(s);
 const $$ = (s,r=document) => [...r.querySelectorAll(s)];
@@ -1316,7 +1320,7 @@ function renderChatPane(body, pane){
           <textarea data-input rows="1" placeholder="${pane.kind==='chat2'?'Uma dúvida rápida…':'Pergunte qualquer coisa ao Orbit…'}"></textarea>
           <div class="comp-bar">
             <button class="cbtn" data-plus title="Adicionar"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
-            <button class="pick" data-model><b>${MODELOS.find(m=>m.id===S.model).nm}</b>
+            <button class="pick" data-model><b>${(MODELOS.find(m=>m.id===S.model)||MODELOS[0]).nm}</b>
               <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
             <button class="pick quiet" data-mode>${MODOS.find(m=>m.id===(c.mode||S.mode)).nm}
               <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
@@ -1420,7 +1424,7 @@ function wireChat(root, pane, c){
   $('[data-model]', root).addEventListener('click', e=>{
     e.stopPropagation(); closeMenus();
     popMenu(e.currentTarget, MODELOS.map(m=>({t:m.nm, sub:m.sub, i:m.id, on:m.id===S.model})),
-      k=>{ S.model=k; save(); renderGrid(); toast('Modelo: '+MODELOS.find(m=>m.id===k).nm, CHECK); }, 'Modelo do Orbit');
+      k=>{ S.model=k; save(); renderGrid(); toast('Modelo: '+(MODELOS.find(m=>m.id===k)||MODELOS[0]).nm, CHECK); }, 'Modelo do Orbit');
   });
   $('[data-mode]', root).addEventListener('click', e=>{
     e.stopPropagation(); closeMenus();
