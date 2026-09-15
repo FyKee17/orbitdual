@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OrbitDual</title>
+<link rel="icon" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070A; --bg-2:#0B0B10; --panel:#101016; --panel-2:#14141B;
+  --line:rgba(255,255,255,.085); --line-2:rgba(255,255,255,.15);
+  --white:#F2F2F5; --muted:#8A8A99; --dim:#5C5C6B;
+  --accent:#7B61FF; --accent-soft:#A48CFF; --accent-deep:#3A2D74;
+  --ok:#7DD88F; --warn:#F0925A; --bad:#E36B7A;
+  --r:14px; --rail:270px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg);color:var(--white);
+  font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow:hidden;
+}
+h1,h2,h3,h4,.dsp{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em;line-height:1.15}
+button,input,textarea,select{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent-soft);outline-offset:2px;border-radius:6px}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:8px;border:3px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.2);background-clip:content-box}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---------- shared texture ---------- */
+.grain::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.04;z-index:3;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='150' height='150' filter='url(%23n)' opacity='.65'/></svg>");
+}
+.gridtex{
+  position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 72% 65% at 50% 42%,#000 6%,transparent 78%);
+          mask-image:radial-gradient(ellipse 72% 65% at 50% 42%,#000 6%,transparent 78%);
+}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:'Space Grotesk';font-weight:600;font-size:.92rem;
+  padding:11px 22px;border-radius:999px;border:1px solid transparent;
+  transition:transform .16s,box-shadow .25s,background .2s,border-color .2s,opacity .2s}
+.btn-p{background:var(--accent);color:#fff;box-shadow:0 6px 26px -8px rgba(123,97,255,.85)}
+.btn-p:hover{background:var(--accent-soft);transform:translateY(-1px)}
+.btn-p:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-g{border-color:var(--line-2);background:rgba(255,255,255,.03)}
+.btn-g:hover{border-color:var(--accent-soft);background:rgba(123,97,255,.1)}
+.btn-t{color:var(--muted);padding:11px 16px}
+.btn-t:hover{color:var(--white)}
+.ico{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ico.sm{width:15px;height:15px}
+
+/* ================= ONBOARDING ================= */
+#onb{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;
+  background:var(--bg);overflow:hidden}
+#onb.gone{animation:onbOut .55s cubic-bezier(.6,0,.3,1) forwards}
+@keyframes onbOut{to{opacity:0;transform:scale(1.04);visibility:hidden}}
+.onb-bg{position:absolute;inset:0;z-index:0}
+.onb-hd{position:relative;z-index:2;display:flex;align-items:center;gap:14px;
+  padding:22px 34px;flex:none}
+.onb-hd .brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;font-size:1.05rem}
+.onb-hd .brand img{width:26px;filter:drop-shadow(0 0 8px rgba(123,97,255,.6))}
+.onb-hd .brand i{font-style:normal;color:var(--accent-soft)}
+.steps-dots{margin-left:auto;display:flex;gap:7px;align-items:center}
+.steps-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.16);transition:.35s;display:block}
+.steps-dots i.on{background:var(--accent);width:22px;border-radius:99px;box-shadow:0 0 12px rgba(123,97,255,.8)}
+.steps-dots i.done{background:rgba(123,97,255,.5)}
+
+.onb-body{position:relative;z-index:2;flex:1;overflow-y:auto;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:20px 34px 40px}
+.onb-step{width:min(1000px,100%);display:none}
+.onb-step.on{display:block;animation:stepIn .5s cubic-bezier(.2,.8,.3,1)}
+@keyframes stepIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.onb-step.back-in{animation:stepInBack .5s cubic-bezier(.2,.8,.3,1)}
+@keyframes stepInBack{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+.onb-kick{font-family:'Space Grotesk';font-size:.8rem;color:var(--accent-soft);font-weight:600;
+  display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.onb-kick::before{content:"";width:22px;height:1px;background:var(--accent)}
+.onb-step h2{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:700;margin-bottom:12px}
+.onb-step .sub{color:var(--muted);margin-bottom:34px;max-width:54ch}
+
+/* choice cards */
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.choice{
+  position:relative;text-align:left;padding:26px 26px 24px;border-radius:18px;
+  background:linear-gradient(165deg,var(--panel-2),var(--bg-2));
+  border:1px solid var(--line);overflow:hidden;isolation:isolate;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+}
+.choice::after{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;
+  background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgba(123,97,255,.2),transparent 62%)}
+.choice:hover{border-color:rgba(123,97,255,.5);transform:translateY(-3px);box-shadow:0 24px 50px -30px rgba(123,97,255,.8)}
+.choice:hover::after{opacity:1}
+.choice .cic{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;margin-bottom:18px;
+  background:linear-gradient(140deg,rgba(123,97,255,.26),rgba(123,97,255,.04));
+  border:1px solid rgba(123,97,255,.3)}
+.choice .cic .ico{width:21px;height:21px;stroke:var(--accent-soft)}
+.choice h3{font-size:1.14rem;font-weight:600;margin-bottom:8px}
+.choice p{color:var(--muted);font-size:.9rem}
+.choice .arrow{position:absolute;top:26px;right:24px;color:var(--dim);transition:.3s}
+.choice:hover .arrow{color:var(--accent-soft);transform:translateX(4px)}
+.choice .tagline{display:inline-block;margin-top:14px;font-family:'JetBrains Mono';font-size:.66rem;
+  color:var(--accent-soft);border:1px solid rgba(123,97,255,.3);border-radius:5px;padding:2px 7px}
+
+/* option pills / grids */
+.optgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.opt{
+  position:relative;text-align:left;padding:16px 18px;border-radius:13px;
+  background:var(--bg-2);border:1px solid var(--line);transition:.25s;
+  display:flex;align-items:center;gap:12px;
+}
+.opt:hover{border-color:var(--line-2);background:var(--panel-2)}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:rgba(123,97,255,.12)}
+.opt[aria-pressed="true"]::after{content:"";position:absolute;top:10px;right:12px;width:7px;height:7px;
+  border-radius:50%;background:var(--accent-soft);box-shadow:0 0 10px 2px rgba(123,97,255,.8)}
+.opt .lg{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;
+  font-family:'JetBrains Mono';font-size:.76rem;
+  background:color-mix(in srgb,var(--lc,#7B61FF) 15%,transparent);
+  border:1px solid color-mix(in srgb,var(--lc,#7B61FF) 35%,transparent);color:var(--lc,#A48CFF)}
+.opt b{font-family:'Space Grotesk';font-weight:600;font-size:.93rem;display:block}
+.opt small{color:var(--muted);font-size:.76rem;display:block}
+
+.field{margin-bottom:22px}
+.field label{display:block;font-family:'Space Grotesk';font-weight:600;font-size:.92rem;margin-bottom:10px}
+.field .hint{color:var(--dim);font-size:.82rem;font-weight:400;margin-left:8px}
+.inp,.ta{
+  width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:12px;
+  padding:14px 16px;font-size:.95rem;transition:border-color .25s,background .25s;resize:vertical;
+}
+.ta{min-height:120px;font-family:'JetBrains Mono';font-size:.84rem;line-height:1.7}
+.inp:focus,.ta:focus{outline:none;border-color:var(--accent);background:var(--panel-2)}
+.inp::placeholder,.ta::placeholder{color:var(--dim)}
+
+.onb-foot{display:flex;align-items:center;gap:12px;margin-top:32px;padding-top:24px;border-top:1px solid var(--line)}
+.onb-foot .spacer{margin-left:auto}
+.skip{color:var(--dim);font-size:.88rem;transition:color .2s}
+.skip:hover{color:var(--muted);text-decoration:underline}
+
+/* review chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:.82rem;color:var(--muted);
+  background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:999px;padding:6px 13px}
+.chip b{color:var(--white);font-weight:600}
+/* ================= WORKSPACE ================= */
+#app{display:none;height:100%;grid-template-columns:var(--rail) 1fr}
+#app.on{display:grid}
+.scrim{position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.6);display:none}
+
+/* ---------- rail ---------- */
+.rail{
+  position:relative;display:flex;flex-direction:column;min-height:0;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  transition:margin-left .3s cubic-bezier(.5,0,.3,1);
+}
+#app.railoff .rail{margin-left:calc(var(--rail) * -1)}
+.rail-hd{display:flex;align-items:center;gap:10px;padding:16px 16px 12px;flex:none}
+.rail-hd .brand{display:flex;align-items:center;gap:9px;font-family:'Space Grotesk';font-weight:700;font-size:1rem}
+.rail-hd .brand img{width:24px;filter:drop-shadow(0 0 8px rgba(123,97,255,.6))}
+.rail-hd .brand i{font-style:normal;color:var(--accent-soft)}
+.iconbtn{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;color:var(--muted);
+  transition:background .2s,color .2s}
+.iconbtn:hover{background:rgba(255,255,255,.07);color:var(--white)}
+.iconbtn.active{background:rgba(123,97,255,.18);color:var(--accent-soft)}
+
+.rail-act{padding:0 12px 10px;display:grid;gap:8px;flex:none}
+.newbtn{display:flex;align-items:center;gap:10px;width:100%;padding:11px 14px;border-radius:11px;
+  background:linear-gradient(140deg,rgba(123,97,255,.25),rgba(123,97,255,.08));
+  border:1px solid rgba(123,97,255,.34);font-family:'Space Grotesk';font-weight:600;font-size:.9rem;
+  transition:.25s}
+.newbtn:hover{border-color:var(--accent);background:linear-gradient(140deg,rgba(123,97,255,.4),rgba(123,97,255,.14))}
+.searchbox{position:relative;display:flex;align-items:center}
+.searchbox .ico{position:absolute;left:12px;color:var(--dim)}
+.searchbox input{width:100%;background:rgba(255,255,255,.035);border:1px solid var(--line);
+  border-radius:11px;padding:10px 12px 10px 36px;font-size:.87rem}
+.searchbox input:focus{outline:none;border-color:var(--accent);background:var(--panel-2)}
+
+.rail-list{flex:1;overflow-y:auto;padding:4px 8px 10px;min-height:0}
+.grp{font-family:'Space Grotesk';font-size:.7rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--dim);padding:14px 10px 7px;display:flex;align-items:center;gap:7px}
+.grp .ico{width:12px;height:12px}
+.conv{
+  position:relative;display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:10px;
+  cursor:pointer;transition:background .18s;
+}
+.conv:hover{background:rgba(255,255,255,.055)}
+.conv.sel{background:rgba(123,97,255,.16)}
+.conv.sel::before{content:"";position:absolute;left:0;top:9px;bottom:9px;width:2px;border-radius:2px;background:var(--accent)}
+.conv .dotmark{width:6px;height:6px;border-radius:50%;flex:none;background:var(--dim)}
+.conv.sel .dotmark{background:var(--accent-soft);box-shadow:0 0 8px 1px rgba(123,97,255,.8)}
+.conv .nm{flex:1;font-size:.87rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C7C7D2}
+.conv.sel .nm{color:var(--white)}
+.conv .nm input{width:100%;background:var(--bg);border:1px solid var(--accent);border-radius:6px;
+  padding:3px 6px;font-size:.85rem}
+.conv .kebab{opacity:0;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;
+  color:var(--muted);transition:.2s;flex:none}
+.conv:hover .kebab,.conv .kebab[aria-expanded="true"]{opacity:1}
+.conv .kebab:hover{background:rgba(255,255,255,.1);color:var(--white)}
+.conv .badge{font-size:.62rem;font-family:'JetBrains Mono';color:var(--accent-soft);
+  border:1px solid rgba(123,97,255,.3);border-radius:4px;padding:1px 4px;flex:none}
+.emptylist{color:var(--dim);font-size:.83rem;padding:22px 12px;text-align:center;line-height:1.7}
+
+/* menu popover */
+.menu{
+  position:fixed;z-index:150;min-width:186px;padding:6px;border-radius:12px;
+  background:var(--panel-2);border:1px solid var(--line-2);
+  box-shadow:0 26px 60px -20px rgba(0,0,0,.95);
+  animation:menuIn .16s ease-out;
+}
+@keyframes menuIn{from{opacity:0;transform:translateY(-5px) scale(.97)}}
+.menu button{display:flex;align-items:center;gap:10px;width:100%;padding:9px 11px;border-radius:8px;
+  font-size:.87rem;color:#D2D2DC;transition:background .15s,color .15s;text-align:left}
+.menu button:hover{background:rgba(255,255,255,.08);color:var(--white)}
+.menu button.danger{color:var(--bad)}
+.menu button.danger:hover{background:rgba(227,107,122,.14)}
+.menu hr{border:0;border-top:1px solid var(--line);margin:5px 4px}
+.menu .sect{font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--dim);
+  padding:8px 11px 5px;font-family:'Space Grotesk';font-weight:600}
+.menu button .rt{margin-left:auto;font-family:'JetBrains Mono';font-size:.68rem;color:var(--dim)}
+.menu button[aria-checked="true"] .rt{color:var(--accent-soft)}
+
+/* ---------- profile ---------- */
+.rail-ft{flex:none;border-top:1px solid var(--line);padding:10px}
+.profile{display:flex;align-items:center;gap:11px;width:100%;padding:9px 10px;border-radius:12px;
+  transition:background .2s;text-align:left}
+.profile:hover{background:rgba(255,255,255,.06)}
+.avatar{width:36px;height:36px;border-radius:11px;flex:none;display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--accent),var(--accent-deep));
+  font-family:'Space Grotesk';font-weight:700;font-size:.9rem;color:#fff}
+.profile .pi{flex:1;min-width:0}
+.profile .pi b{display:block;font-size:.87rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profile .pi span{display:flex;align-items:center;gap:5px;font-size:.73rem;color:var(--muted)}
+.plan-dot{width:6px;height:6px;border-radius:50%;background:var(--accent-soft);box-shadow:0 0 7px rgba(123,97,255,.9)}
+
+/* ---------- main ---------- */
+.main{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;background:var(--bg)}
+.topbar{flex:none;display:flex;align-items:center;gap:8px;padding:10px 14px;
+  border-bottom:1px solid var(--line);background:rgba(8,8,13,.6);backdrop-filter:blur(10px);z-index:5}
+.topbar .ttl{font-family:'Space Grotesk';font-weight:600;font-size:.94rem;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:38ch}
+.topbar .ctx{font-size:.72rem;font-family:'JetBrains Mono';color:var(--accent-soft);
+  border:1px solid rgba(123,97,255,.3);border-radius:5px;padding:2px 7px;flex:none}
+.topbar .sp{margin-left:auto}
+.segbtns{display:flex;gap:3px;background:rgba(255,255,255,.04);border:1px solid var(--line);
+  border-radius:10px;padding:3px}
+.segbtns button{padding:6px 11px;border-radius:7px;font-size:.78rem;color:var(--muted);
+  display:flex;align-items:center;gap:6px;transition:.2s}
+.segbtns button:hover{color:var(--white);background:rgba(255,255,255,.06)}
+.segbtns button.on{background:rgba(123,97,255,.22);color:var(--accent-soft)}
+
+/* ---------- pane grid ---------- */
+.grid{flex:1;display:flex;min-height:0;position:relative}
+.pane{
+  position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;
+  flex:1 1 0;background:var(--bg);
+}
+.pane+.pane{border-left:1px solid var(--line)}
+.pane.dragover{outline:2px dashed var(--accent);outline-offset:-6px;background:rgba(123,97,255,.06)}
+.pane-hd{
+  flex:none;display:flex;align-items:center;gap:8px;padding:8px 12px;
+  border-bottom:1px solid var(--line);background:var(--bg-2);cursor:grab;user-select:none;
+}
+.pane-hd:active{cursor:grabbing}
+.pane-hd .dots{display:flex;flex-direction:column;gap:2px;opacity:.4;flex:none}
+.pane-hd .dots i{display:block;width:10px;height:2px;background:currentColor;border-radius:2px}
+.pane-hd .pt{font-family:'Space Grotesk';font-weight:600;font-size:.8rem;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pane-hd .pk{font-family:'JetBrains Mono';font-size:.64rem;color:var(--dim);
+  border:1px solid var(--line);border-radius:4px;padding:1px 5px;flex:none}
+.pane-hd .sp{margin-left:auto}
+.pane.dragging{opacity:.45}
+.splitter{flex:none;width:6px;cursor:col-resize;position:relative;z-index:4;background:transparent}
+.splitter::after{content:"";position:absolute;left:2px;top:0;bottom:0;width:2px;border-radius:2px;
+  background:transparent;transition:background .2s}
+.splitter:hover::after,.splitter.on::after{background:var(--accent)}
+
+/* ---------- chat body ---------- */
+.chatwrap{flex:1;display:flex;flex-direction:column;min-height:0;position:relative}
+.msgs{flex:1;overflow-y:auto;padding:26px 0 10px;scroll-behavior:smooth;position:relative;z-index:2}
+.mrow{max-width:760px;margin:0 auto 22px;padding:0 24px;display:flex;gap:13px;animation:msgIn .42s cubic-bezier(.2,.8,.3,1)}
+@keyframes msgIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mrow.me{justify-content:flex-end}
+.mrow.me .bub{background:var(--accent);color:#fff;border-bottom-right-radius:5px;max-width:78%}
+.mav{width:30px;height:30px;border-radius:10px;flex:none;display:grid;place-items:center;
+  background:linear-gradient(150deg,rgba(40,32,78,.95),rgba(14,12,26,.95));
+  border:1px solid rgba(123,97,255,.34);overflow:hidden}
+.mav img{width:21px}
+.bub{background:var(--panel);border:1px solid var(--line);border-radius:15px;
+  border-bottom-left-radius:5px;padding:13px 17px;font-size:.93rem;line-height:1.7;
+  max-width:100%;min-width:0;overflow-wrap:anywhere}
+.bub p+p{margin-top:11px}
+.bub code{font-family:'JetBrains Mono';font-size:.84em;background:rgba(123,97,255,.14);
+  border:1px solid rgba(123,97,255,.2);border-radius:5px;padding:1px 5px}
+.bub pre{background:#08080C;border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+  margin:12px 0;overflow-x:auto;font-family:'JetBrains Mono';font-size:.8rem;line-height:1.8}
+.bub pre code{background:none;border:0;padding:0}
+.bub .k{color:#C792EA}.bub .s{color:#A9E88A}.bub .t{color:#8AD7FF}.bub .c{color:#5B5B6B}
+.bub ul,.bub ol{margin:10px 0 10px 20px}
+.bub li{margin:5px 0}
+.mmeta{display:flex;gap:6px;margin-top:9px;opacity:0;transition:opacity .2s}
+.mrow:hover .mmeta{opacity:1}
+.mmeta button{font-size:.72rem;color:var(--dim);padding:3px 7px;border-radius:6px;display:flex;align-items:center;gap:5px}
+.mmeta button:hover{background:rgba(255,255,255,.07);color:var(--muted)}
+.typing{display:inline-flex;gap:4px;align-items:center;padding:3px 0}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--accent-soft);display:block;
+  animation:td 1.3s ease-in-out infinite}
+.typing i:nth-child(2){animation-delay:.18s}
+.typing i:nth-child(3){animation-delay:.36s}
+@keyframes td{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+.caret{display:inline-block;width:7px;height:14px;background:var(--accent-soft);vertical-align:-2px;
+  animation:bl 1s step-end infinite;margin-left:2px}
+@keyframes bl{50%{opacity:0}}
+
+/* ---------- the core ---------- */
+.core{
+  position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:24px;pointer-events:none;
+  padding:20px 18px 34px;
+}
+.core.hide{animation:coreOut .85s cubic-bezier(.6,0,.25,1) forwards}
+@keyframes coreOut{
+  0%{opacity:1;transform:scale(1)}
+  38%{opacity:1;transform:scale(1.13)}
+  100%{opacity:0;transform:scale(.24) translateY(46px);visibility:hidden}
+}
+.core-stage{position:relative;width:min(230px,42vh);aspect-ratio:1;display:grid;place-items:center;
+  perspective:900px}
+.core-orb{
+  position:relative;width:56%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 36% 30%,#6B55D6,#2A2050 52%,#0D0B1A);
+  box-shadow:0 0 70px -6px rgba(123,97,255,.85),inset 0 0 40px rgba(0,0,0,.7);
+  animation:orbBreathe 4.6s ease-in-out infinite;display:grid;place-items:center;
+}
+@keyframes orbBreathe{0%,100%{transform:scale(1) translateY(-5px)}50%{transform:scale(1.06) translateY(5px)}}
+.core-orb img{width:56%;opacity:.95;filter:drop-shadow(0 0 10px rgba(180,150,255,.9));
+  animation:orbSpinSoft 16s ease-in-out infinite}
+@keyframes orbSpinSoft{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+.core-orb::after{
+  content:"";position:absolute;inset:-14%;border-radius:50%;
+  background:conic-gradient(from 0deg,transparent,rgba(164,140,255,.55),transparent 42%);
+  filter:blur(11px);animation:coreSweep 5.5s linear infinite;
+}
+@keyframes coreSweep{to{transform:rotate(360deg)}}
+.core-ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(123,97,255,.3);
+  animation:cr var(--d) linear infinite;transform-style:preserve-3d}
+@keyframes cr{
+  from{transform:rotateZ(var(--roll)) rotateX(var(--tilt)) rotateZ(0)}
+  to{transform:rotateZ(var(--roll)) rotateX(var(--tilt)) rotateZ(360deg)}
+}
+.core-ring i{position:absolute;top:-4px;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;
+  background:var(--accent-soft);box-shadow:0 0 14px 3px rgba(123,97,255,.9);display:block}
+.core-ring.b{border-style:dashed;border-color:rgba(255,255,255,.12)}
+.core-txt{text-align:center;max-width:44ch}
+.core-txt h3{font-size:1.32rem;font-weight:600;margin-bottom:8px}
+.core-txt p{color:var(--muted);font-size:.9rem}
+.suggests{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;max-width:620px;pointer-events:auto}
+.sug{font-size:.82rem;color:#C0C0CC;background:rgba(255,255,255,.04);border:1px solid var(--line);
+  border-radius:999px;padding:8px 15px;transition:.22s}
+.sug:hover{border-color:var(--accent);background:rgba(123,97,255,.14);color:#fff;transform:translateY(-2px)}
+
+/* ---------- composer ---------- */
+.composer{flex:none;padding:10px 24px 18px;position:relative;z-index:6}
+.comp-in{max-width:760px;margin:0 auto;border:1px solid var(--line-2);border-radius:20px;
+  background:var(--panel);transition:border-color .25s,box-shadow .25s}
+.comp-in:focus-within{border-color:rgba(123,97,255,.65);box-shadow:0 0 0 4px rgba(123,97,255,.1)}
+.comp-in textarea{width:100%;background:none;border:0;resize:none;padding:15px 18px 5px;
+  font-size:.95rem;line-height:1.6;max-height:190px;min-height:52px}
+.comp-in textarea:focus{outline:none}
+.comp-in textarea::placeholder{color:var(--dim)}
+.comp-bar{display:flex;align-items:center;gap:6px;padding:7px 10px 9px 10px}
+.cbtn{width:33px;height:33px;border-radius:10px;display:grid;place-items:center;color:var(--muted);
+  transition:.2s;flex:none}
+.cbtn:hover{background:rgba(255,255,255,.08);color:var(--white)}
+.cbtn.on{background:rgba(123,97,255,.2);color:var(--accent-soft)}
+.cbtn.rec{background:rgba(227,107,122,.2);color:#FF9AA7;animation:recPulse 1.3s ease-in-out infinite}
+@keyframes recPulse{0%,100%{box-shadow:0 0 0 0 rgba(227,107,122,.5)}50%{box-shadow:0 0 0 7px rgba(227,107,122,0)}}
+.pick{display:flex;align-items:center;gap:7px;height:33px;padding:0 11px;border-radius:10px;
+  font-size:.79rem;color:#B6B6C4;border:1px solid var(--line);transition:.2s;white-space:nowrap}
+.pick:hover{border-color:var(--line-2);background:rgba(255,255,255,.05);color:var(--white)}
+.pick b{font-family:'Space Grotesk';font-weight:600}
+.pick.quiet{border-color:transparent;color:var(--dim);font-size:.75rem}
+.pick.quiet:hover{color:var(--muted);border-color:var(--line)}
+.send{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;margin-left:auto;
+  background:var(--accent);color:#fff;transition:.2s;flex:none}
+.send:hover{background:var(--accent-soft);transform:scale(1.06)}
+.send:disabled{background:rgba(255,255,255,.07);color:var(--dim);transform:none;cursor:not-allowed}
+.comp-note{max-width:760px;margin:9px auto 0;text-align:center;font-size:.72rem;color:var(--dim)}
+.attach-row{display:flex;flex-wrap:wrap;gap:7px;padding:10px 14px 0}
+.att{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;color:#C6C6D2;
+  background:rgba(123,97,255,.12);border:1px solid rgba(123,97,255,.3);border-radius:9px;padding:5px 10px}
+.att button{color:var(--dim);display:grid;place-items:center}
+.att button:hover{color:var(--bad)}
+
+/* ---------- preview pane ---------- */
+.prev-body{flex:1;display:flex;flex-direction:column;min-height:0;background:#08080C}
+.prev-tabs{flex:none;display:flex;gap:2px;padding:7px 10px;border-bottom:1px solid var(--line)}
+.prev-tabs button{padding:6px 12px;border-radius:8px;font-size:.78rem;color:var(--muted);transition:.2s}
+.prev-tabs button.on{background:rgba(123,97,255,.18);color:var(--accent-soft)}
+.prev-tabs .sp{margin-left:auto;display:flex;gap:4px}
+.codearea{flex:1;overflow:auto;padding:16px 18px;font-family:'JetBrains Mono';font-size:.79rem;
+  line-height:1.85;color:#C8C8D8;white-space:pre;tab-size:2}
+.codearea .k{color:#C792EA}.codearea .s{color:#A9E88A}.codearea .t{color:#8AD7FF}.codearea .c{color:#5B5B6B}
+.liveframe{flex:1;border:0;width:100%;background:#fff}
+.prev-empty{flex:1;display:grid;place-items:center;text-align:center;color:var(--dim);font-size:.86rem;padding:30px;gap:12px}
+
+/* ---------- learn pane ---------- */
+.learn{flex:1;overflow-y:auto;padding:18px 20px 26px;min-height:0}
+.lvl{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:15px;margin-bottom:16px;
+  background:linear-gradient(150deg,rgba(123,97,255,.16),rgba(12,12,18,.9));
+  border:1px solid rgba(123,97,255,.3)}
+.lvl .ring{position:relative;width:52px;height:52px;flex:none}
+.lvl .ring svg{transform:rotate(-90deg)}
+.lvl .ring span{position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'Space Grotesk';font-weight:700;font-size:.82rem}
+.lvl .li{flex:1;min-width:0}
+.lvl .li b{display:block;font-family:'Space Grotesk';font-size:.96rem;font-weight:600}
+.lvl .li span{font-size:.79rem;color:var(--muted)}
+.streak{display:flex;align-items:center;gap:6px;font-family:'Space Grotesk';font-weight:600;font-size:.86rem;
+  color:var(--warn);background:rgba(240,146,90,.12);border:1px solid rgba(240,146,90,.28);
+  border-radius:999px;padding:5px 12px;flex:none}
+.lsec{font-family:'Space Grotesk';font-size:.72rem;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--dim);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.lsec::after{content:"";flex:1;height:1px;background:var(--line)}
+.task{display:flex;align-items:flex-start;gap:12px;padding:14px 15px;border-radius:13px;
+  background:var(--bg-2);border:1px solid var(--line);margin-bottom:9px;
+  transition:border-color .25s,background .25s;text-align:left;width:100%}
+.task:hover{border-color:rgba(123,97,255,.42);background:var(--panel-2)}
+.task .chk{width:22px;height:22px;border-radius:7px;border:1.6px solid var(--line-2);flex:none;
+  display:grid;place-items:center;margin-top:1px;transition:.25s}
+.task.done .chk{background:var(--ok);border-color:var(--ok);color:#06210C}
+.task.done .ti b{text-decoration:line-through;color:var(--muted)}
+.task .ti{flex:1;min-width:0}
+.task .ti b{display:block;font-family:'Space Grotesk';font-weight:600;font-size:.9rem;margin-bottom:3px}
+.task .ti span{font-size:.8rem;color:var(--muted);display:block}
+.task .xp{font-family:'JetBrains Mono';font-size:.68rem;color:var(--accent-soft);flex:none;
+  border:1px solid rgba(123,97,255,.3);border-radius:5px;padding:2px 6px}
+.ref{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden;background:var(--bg-2)}
+.ref>button{display:flex;align-items:center;gap:10px;width:100%;padding:12px 14px;text-align:left;
+  font-size:.87rem;transition:background .2s}
+.ref>button:hover{background:rgba(255,255,255,.04)}
+.ref>button .ico{margin-left:auto;transition:transform .25s;color:var(--dim)}
+.ref.open>button .ico{transform:rotate(180deg)}
+.ref .rb{display:none;padding:0 14px 14px;font-size:.86rem;color:#C2C2CE;line-height:1.75}
+.ref.open .rb{display:block;animation:msgIn .3s ease}
+.ref .rb pre{background:#08080C;border:1px solid var(--line);border-radius:9px;padding:12px 14px;
+  margin:10px 0 0;overflow-x:auto;font-family:'JetBrains Mono';font-size:.76rem;line-height:1.8;color:#C8C8D8}
+.ref .rb .k{color:#C792EA}.ref .rb .s{color:#A9E88A}.ref .rb .t{color:#8AD7FF}.ref .rb .c{color:#5B5B6B}
+.reftag{font-family:'JetBrains Mono';font-size:.64rem;color:var(--dim);border:1px solid var(--line);
+  border-radius:4px;padding:1px 5px;flex:none}
+
+/* ---------- modal ---------- */
+.ovl{position:fixed;inset:0;z-index:160;background:rgba(4,4,7,.72);backdrop-filter:blur(7px);
+  display:grid;place-items:center;padding:24px;animation:msgIn .22s ease}
+.modal{width:min(480px,100%);background:var(--panel);border:1px solid var(--line-2);border-radius:20px;
+  padding:26px;box-shadow:0 40px 90px -30px rgba(0,0,0,1);animation:stepIn .3s cubic-bezier(.2,.8,.3,1)}
+.modal h3{font-size:1.2rem;font-weight:600;margin-bottom:9px}
+.modal p{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+.modal .row{display:flex;gap:10px;justify-content:flex-end}
+.planbox{display:flex;align-items:center;gap:13px;padding:14px;border-radius:13px;margin-bottom:18px;
+  background:linear-gradient(150deg,rgba(123,97,255,.16),transparent);border:1px solid rgba(123,97,255,.3)}
+.planbox .pb{flex:1}
+.planbox .pb b{display:block;font-family:'Space Grotesk';font-weight:600}
+.planbox .pb span{font-size:.79rem;color:var(--muted)}
+.meter{height:6px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:9px}
+.meter i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent-soft))}
+
+/* ---------- toast ---------- */
+.toasts{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:180;
+  display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+.toast{display:flex;align-items:center;gap:9px;font-size:.85rem;padding:10px 17px;border-radius:999px;
+  background:var(--panel-2);border:1px solid var(--line-2);box-shadow:0 20px 44px -18px rgba(0,0,0,1);
+  animation:toastIn .3s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.95)}}
+.toast.out{animation:toastOut .3s ease forwards}
+@keyframes toastOut{to{opacity:0;transform:translateY(10px) scale(.96)}}
+
+/* ---------- responsive ---------- */
+@media(max-width:900px){
+  :root{--rail:250px}
+  #app{grid-template-columns:1fr}
+  .rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:100;
+    transform:translateX(-100%);transition:transform .3s cubic-bezier(.5,0,.3,1);margin:0}
+  #app.railopen .rail{transform:none;box-shadow:0 0 60px rgba(0,0,0,.8)}
+  #app.railoff .rail{margin-left:0}
+  #app.railopen .scrim{display:block}
+  .grid{flex-direction:column}
+  .splitter{display:none}
+  .pane{display:none}
+  .pane.mobshow{display:flex;flex:1 1 auto}
+  .pane+.pane{border-left:0}
+  .topbar .ttl{display:none}
+  .segbtns button span.lbl{display:none}
+  .segbtns button{padding:7px 9px}
+  .mobtabs{flex:none;display:flex;gap:4px;padding:7px 10px;border-bottom:1px solid var(--line);
+    background:var(--bg-2);overflow-x:auto}
+  .mobtabs button{flex:none;padding:7px 13px;border-radius:9px;font-size:.8rem;color:var(--muted);
+    border:1px solid var(--line);white-space:nowrap;transition:.2s}
+  .mobtabs button.on{background:rgba(123,97,255,.2);color:var(--accent-soft);border-color:rgba(123,97,255,.4)}
+  .choices{grid-template-columns:1fr}
+  .onb-hd,.onb-body{padding-left:18px;padding-right:18px}
+  .composer{padding:8px 12px 14px}
+  .mrow{padding:0 14px}
+}
+
+.mobtabs{display:none}
+@media(max-width:900px){.mobtabs.show{display:flex}}
+
+</style>
+</head>
+<body class="grain">
+
+<!-- ============ ONBOARDING ============ -->
+<div id="onb">
+  <div class="onb-bg">
+    <div class="gridtex"></div>
+    <div class="blob" style="width:620px;height:520px;top:-14%;right:-8%;background:rgba(123,97,255,.16)"></div>
+    <div class="blob" style="width:520px;height:460px;bottom:-16%;left:-10%;background:rgba(80,110,255,.12)"></div>
+    <canvas id="onbStars" style="position:absolute;inset:0;width:100%;height:100%"></canvas>
+  </div>
+
+  <div class="onb-hd">
+    <div class="brand"><img src="data:image/png;base64,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" alt=""><span>Orbit<i>Dual</i></span></div>
+    <div class="steps-dots" id="dots"></div>
+  </div>
+
+  <div class="onb-body">
+
+    <!-- STEP: intent -->
+    <section class="onb-step on" data-step="intent">
+      <div class="onb-kick">Começar</div>
+      <h2>O que você quer fazer hoje?</h2>
+      <p class="sub">Escolha por onde começar. O Orbit se ajusta ao que você escolher, e você pode mudar depois a qualquer momento.</p>
+      <div class="choices">
+        <button class="choice" data-intent="duvida">
+          <span class="arrow"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="cic"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a2.9 2.9 0 015.5 1c0 1.9-2.7 2.5-2.7 2.5M12 17h.01"/></svg></span>
+          <h3>Tirar uma dúvida</h3>
+          <p>Você tem uma pergunta específica sobre uma linguagem ou um conceito e quer a resposta agora.</p>
+          <span class="tagline">rápido</span>
+        </button>
+        <button class="choice" data-intent="aprender">
+          <span class="arrow"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="cic"><svg class="ico" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M7 10v5c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-5"/><path d="M21 7v6"/></svg></span>
+          <h3>Aprender a programar</h3>
+          <p>Uma trilha do seu jeito, com tarefas no seu nível, explicações e uma aba de consulta rápida.</p>
+          <span class="tagline">trilha guiada</span>
+        </button>
+        <button class="choice" data-intent="criar">
+          <span class="arrow"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="cic"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg></span>
+          <h3>Criar um projeto</h3>
+          <p>Conte o que você quer construir. O Orbit pergunta o que precisa saber e monta com você.</p>
+          <span class="tagline">do zero</span>
+        </button>
+        <button class="choice" data-intent="corrigir">
+          <span class="arrow"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="cic"><svg class="ico" viewBox="0 0 24 24"><path d="M14.5 3.5a4 4 0 00-5 5L4 14v6h6l5.5-5.5a4 4 0 005-5l-3 3-2.5-2.5 3-3z"/></svg></span>
+          <h3>Corrigir ou editar código</h3>
+          <p>Já tem código escrito e quer arrumar um erro, melhorar ou continuar de onde parou.</p>
+          <span class="tagline">tenho código</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- STEP: language -->
+    <section class="onb-step" data-step="lang">
+      <div class="onb-kick" data-kick>Linguagem</div>
+      <h2 id="langTitle">Sobre qual linguagem?</h2>
+      <p class="sub" id="langSub">Escolha uma para o Orbit falar na sua língua desde a primeira mensagem.</p>
+      <div class="optgrid" id="langGrid"></div>
+      <div class="onb-foot">
+        <button class="btn btn-t" data-back><svg class="ico sm" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Voltar</button>
+        <span class="spacer"></span>
+        <button class="skip" data-skip>Ainda não sei, pular</button>
+        <button class="btn btn-p" data-next disabled>Continuar</button>
+      </div>
+    </section>
+
+    <!-- STEP: question (duvida) -->
+    <section class="onb-step" data-step="pergunta">
+      <div class="onb-kick">Sua dúvida</div>
+      <h2>O que você quer perguntar?</h2>
+      <p class="sub">Pode escrever do seu jeito, sem se preocupar com termo técnico. Se preferir, pule e pergunte direto no chat.</p>
+      <div class="field">
+        <textarea class="ta" id="qText" style="font-family:'Inter';font-size:.95rem;min-height:130px"
+          placeholder="Ex.: não entendi a diferença entre let e const, pode explicar com exemplo?"></textarea>
+      </div>
+      <div class="onb-foot">
+        <button class="btn btn-t" data-back><svg class="ico sm" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Voltar</button>
+        <span class="spacer"></span>
+        <button class="skip" data-skip>Pular</button>
+        <button class="btn btn-p" data-next>Abrir o chat</button>
+      </div>
+    </section>
+
+    <!-- STEP: level -->
+    <section class="onb-step" data-step="nivel">
+      <div class="onb-kick">Seu nível</div>
+      <h2>Onde você está agora?</h2>
+      <p class="sub">Isso define o tamanho das primeiras tarefas. Se errar a escolha, dá para ajustar depois na aba de trilha.</p>
+      <div class="optgrid" id="nivelGrid"></div>
+      <div class="onb-foot">
+        <button class="btn btn-t" data-back><svg class="ico sm" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Voltar</button>
+        <span class="spacer"></span>
+        <button class="skip" data-skip>Pular</button>
+        <button class="btn btn-p" data-next disabled>Continuar</button>
+      </div>
+    </section>
+
+    <!-- STEP: goal -->
+    <section class="onb-step" data-step="objetivo">
+      <div class="onb-kick">Objetivo</div>
+      <h2>O que você quer conseguir fazer?</h2>
+      <p class="sub">O Orbit usa isso para escolher os exemplos. Quem quer fazer jogos aprende laço de repetição com nave e inimigo, não com planilha.</p>
+      <div class="optgrid" id="objGrid"></div>
+      <div class="field" style="margin-top:18px">
+        <label>Ou descreva com suas palavras <span class="hint">opcional</span></label>
+        <input class="inp" id="objText" placeholder="Ex.: quero fazer um site para a loja da minha mãe">
+      </div>
+      <div class="onb-foot">
+        <button class="btn btn-t" data-back><svg class="ico sm" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Voltar</button>
+        <span class="spacer"></span>
+        <button class="skip" data-skip>Pular</button>
+        <button class="btn btn-p" data-next>Continuar</button>
+      </div>
+    </section>
+
+    <!-- STEP: hours -->
+    <section class="onb-step" data-step="horas">
+      <div class="onb-kick">Ritmo</div>
+      <h2>Quanto tempo por semana?</h2>
+      <p class="sub">Serve para dosar as tarefas. Ninguém aprende mais rápido recebendo mais do que consegue fazer.</p>
+      <div class="optgrid" id="horasGrid"></div>
+      <div class="onb-foot">
+        <button class="btn btn-t" data-back><svg class="ico sm" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Voltar</button>
+        <span class="spacer"></span>
+        <button class="skip" data-skip>Pular</button>
+        <button class="btn btn-p" data-next disabled>Continuar</button>
+      </div>
+    </section>
+
+    <!-- STEP: teaching mode -->
+    <section class="onb-step" data-step="modo">
+      <div class="onb-kick">Modo de explicação</div>
+      <h2>Como você prefere que ele explique?</h2>
+      <p class="sub">Dá para trocar no meio da conversa pelo botão de modo, sempre que quiser.</p>
+      <div class="optgrid" id="modoGrid"></div>
+      <div class="onb-foot">
+        <button class="btn btn-t" data-back><svg class="ico sm" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Voltar</button>
+        <span class="spacer"></span>
+        <button class="skip" data-skip>Pular</button>
+        <button class="btn btn-p" data-next disabled>Montar minha trilha</button>
+      </div>
+    </section>
+
+    <!-- STEP: project what -->
+    <section class="onb-step" data-step="projeto">
+      <div class="onb-kick">O projeto</div>
+      <h2>O que você quer criar?</h2>
+      <p class="sub">Descreva como você contaria para um amigo. Não precisa saber os nomes técnicos das coisas.</p>
+      <div class="field">
+        <textarea class="ta" id="projText" style="font-family:'Inter';font-size:.95rem;min-height:120px"
+          placeholder="Ex.: um site onde as pessoas marcam horário no meu salão e eu vejo a agenda do dia"></textarea>
+      </div>
+      <div class="field">
+        <label>Que tipo de coisa é? <span class="hint">opcional</span></label>
+        <div class="optgrid" id="projTipoGrid"></div>
+      </div>
+      <div class="onb-foot">
+        <button class="btn btn-t" data-back><svg class="ico sm" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Voltar</button>
+        <span class="spacer"></span>
+        <button class="skip" data-skip>Pular tudo</button>
+        <button class="btn btn-p" data-next>Continuar</button>
+      </div>
+    </section>
+
+    <!-- STEP: project details -->
+    <section class="onb-step" data-step="detalhes">
+      <div class="onb-kick">Detalhes</div>
+      <h2>Mais algumas coisas</h2>
+      <p class="sub">Tudo aqui é opcional. Quanto mais você contar, menos o Orbit precisa adivinhar, mas dá para pular e resolver conversando.</p>
+      <div class="field">
+        <label>O que ele precisa ter? <span class="hint">marque quantos quiser</span></label>
+        <div class="optgrid" id="featGrid"></div>
+      </div>
+      <div class="field">
+        <label>Quem vai usar? <span class="hint">opcional</span></label>
+        <input class="inp" id="publico" placeholder="Ex.: meus clientes pelo celular">
+      </div>
+      <div class="field">
+        <label>Já tem alguma preferência de tecnologia? <span class="hint">opcional</span></label>
+        <input class="inp" id="stack" placeholder="Ex.: prefiro Python, ou não faço ideia">
+      </div>
+      <div class="onb-foot">
+        <button class="btn btn-t" data-back><svg class="ico sm" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Voltar</button>
+        <span class="spacer"></span>
+        <button class="skip" data-skip>Pular</button>
+        <button class="btn btn-p" data-next>Começar o projeto</button>
+      </div>
+    </section>
+
+    <!-- STEP: fix code -->
+    <section class="onb-step" data-step="codigo">
+      <div class="onb-kick">Seu código</div>
+      <h2>Cole o que você já tem</h2>
+      <p class="sub">Pode colar o código, a mensagem de erro que apareceu, ou os dois. Se preferir mandar depois, é só pular.</p>
+      <div class="field">
+        <label>Código <span class="hint">opcional</span></label>
+        <textarea class="ta" id="codeText" placeholder="cole aqui o trecho que está dando problema"></textarea>
+      </div>
+      <div class="field">
+        <label>O que está acontecendo? <span class="hint">opcional</span></label>
+        <input class="inp" id="errText" placeholder="Ex.: dá 'undefined is not a function' quando clico no botão">
+      </div>
+      <div class="onb-foot">
+        <button class="btn btn-t" data-back><svg class="ico sm" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Voltar</button>
+        <span class="spacer"></span>
+        <button class="skip" data-skip>Pular</button>
+        <button class="btn btn-p" data-next>Analisar</button>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ============ WORKSPACE ============ -->
+<div id="app">
+  <div class="scrim" id="scrim"></div>
+
+  <!-- rail -->
+  <aside class="rail">
+    <div class="rail-hd">
+      <a class="brand" href="index.html" title="Voltar para o site"><img src="data:image/png;base64,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" alt=""><span>Orbit<i>Dual</i></span></a>
+      <button class="iconbtn" id="railClose" title="Esconder painel" style="margin-left:auto">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M15 4v16M4 6h7M4 12h7M4 18h7"/></svg>
+      </button>
+    </div>
+    <div class="rail-act">
+      <button class="newbtn" id="newChat">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Nova conversa
+      </button>
+      <div class="searchbox">
+        <svg class="ico sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+        <input id="searchConv" placeholder="Pesquisar conversas" autocomplete="off">
+      </div>
+    </div>
+    <div class="rail-list" id="convList"></div>
+    <div class="rail-ft">
+      <button class="profile" id="profileBtn">
+        <span class="avatar" id="avaInit">F</span>
+        <span class="pi">
+          <b id="userName">Fernando</b>
+          <span><i class="plan-dot"></i> <span id="planName">Orbit Pro</span></span>
+        </span>
+        <svg class="ico sm" viewBox="0 0 24 24" style="color:var(--dim)"><path d="M6 15l6-6 6 6"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- main -->
+  <div class="main">
+    <div class="topbar">
+      <button class="iconbtn" id="railOpen" title="Mostrar painel">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M9 4v16M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <span class="ttl" id="convTitle">Nova conversa</span>
+      <span class="ctx" id="convCtx">chat</span>
+      <span class="sp"></span>
+      <div class="segbtns" id="paneToggles">
+        <button data-add="chat2" title="Abrir uma segunda conversa para tirar uma dúvida sem perder o assunto">
+          <svg class="ico sm" viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="16" rx="2"/><rect x="14" y="4" width="7" height="16" rx="2"/></svg>
+          <span class="lbl">Dúvida rápida</span>
+        </button>
+        <button data-add="preview" title="Painel de código e prévia do projeto">
+          <svg class="ico sm" viewBox="0 0 24 24"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/></svg>
+          <span class="lbl">Projeto</span>
+        </button>
+        <button data-add="learn" title="Trilha de aprendizado">
+          <svg class="ico sm" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M7 10v5c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-5"/></svg>
+          <span class="lbl">Trilha</span>
+        </button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+/* =========================================================
+   OrbitDual — protótipo de interface
+   ---------------------------------------------------------
+   PARA LIGAR NA IA DE VERDADE:
+   troque ORBIT_ENDPOINT pelo endereço do seu backend
+   (ex.: uma Edge Function do Supabase que fala com a API da
+   Anthropic). A chave da API NUNCA pode ficar neste arquivo:
+   ela tem que viver no backend. Enquanto o endpoint estiver
+   vazio, o app responde com um motor local de demonstração.
+   ========================================================= */
+const ORBIT_ENDPOINT = "https://vbjtqwflriyueqpcltqc.supabase.co/functions/v1/orbit-chat";
+
+/* ---------------- storage (tolerante a falha) ---------------- */
+const store = (() => {
+  let mem = {};
+  const ok = (() => { try { localStorage.setItem('__t','1'); localStorage.removeItem('__t'); return true; } catch(e){ return false; } })();
+  return {
+    get(k, d){ try { const v = ok ? localStorage.getItem(k) : mem[k]; return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+    set(k, v){ try { const s = JSON.stringify(v); if(ok) localStorage.setItem(k,s); else mem[k]=s; } catch(e){} }
+  };
+})();
+
+/* ---------------- dados ---------------- */
+const LANGS = [
+  {id:'python', nm:'Python',     tag:'Py',  c:'#6BA9F5', sub:'automação e dados'},
+  {id:'js',     nm:'JavaScript', tag:'JS',  c:'#F5CE5A', sub:'sites e apps'},
+  {id:'css',    nm:'CSS',        tag:'{}',  c:'#5AC8E8', sub:'visual e layout'},
+  {id:'cpp',    nm:'C++',        tag:'C++', c:'#E36B7A', sub:'performance'},
+  {id:'csharp', nm:'C#',         tag:'C#',  c:'#A88CF0', sub:'jogos e desktop'},
+  {id:'java',   nm:'Java',       tag:'Jv',  c:'#F0925A', sub:'sistemas e Android'},
+  {id:'sql',    nm:'SQL',        tag:'SQL', c:'#7DD88F', sub:'banco de dados'}
+];
+const NIVEIS = [
+  {id:'zero',  nm:'Nunca programei', sub:'começando do absoluto zero'},
+  {id:'pouco', nm:'Já vi alguma coisa', sub:'sei o básico, travo no resto'},
+  {id:'medio', nm:'Consigo me virar', sub:'escrevo, mas quero entender melhor'},
+  {id:'alto',  nm:'Já programo', sub:'quero dominar uma linguagem nova'}
+];
+const OBJETIVOS = [
+  {id:'sites', nm:'Fazer sites'}, {id:'jogos', nm:'Criar jogos'},
+  {id:'apps', nm:'Fazer aplicativos'}, {id:'dados', nm:'Trabalhar com dados'},
+  {id:'auto', nm:'Automatizar tarefas'}, {id:'carreira', nm:'Mudar de carreira'},
+  {id:'escola', nm:'Passar na faculdade'}, {id:'curiosidade', nm:'Só curiosidade'}
+];
+const HORAS = [
+  {id:'1', nm:'Até 2 horas', sub:'devagar e sempre'},
+  {id:'2', nm:'3 a 5 horas', sub:'um pouco por dia'},
+  {id:'3', nm:'6 a 10 horas', sub:'ritmo firme'},
+  {id:'4', nm:'Mais de 10', sub:'foco total'}
+];
+const MODOS = [
+  {id:'passo',  nm:'Passo a passo', sub:'explica cada parte antes'},
+  {id:'direto', nm:'Direto ao ponto', sub:'só o código, sem rodeio'},
+  {id:'analog', nm:'Com analogias', sub:'compara com o mundo real'},
+  {id:'prof',   nm:'Modo professor', sub:'pergunta antes de entregar'}
+];
+const MODELOS = [
+  {id:'nano', nm:'Orbit Nano', sub:'respostas rápidas, tarefas simples'},
+  {id:'core', nm:'Orbit Core', sub:'equilíbrio entre rapidez e profundidade'},
+  {id:'max',  nm:'Orbit Max',  sub:'raciocínio longo, projetos complexos'}
+];
+const PROJ_TIPOS = [
+  {id:'site', nm:'Site'}, {id:'app', nm:'Aplicativo'}, {id:'jogo', nm:'Jogo'},
+  {id:'bot', nm:'Bot ou automação'}, {id:'api', nm:'Sistema com banco'}, {id:'outro', nm:'Outra coisa'}
+];
+const FEATS = [
+  {id:'login', nm:'Login de usuário'}, {id:'banco', nm:'Guardar dados'},
+  {id:'pag', nm:'Pagamentos'}, {id:'admin', nm:'Painel de administração'},
+  {id:'mobile', nm:'Funcionar no celular'}, {id:'notif', nm:'Notificações'},
+  {id:'busca', nm:'Busca'}, {id:'upload', nm:'Envio de arquivos'}
+];
+
+const REF = {
+  js: [
+    {t:'while', d:'Repete um bloco enquanto a condição for verdadeira. Cuidado: se a condição nunca virar falsa, o programa trava.', c:'<span class="k">let</span> i = 0;\n<span class="k">while</span> (i &lt; 3) {\n  console.<span class="t">log</span>(i);\n  i++; <span class="c">// sem isso, roda para sempre</span>\n}'},
+    {t:'for', d:'Quando você já sabe quantas vezes quer repetir, o for junta começo, condição e passo numa linha só.', c:'<span class="k">for</span> (<span class="k">let</span> i = 0; i &lt; 3; i++) {\n  console.<span class="t">log</span>(i);\n}'},
+    {t:'função', d:'Um bloco de código com nome, que você chama quando precisar. Recebe valores e devolve um resultado.', c:'<span class="k">function</span> <span class="t">soma</span>(a, b) {\n  <span class="k">return</span> a + b;\n}\n<span class="t">soma</span>(2, 3); <span class="c">// 5</span>'},
+    {t:'array', d:'Uma lista de valores em ordem. O primeiro item fica na posição 0, não na 1.', c:'<span class="k">const</span> cores = [<span class="s">\'azul\'</span>, <span class="s">\'roxo\'</span>];\ncores[0]; <span class="c">// \'azul\'</span>\ncores.<span class="t">push</span>(<span class="s">\'verde\'</span>);'}
+  ],
+  python: [
+    {t:'while', d:'Repete enquanto a condição for verdadeira. Em Python a indentação é que marca o que está dentro do laço.', c:'i = 0\n<span class="k">while</span> i &lt; 3:\n    <span class="t">print</span>(i)\n    i += 1'},
+    {t:'for', d:'Percorre uma sequência item por item. É o jeito mais comum de repetir em Python.', c:'<span class="k">for</span> cor <span class="k">in</span> [<span class="s">\'azul\'</span>, <span class="s">\'roxo\'</span>]:\n    <span class="t">print</span>(cor)'},
+    {t:'função', d:'Definida com def. Tudo que estiver indentado abaixo faz parte dela.', c:'<span class="k">def</span> <span class="t">soma</span>(a, b):\n    <span class="k">return</span> a + b\n\n<span class="t">soma</span>(2, 3)  <span class="c"># 5</span>'},
+    {t:'lista', d:'Guarda vários valores em ordem. Começa na posição 0.', c:'cores = [<span class="s">\'azul\'</span>, <span class="s">\'roxo\'</span>]\ncores[0]  <span class="c"># \'azul\'</span>\ncores.<span class="t">append</span>(<span class="s">\'verde\'</span>)'}
+  ],
+  csharp: [
+    {t:'while', d:'Repete enquanto a condição for verdadeira. O bloco vai entre chaves.', c:'<span class="k">int</span> i = 0;\n<span class="k">while</span> (i &lt; 3)\n{\n    Console.<span class="t">WriteLine</span>(i);\n    i++;\n}'},
+    {t:'for', d:'Junta o contador, a condição de parada e o passo no cabeçalho do laço.', c:'<span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; 3; i++)\n{\n    Console.<span class="t">WriteLine</span>(i);\n}'},
+    {t:'método', d:'O nome que C# dá para função. Você declara o tipo do que ele devolve antes do nome.', c:'<span class="k">int</span> <span class="t">Soma</span>(<span class="k">int</span> a, <span class="k">int</span> b)\n{\n    <span class="k">return</span> a + b;\n}'},
+    {t:'lista', d:'List guarda vários valores do mesmo tipo e cresce conforme você adiciona.', c:'<span class="k">var</span> cores = <span class="k">new</span> List&lt;<span class="k">string</span>&gt;();\ncores.<span class="t">Add</span>(<span class="s">"azul"</span>);\ncores[0]; <span class="c">// "azul"</span>'}
+  ],
+  sql: [
+    {t:'SELECT', d:'Busca linhas de uma tabela. O WHERE filtra e o ORDER BY ordena o resultado.', c:'<span class="k">SELECT</span> nome, preco\n<span class="k">FROM</span> produtos\n<span class="k">WHERE</span> preco &lt; 100\n<span class="k">ORDER BY</span> preco;'},
+    {t:'JOIN', d:'Junta duas tabelas usando uma coluna em comum entre elas.', c:'<span class="k">SELECT</span> p.nome, c.nome\n<span class="k">FROM</span> pedidos p\n<span class="k">JOIN</span> clientes c <span class="k">ON</span> c.id = p.cliente_id;'},
+    {t:'INSERT', d:'Adiciona uma linha nova na tabela.', c:'<span class="k">INSERT INTO</span> produtos (nome, preco)\n<span class="k">VALUES</span> (<span class="s">\'Caneca\'</span>, 29.90);'}
+  ]
+};
+REF.cpp = REF.csharp; REF.java = REF.csharp;
+REF.css = [
+  {t:'seletor', d:'Escolhe quais elementos vão receber o estilo. Ponto é classe, cerquilha é id.', c:'<span class="t">.botao</span> { background: <span class="s">#7B61FF</span>; }\n<span class="t">#topo</span> { padding: 20px; }'},
+  {t:'flexbox', d:'Organiza itens em linha ou coluna e distribui o espaço entre eles.', c:'<span class="t">.linha</span> {\n  display: flex;\n  gap: 12px;\n  align-items: center;\n}'},
+  {t:'media query', d:'Aplica estilos só quando a tela tem certo tamanho. É como o site vira responsivo.', c:'<span class="k">@media</span> (max-width: 640px) {\n  <span class="t">.linha</span> { flex-direction: column; }\n}'}
+];
+
+/* ---------------- estado ---------------- */
+const uid = () => Math.random().toString(36).slice(2,10);
+let S = store.get('orbit.state', null) || {
+  user:{ name:'Fernando', plan:'Orbit Pro', usado:34, limite:100 },
+  convs:[], current:null,
+  panes:[{id:uid(), kind:'chat', grow:1}],
+  model:'core', mode:'passo',
+  xp:0, streak:1
+};
+const save = () => store.set('orbit.state', S);
+const $  = (s,r=document) => r.querySelector(s);
+const $$ = (s,r=document) => [...r.querySelectorAll(s)];
+const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function toast(msg, icon){
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML = (icon||'') + '<span>'+esc(msg)+'</span>';
+  $('#toasts').appendChild(el);
+  setTimeout(()=>{ el.classList.add('out'); setTimeout(()=>el.remove(), 320); }, 2600);
+}
+const CHECK = '<svg class="ico sm" viewBox="0 0 24 24" style="color:var(--ok)"><path d="M20 6L9 17l-5-5"/></svg>';
+
+/* ---------------- onboarding ---------------- */
+const onb = { intent:null, lang:null, nivel:null, obj:[], objText:'', horas:null,
+              modo:null, q:'', proj:'', projTipo:null, feats:[], publico:'', stack:'',
+              code:'', err:'' };
+let flow = [], fi = 0;
+
+const FLOWS = {
+  duvida:   ['lang','pergunta'],
+  aprender: ['lang','nivel','objetivo','horas','modo'],
+  criar:    ['projeto','detalhes'],
+  corrigir: ['codigo','lang']
+};
+
+function optHTML(o, sel, withTag){
+  const lg = withTag ? `<span class="lg" style="--lc:${o.c}">${esc(o.tag)}</span>` : '';
+  return `<button class="opt" data-id="${o.id}" aria-pressed="${sel?'true':'false'}">${lg}
+    <span><b>${esc(o.nm)}</b>${o.sub?`<small>${esc(o.sub)}</small>`:''}</span></button>`;
+}
+function fillGrid(sel, list, multi, onPick, withTag){
+  const g = $(sel); if(!g) return;
+  g.innerHTML = list.map(o=>optHTML(o,false,withTag)).join('');
+  g.addEventListener('click', e=>{
+    const b = e.target.closest('.opt'); if(!b) return;
+    if(multi){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); }
+    else { $$('.opt',g).forEach(x=>x.setAttribute('aria-pressed','false')); b.setAttribute('aria-pressed','true'); }
+    onPick(b.dataset.id, [...$$('.opt[aria-pressed="true"]',g)].map(x=>x.dataset.id));
+    const step = b.closest('.onb-step'), next = step && $('[data-next]', step);
+    if(next) next.disabled = !$$('.opt[aria-pressed="true"]',g).length && !multi;
+  });
+}
+
+function showStep(name, back){
+  $$('.onb-step').forEach(s=>{ s.classList.remove('on','back-in'); });
+  const el = $(`.onb-step[data-step="${name}"]`);
+  el.classList.add('on'); if(back) el.classList.add('back-in');
+  $('.onb-body').scrollTop = 0;
+  renderDots();
+}
+function renderDots(){
+  const total = flow.length ? flow.length + 1 : 1;
+  const at = flow.length ? fi + 1 : 0;
+  $('#dots').innerHTML = Array.from({length:total}, (_,i)=>
+    `<i class="${i===at?'on':(i<at?'done':'')}"></i>`).join('');
+}
+function goNext(){
+  fi++;
+  if(fi >= flow.length) return finishOnb();
+  showStep(flow[fi]);
+}
+function goBack(){
+  if(fi === 0){ flow = []; fi = 0; showStep('intent', true); return; }
+  fi--; showStep(flow[fi], true);
+}
+
+function finishOnb(){
+  const langNm = onb.lang ? LANGS.find(l=>l.id===onb.lang).nm : null;
+  const titles = {
+    duvida:   langNm ? `Dúvida sobre ${langNm}` : 'Tirando uma dúvida',
+    aprender: langNm ? `Aprendendo ${langNm}` : 'Minha trilha',
+    criar:    onb.proj ? onb.proj.slice(0,40) : 'Projeto novo',
+    corrigir: 'Corrigindo o código'
+  };
+  const c = newConv(titles[onb.intent] || 'Nova conversa', onb.intent);
+  c.lang = onb.lang; c.mode = onb.modo || S.mode;
+  c.setup = {...onb};
+  if(onb.intent === 'aprender'){
+    c.tasks = buildTasks(onb);
+    S.panes = [{id:uid(),kind:'chat',grow:1.4},{id:uid(),kind:'learn',grow:1}];
+  } else if(onb.intent === 'criar' || onb.intent === 'corrigir'){
+    S.panes = [{id:uid(),kind:'chat',grow:1.25},{id:uid(),kind:'preview',grow:1}];
+    if(onb.code) c.code = onb.code;
+  } else {
+    S.panes = [{id:uid(),kind:'chat',grow:1}];
+  }
+  if(onb.modo) S.mode = onb.modo;
+  save();
+
+  $('#onb').classList.add('gone');
+  setTimeout(()=>{ $('#onb').style.display='none'; }, 560);
+  $('#app').classList.add('on');
+  renderAll();
+
+  const opening = openingMessage(onb);
+  if(opening.user) setTimeout(()=> sendMessage(opening.user, true), 700);
+  else if(opening.bot) setTimeout(()=> pushBot(c, opening.bot), 700);
+}
+
+function openingMessage(o){
+  const L = o.lang ? LANGS.find(l=>l.id===o.lang).nm : null;
+  if(o.intent === 'duvida'){
+    if(o.q) return {user:o.q};
+    return {};
+  }
+  if(o.intent === 'aprender'){
+    const niv = o.nivel ? NIVEIS.find(n=>n.id===o.nivel).nm.toLowerCase() : null;
+    return {bot:`Montei sua trilha de ${L||'programação'}${niv?`, partindo de "${niv}"`:''}. Ela está na aba <b>Trilha</b>, aqui do lado.\n\nComece pela primeira tarefa. Você escreve o código, eu corrijo e explico onde apertou. Quando travar em alguma palavra que não conhece, procura ela na consulta rápida da mesma aba, ou me pergunta direto.\n\nPode começar quando quiser.`};
+  }
+  if(o.intent === 'criar'){
+    if(o.proj) return {user:`Quero criar: ${o.proj}` + (o.feats.length?`\n\nPreciso que tenha: ${o.feats.map(f=>FEATS.find(x=>x.id===f).nm).join(', ')}.`:'') + (o.publico?`\n\nQuem vai usar: ${o.publico}.`:'') + (o.stack?`\n\nSobre tecnologia: ${o.stack}.`:'')};
+    return {};
+  }
+  if(o.intent === 'corrigir'){
+    if(o.code || o.err){
+      let m = '';
+      if(o.err) m += `O problema: ${o.err}\n\n`;
+      if(o.code) m += 'Aqui está o código:\n\n```\n' + o.code + '\n```';
+      return {user:m.trim()};
+    }
+    return {};
+  }
+  return {};
+}
+
+function buildTasks(o){
+  const L = o.lang ? LANGS.find(l=>l.id===o.lang).nm : 'programação';
+  const base = {
+    zero:[['Seu primeiro programa',`Escrever algo que mostre uma mensagem na tela em ${L}`,10],
+          ['Guardar um valor','Criar uma variável e mudar o que tem dentro dela',10],
+          ['Perguntar e responder','Ler algo que a pessoa digita e usar esse valor',15],
+          ['Decidir','Fazer o programa reagir diferente dependendo do valor',15],
+          ['Repetir','Usar um laço para não escrever a mesma linha dez vezes',20]],
+    pouco:[['Revisar o básico','Variáveis, condições e laços num exercício só',15],
+           ['Listas','Guardar vários valores e percorrer todos',15],
+           ['Funções','Separar o código em pedaços reaproveitáveis',20],
+           ['Juntar tudo','Um mini programa usando os quatro conceitos',30]],
+    medio:[['Organizar em funções','Pegar um código bagunçado e separar em partes',20],
+           ['Tratar erros','Fazer o programa não quebrar com entrada estranha',25],
+           ['Estruturas de dados','Escolher entre lista, dicionário e conjunto',25],
+           ['Primeiro projeto','Algo pequeno que funcione de ponta a ponta',40]],
+    alto:[['Idiomas da linguagem',`Escrever ${L} do jeito que quem usa ${L} escreve`,25],
+          ['Padrões comuns','Os três padrões que mais aparecem no dia a dia',30],
+          ['Performance','Descobrir o que está lento e por quê',30],
+          ['Projeto completo','Construir e organizar um projeto de verdade',50]]
+  };
+  return (base[o.nivel] || base.zero).map(([t,d,xp])=>({id:uid(),t,d,xp,done:false}));
+}
+
+/* ---------------- conversas ---------------- */
+function newConv(title, intent){
+  const c = { id:uid(), title:title||'Nova conversa', intent:intent||'chat',
+              msgs:[], pinned:false, archived:false, at:Date.now(),
+              lang:null, mode:S.mode, tasks:null, code:'' };
+  S.convs.unshift(c); S.current = c.id; save(); return c;
+}
+const cur = () => S.convs.find(c=>c.id===S.current);
+const CTX_LABEL = {duvida:'dúvida', aprender:'trilha', criar:'projeto', corrigir:'correção', chat:'chat'};
+
+function renderRail(){
+  const q = ($('#searchConv').value||'').toLowerCase().trim();
+  const list = S.convs.filter(c=> !q || c.title.toLowerCase().includes(q) ||
+                 c.msgs.some(m=>m.text.toLowerCase().includes(q)));
+  const pin = list.filter(c=>c.pinned && !c.archived);
+  const act = list.filter(c=>!c.pinned && !c.archived);
+  const arc = list.filter(c=>c.archived);
+  const item = c => `<div class="conv ${c.id===S.current?'sel':''}" data-id="${c.id}">
+      <i class="dotmark"></i>
+      <span class="nm">${esc(c.title)}</span>
+      ${c.intent&&c.intent!=='chat'?`<span class="badge">${CTX_LABEL[c.intent]}</span>`:''}
+      <button class="kebab" data-menu="${c.id}" aria-expanded="false" title="Opções">
+        <svg class="ico sm" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></svg>
+      </button></div>`;
+  let h = '';
+  if(pin.length) h += `<div class="grp"><svg class="ico" viewBox="0 0 24 24"><path d="M9 4h6l-1 7 4 3H6l4-3z"/><path d="M12 14v6"/></svg>Fixadas</div>` + pin.map(item).join('');
+  if(act.length) h += `<div class="grp">Conversas</div>` + act.map(item).join('');
+  if(arc.length) h += `<div class="grp"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11h14V8M10 12h4"/></svg>Arquivadas</div>` + arc.map(item).join('');
+  if(!h) h = `<div class="emptylist">${q?'Nada encontrado para essa busca.':'Nenhuma conversa ainda.<br>Comece uma nova ali em cima.'}</div>`;
+  $('#convList').innerHTML = h;
+}
+
+function convMenu(id, anchor){
+  closeMenus();
+  const c = S.convs.find(x=>x.id===id); if(!c) return;
+  const r = anchor.getBoundingClientRect();
+  const m = document.createElement('div');
+  m.className = 'menu'; m.dataset.menu = '1';
+  m.innerHTML = `
+    <button data-a="rename"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>Renomear</button>
+    <button data-a="pin"><svg class="ico sm" viewBox="0 0 24 24"><path d="M9 4h6l-1 7 4 3H6l4-3z"/><path d="M12 14v6"/></svg>${c.pinned?'Desafixar':'Fixar no topo'}</button>
+    <button data-a="archive"><svg class="ico sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11h14V8M10 12h4"/></svg>${c.archived?'Desarquivar':'Arquivar'}</button>
+    <button data-a="dup"><svg class="ico sm" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>Duplicar</button>
+    <hr>
+    <button data-a="del" class="danger"><svg class="ico sm" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Excluir</button>`;
+  document.body.appendChild(m);
+  m.style.left = Math.min(r.left, innerWidth - m.offsetWidth - 12) + 'px';
+  m.style.top  = Math.min(r.bottom + 6, innerHeight - m.offsetHeight - 12) + 'px';
+  anchor.setAttribute('aria-expanded','true');
+  m.addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    const a = b.dataset.a;
+    if(a==='rename') startRename(id);
+    if(a==='pin'){ c.pinned = !c.pinned; toast(c.pinned?'Fixada no topo':'Desafixada', CHECK); }
+    if(a==='archive'){ c.archived = !c.archived; toast(c.archived?'Arquivada':'Tirada do arquivo', CHECK); }
+    if(a==='dup'){ const n = JSON.parse(JSON.stringify(c)); n.id=uid(); n.title=c.title+' (cópia)'; n.pinned=false;
+                   S.convs.unshift(n); S.current=n.id; toast('Conversa duplicada', CHECK); }
+    if(a==='del') confirmDelete(id);
+    closeMenus(); save(); renderAll();
+  });
+}
+function startRename(id){
+  renderRail();
+  const row = $(`.conv[data-id="${id}"]`); if(!row) return;
+  const c = S.convs.find(x=>x.id===id);
+  const nm = $('.nm', row);
+  nm.innerHTML = `<input value="${esc(c.title)}" maxlength="70">`;
+  const inp = $('input', nm); inp.focus(); inp.select();
+  const done = ok => { if(ok && inp.value.trim()) c.title = inp.value.trim(); save(); renderAll(); };
+  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') done(true); if(e.key==='Escape') done(false); });
+  inp.addEventListener('blur', ()=>done(true));
+  inp.addEventListener('click', e=>e.stopPropagation());
+}
+function confirmDelete(id){
+  const c = S.convs.find(x=>x.id===id);
+  modal(`Excluir "${c.title}"?`, 'As mensagens dessa conversa vão embora e não dá para recuperar depois.',
+    [{t:'Cancelar', k:'g'},{t:'Excluir', k:'d', fn:()=>{
+      S.convs = S.convs.filter(x=>x.id!==id);
+      if(S.current === id) S.current = S.convs[0] ? S.convs[0].id : null;
+      if(!S.convs.length) newConv('Nova conversa');
+      save(); renderAll(); toast('Conversa excluída', CHECK);
+    }}]);
+}
+function closeMenus(){
+  $$('[data-menu="1"]').forEach(m=>m.remove());
+  $$('.kebab[aria-expanded="true"]').forEach(b=>b.setAttribute('aria-expanded','false'));
+  $$('.cbtn.on').forEach(b=>b.classList.remove('on'));
+}
+document.addEventListener('click', e=>{
+  if(!e.target.closest('[data-menu="1"]') && !e.target.closest('[data-menu]') && !e.target.closest('.pick')) closeMenus();
+});
+
+function modal(title, body, btns){
+  const o = document.createElement('div'); o.className='ovl';
+  o.innerHTML = `<div class="modal"><h3>${esc(title)}</h3><p>${body}</p>
+    <div class="row">${btns.map((b,i)=>`<button class="btn ${b.k==='d'?'btn-p':'btn-g'}" data-i="${i}"
+      ${b.k==='d'?'style="background:var(--bad);box-shadow:none"':''}>${esc(b.t)}</button>`).join('')}</div></div>`;
+  document.body.appendChild(o);
+  o.addEventListener('click', e=>{
+    if(e.target === o) return o.remove();
+    const b = e.target.closest('[data-i]'); if(!b) return;
+    const it = btns[+b.dataset.i]; o.remove(); if(it.fn) it.fn();
+  });
+}
+
+/* ---------------- painéis ---------------- */
+const PANE_META = {
+  chat:    {t:'Conversa principal', k:'chat'},
+  chat2:   {t:'Dúvida rápida',      k:'aux'},
+  preview: {t:'Projeto',            k:'código'},
+  learn:   {t:'Trilha',             k:'estudo'}
+};
+function renderGrid(){
+  const g = $('#grid');
+  g.innerHTML = '';
+  const mob = innerWidth <= 900;
+  if(S.mobIdx == null || S.mobIdx >= S.panes.length) S.mobIdx = 0;
+  S.panes.forEach((p,i)=>{
+    if(i>0){
+      const sp = document.createElement('div');
+      sp.className = 'splitter'; sp.dataset.i = i;
+      g.appendChild(sp);
+    }
+    const el = document.createElement('section');
+    el.className = 'pane'; el.dataset.id = p.id; el.dataset.kind = p.kind;
+    el.style.flexGrow = p.grow;
+    const meta = PANE_META[p.kind];
+    el.innerHTML = `
+      <header class="pane-hd" draggable="true">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="pt">${meta.t}</span>
+        <span class="pk">${meta.k}</span>
+        <span class="sp"></span>
+        ${S.panes.length>1?`<button class="iconbtn" data-close="${p.id}" title="Fechar painel">
+          <svg class="ico sm" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>`:''}
+      </header>
+      <div class="pane-body" style="flex:1;display:flex;flex-direction:column;min-height:0"></div>`;
+    g.appendChild(el);
+    const body = $('.pane-body', el);
+    if(p.kind === 'chat' || p.kind === 'chat2') renderChatPane(body, p);
+    if(p.kind === 'preview') renderPreviewPane(body, p);
+    if(p.kind === 'learn') renderLearnPane(body, p);
+  });
+  if(mob){
+    const panes = $$('.pane', g);
+    panes.forEach((el,i)=> el.classList.toggle('mobshow', i === S.mobIdx));
+    let tabs = $('.mobtabs');
+    if(!tabs){ tabs = document.createElement('div'); tabs.className='mobtabs';
+               $('.main').insertBefore(tabs, g); }
+    tabs.classList.toggle('show', S.panes.length > 1);
+    tabs.innerHTML = S.panes.map((p,i)=>
+      `<button data-mob="${i}" class="${i===S.mobIdx?'on':''}">${PANE_META[p.kind].t}</button>`).join('');
+    tabs.onclick = e=>{ const b=e.target.closest('[data-mob]'); if(!b) return;
+      S.mobIdx = +b.dataset.mob; save(); renderGrid(); };
+  } else {
+    const tabs = $('.mobtabs'); if(tabs) tabs.classList.remove('show');
+  }
+  wireSplitters(); wirePaneDrag();
+}
+function addPane(kind){
+  if(S.panes.some(p=>p.kind===kind)){
+    S.panes = S.panes.filter(p=>p.kind!==kind); save(); renderGrid(); syncToggles(); return;
+  }
+  if(S.panes.length >= 3){ toast('Três painéis é o máximo. Feche um antes.'); return; }
+  S.panes.push({id:uid(), kind, grow:1}); save(); renderGrid(); syncToggles();
+}
+function syncToggles(){
+  $$('#paneToggles button').forEach(b=>
+    b.classList.toggle('on', S.panes.some(p=>p.kind===b.dataset.add)));
+}
+function wireSplitters(){
+  $$('.splitter').forEach(sp=>{
+    sp.addEventListener('pointerdown', e=>{
+      e.preventDefault();
+      const i = +sp.dataset.i;
+      const panes = $$('.pane'); const a = panes[i-1], b = panes[i];
+      if(!a||!b) return;
+      const vert = innerWidth <= 900;
+      const start = vert ? e.clientY : e.clientX;
+      const aS = vert ? a.offsetHeight : a.offsetWidth;
+      const bS = vert ? b.offsetHeight : b.offsetWidth;
+      const tot = aS + bS, gA = S.panes[i-1].grow, gB = S.panes[i].grow, gT = gA + gB;
+      sp.classList.add('on'); sp.setPointerCapture(e.pointerId);
+      const move = ev=>{
+        const d = (vert?ev.clientY:ev.clientX) - start;
+        let na = (aS + d) / tot; na = Math.max(.18, Math.min(.82, na));
+        S.panes[i-1].grow = gT * na; S.panes[i].grow = gT * (1-na);
+        a.style.flexGrow = S.panes[i-1].grow; b.style.flexGrow = S.panes[i].grow;
+      };
+      const up = ()=>{ sp.classList.remove('on'); save();
+        sp.removeEventListener('pointermove',move); sp.removeEventListener('pointerup',up); };
+      sp.addEventListener('pointermove', move); sp.addEventListener('pointerup', up);
+    });
+  });
+}
+let dragFrom = null;
+function wirePaneDrag(){
+  $$('.pane').forEach(el=>{
+    const hd = $('.pane-hd', el);
+    hd.addEventListener('dragstart', e=>{
+      dragFrom = el.dataset.id; el.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      try{ e.dataTransfer.setData('text/plain', dragFrom); }catch(_){}
+    });
+    hd.addEventListener('dragend', ()=>{ dragFrom=null;
+      $$('.pane').forEach(p=>p.classList.remove('dragging','dragover')); });
+    el.addEventListener('dragover', e=>{
+      if(!dragFrom || el.dataset.id===dragFrom) return;
+      e.preventDefault(); el.classList.add('dragover');
+    });
+    el.addEventListener('dragleave', ()=> el.classList.remove('dragover'));
+    el.addEventListener('drop', e=>{
+      e.preventDefault(); el.classList.remove('dragover');
+      if(!dragFrom || el.dataset.id===dragFrom) return;
+      const a = S.panes.findIndex(p=>p.id===dragFrom);
+      const b = S.panes.findIndex(p=>p.id===el.dataset.id);
+      if(a<0||b<0) return;
+      const ga = S.panes[a].grow, gb = S.panes[b].grow;
+      [S.panes[a], S.panes[b]] = [S.panes[b], S.panes[a]];
+      S.panes[a].grow = ga; S.panes[b].grow = gb;
+      save(); renderGrid(); toast('Painéis trocados de lugar', CHECK);
+    });
+  });
+}
+
+/* ---------------- chat ---------------- */
+const SUGS = {
+  duvida:['O que é uma variável?','Explica esse erro pra mim','Qual a diferença entre = e ==?'],
+  aprender:['Me dá a primeira tarefa','Explica o que é um laço','Estou travado, me ajuda'],
+  criar:['Começa pelo mais simples','Que tecnologia devo usar?','Me mostra o primeiro arquivo'],
+  corrigir:['Onde está o erro?','Reescreve esse trecho','Por que isso acontece?'],
+  chat:['Como eu começo a programar?','Me explica o que é uma função','Quero criar um site']
+};
+function renderChatPane(body, pane){
+  const c = pane.kind === 'chat2' ? auxConv() : cur();
+  body.innerHTML = `
+    <div class="chatwrap">
+      <div class="core" data-core><div class="core-stage">
+          <div class="core-ring" style="--tilt:74deg;--roll:-12deg;--d:17s"><i></i></div>
+          <div class="core-ring b" style="--tilt:-68deg;--roll:20deg;--d:26s"><i></i></div>
+          <div class="core-orb"><img src="data:image/png;base64,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" alt=""></div>
+        </div>
+        <div class="core-txt"><h3>${esc(coreTitle(c))}</h3><p>${esc(coreSub(c))}</p></div>
+        <div class="suggests">${(SUGS[c.intent]||SUGS.chat).map(s=>`<button class="sug">${esc(s)}</button>`).join('')}</div>
+      </div>
+      <div class="msgs" data-msgs></div>
+      <div class="composer">
+        <div class="comp-in">
+          <div class="attach-row" data-atts hidden></div>
+          <textarea data-input rows="1" placeholder="${pane.kind==='chat2'?'Uma dúvida rápida…':'Pergunte qualquer coisa ao Orbit…'}"></textarea>
+          <div class="comp-bar">
+            <button class="cbtn" data-plus title="Adicionar"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+            <button class="pick" data-model><b>${MODELOS.find(m=>m.id===S.model).nm}</b>
+              <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+            <button class="pick quiet" data-mode>${MODOS.find(m=>m.id===(c.mode||S.mode)).nm}
+              <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+            <button class="cbtn" data-mic title="Ditar"><svg class="ico" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></button>
+            <button class="send" data-send disabled title="Enviar"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12h13M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+        <p class="comp-note">O Orbit pode errar. Confira o código antes de usar em coisa séria.</p>
+      </div>
+    </div>`;
+  wireChat(body, pane, c);
+  paintMsgs(body, c);
+}
+function coreTitle(c){
+  return {duvida:'Qual é a dúvida?', aprender:'Pronto para a próxima?',
+          criar:'O que vamos construir?', corrigir:'Onde está o problema?'}[c.intent] || 'Em que posso ajudar?';
+}
+function coreSub(c){
+  return {duvida:'Escreva do seu jeito. Se for um erro, cole a mensagem inteira.',
+          aprender:'Abra a trilha ao lado ou me peça a próxima tarefa.',
+          criar:'Descreva a ideia e eu monto o primeiro pedaço.',
+          corrigir:'Cole o código e a mensagem de erro que apareceu.'}[c.intent]
+        || 'Escreva abaixo e eu começo a trabalhar.';
+}
+function auxConv(){
+  let a = S.convs.find(c=>c.aux);
+  if(!a){ a = newConv('Dúvida rápida','duvida'); a.aux = true;
+          S.current = S.convs.find(c=>!c.aux) ? S.convs.find(c=>!c.aux).id : a.id; save(); }
+  return a;
+}
+
+function paintMsgs(root, c){
+  const box = $('[data-msgs]', root), core = $('[data-core]', root);
+  if(!box) return;
+  box.innerHTML = c.msgs.map(m=>msgHTML(m)).join('');
+  if(c.msgs.length){ core.style.display='none'; }
+  else { core.style.display=''; core.classList.remove('hide'); }
+  box.scrollTop = box.scrollHeight;
+}
+function msgHTML(m){
+  if(m.role === 'user')
+    return `<div class="mrow me"><div class="bub">${fmt(m.text)}</div></div>`;
+  return `<div class="mrow"><div class="mav"><img src="data:image/png;base64,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" alt=""></div>
+    <div style="min-width:0;flex:1"><div class="bub">${fmt(m.text)}</div>
+    <div class="mmeta">
+      <button data-copy><svg class="ico sm" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>Copiar</button>
+      <button data-again><svg class="ico sm" viewBox="0 0 24 24"><path d="M20 11a8 8 0 10-2.3 5.7M20 5v6h-6"/></svg>Outra resposta</button>
+    </div></div></div>`;
+}
+function fmt(t){
+  let h = esc(t);
+  h = h.replace(/```(\w*)\n([\s\S]*?)```/g, (m,l,code)=>`<pre><code>${hl(code)}</code></pre>`);
+  h = h.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+  h = h.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+  h = h.replace(/&lt;b&gt;/g,'<b>').replace(/&lt;\/b&gt;/g,'</b>');
+  return h.split(/\n{2,}/).map(p=>p.startsWith('<pre')?p:`<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+}
+function hl(code){
+  /* tokeniza primeiro para o destaque nao colorir as tags que ele mesmo insere */
+  const bag = [];
+  const keep = s => '\u0000' + (bag.push(s) - 1) + '\u0000';
+  let t = code.trim();
+  t = t.replace(/(\/\/[^\n]*|#[^\n]*)/g, m => keep('<span class="c">' + m + '</span>'));
+  t = t.replace(/('[^'\n]*'|&quot;[^&\n]*&quot;|"[^"\n]*")/g, m => keep('<span class="s">' + m + '</span>'));
+  t = t.replace(/\b(const|let|var|function|return|if|else|for|while|class|import|from|def|print|int|string|public|void|new|SELECT|FROM|WHERE|JOIN|INSERT|INTO|VALUES)\b/g,
+                m => keep('<span class="k">' + m + '</span>'));
+  return t.replace(/\u0000(\d+)\u0000/g, (_,i) => bag[+i]);
+}
+
+/* ---------------- composer ---------------- */
+function wireChat(root, pane, c){
+  const ta = $('[data-input]', root), send = $('[data-send]', root);
+  const grow = ()=>{ ta.style.height='auto'; ta.style.height=Math.min(ta.scrollHeight,190)+'px';
+                     send.disabled = !ta.value.trim(); };
+  ta.addEventListener('input', grow);
+  ta.addEventListener('keydown', e=>{
+    if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); fire(); }
+  });
+  const fire = ()=>{ const v = ta.value.trim(); if(!v) return;
+    ta.value=''; grow(); sendMessage(v, false, pane); };
+  send.addEventListener('click', fire);
+
+  $$('.sug', root).forEach(b=> b.addEventListener('click', ()=> sendMessage(b.textContent, false, pane)));
+
+  $('[data-plus]', root).addEventListener('click', e=>{
+    e.stopPropagation(); closeMenus(); e.currentTarget.classList.add('on');
+    popMenu(e.currentTarget, [
+      {t:'Enviar um arquivo', i:'file'}, {t:'Enviar uma imagem', i:'img'},
+      {t:'Colar um trecho de código', i:'code'}, {sep:1},
+      {t:'Conectar uma ferramenta', i:'tool'}
+    ], k=>{
+      if(k==='code'){ ta.value += (ta.value?'\n':'')+'```\n\n```'; ta.focus(); grow(); }
+      else if(k==='tool') toast('As integrações entram junto com o backend.');
+      else { const att = $('[data-atts]', root);
+             att.hidden = false;
+             att.insertAdjacentHTML('beforeend',
+               `<span class="att"><svg class="ico sm" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/></svg>${k==='img'?'imagem.png':'arquivo.txt'}<button onclick="this.parentElement.remove()"><svg class="ico sm" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button></span>`);
+             toast('Anexo adicionado ao rascunho', CHECK); }
+    });
+  });
+  $('[data-model]', root).addEventListener('click', e=>{
+    e.stopPropagation(); closeMenus();
+    popMenu(e.currentTarget, MODELOS.map(m=>({t:m.nm, sub:m.sub, i:m.id, on:m.id===S.model})),
+      k=>{ S.model=k; save(); renderGrid(); toast('Modelo: '+MODELOS.find(m=>m.id===k).nm, CHECK); }, 'Modelo do Orbit');
+  });
+  $('[data-mode]', root).addEventListener('click', e=>{
+    e.stopPropagation(); closeMenus();
+    popMenu(e.currentTarget, MODOS.map(m=>({t:m.nm, sub:m.sub, i:m.id, on:m.id===(c.mode||S.mode)})),
+      k=>{ c.mode=k; S.mode=k; save(); renderGrid(); toast('Modo: '+MODOS.find(m=>m.id===k).nm, CHECK); }, 'Modo de explicação');
+  });
+  wireMic($('[data-mic]', root), ta, grow);
+
+  $('[data-msgs]', root).addEventListener('click', e=>{
+    const cp = e.target.closest('[data-copy]'), ag = e.target.closest('[data-again]');
+    if(cp){ const t = cp.closest('div').previousElementSibling.innerText;
+            navigator.clipboard && navigator.clipboard.writeText(t);
+            toast('Copiado', CHECK); }
+    if(ag){ const conv = pane.kind==='chat2'?auxConv():cur();
+            const last = [...conv.msgs].reverse().find(m=>m.role==='user');
+            if(last){ conv.msgs = conv.msgs.slice(0, conv.msgs.length-1); save();
+                      renderGrid(); respond(conv, last.text, pane); } }
+  });
+}
+function popMenu(anchor, items, cb, title){
+  const r = anchor.getBoundingClientRect();
+  const m = document.createElement('div'); m.className='menu'; m.dataset.menu='1';
+  m.innerHTML = (title?`<div class="sect">${esc(title)}</div>`:'') + items.map(it=>
+    it.sep ? '<hr>' :
+    `<button data-i="${it.i}" aria-checked="${it.on?'true':'false'}">
+      <span><b style="font-weight:500">${esc(it.t)}</b>${it.sub?`<br><span style="font-size:.74rem;color:var(--dim)">${esc(it.sub)}</span>`:''}</span>
+      ${it.on?'<span class="rt">✓</span>':''}</button>`).join('');
+  document.body.appendChild(m);
+  m.style.left = Math.min(r.left, innerWidth - m.offsetWidth - 12) + 'px';
+  m.style.top  = Math.max(12, r.top - m.offsetHeight - 8) + 'px';
+  m.addEventListener('click', e=>{ const b=e.target.closest('[data-i]'); if(!b) return;
+    closeMenus(); cb(b.dataset.i); });
+}
+function wireMic(btn, ta, grow){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ btn.addEventListener('click', ()=> toast('Seu navegador não tem reconhecimento de voz.')); return; }
+  let rec = null, on = false;
+  btn.addEventListener('click', ()=>{
+    if(on){ rec && rec.stop(); return; }
+    rec = new SR(); rec.lang='pt-BR'; rec.interimResults=true; rec.continuous=true;
+    const base = ta.value;
+    rec.onstart = ()=>{ on=true; btn.classList.add('rec'); toast('Ouvindo… fale à vontade'); };
+    rec.onresult = e=>{
+      let txt=''; for(let i=0;i<e.results.length;i++) txt += e.results[i][0].transcript;
+      ta.value = (base ? base+' ' : '') + txt; grow();
+    };
+    rec.onerror = ()=>{ toast('Não consegui ouvir. Verifique a permissão do microfone.'); };
+    rec.onend = ()=>{ on=false; btn.classList.remove('rec'); };
+    try{ rec.start(); }catch(_){ toast('Não foi possível iniciar o microfone.'); }
+  });
+}
+
+/* ---------------- envio e resposta ---------------- */
+function sendMessage(text, auto, pane){
+  const p = pane || S.panes.find(x=>x.kind==='chat') || S.panes[0];
+  const c = (p && p.kind==='chat2') ? auxConv() : cur();
+  const root = $(`.pane[data-id="${p.id}"] .pane-body`) || document;
+  const core = $('[data-core]', root);
+  if(core && !c.msgs.length){ core.classList.add('hide'); setTimeout(()=>{ core.style.display='none'; }, 860); }
+  c.msgs.push({role:'user', text, at:Date.now()});
+  if(c.title === 'Nova conversa') c.title = text.slice(0,44) + (text.length>44?'…':'');
+  c.at = Date.now(); save();
+  const box = $('[data-msgs]', root);
+  if(box){ box.insertAdjacentHTML('beforeend', msgHTML({role:'user',text}));
+           box.scrollTop = box.scrollHeight; }
+  renderRail(); $('#convTitle').textContent = cur().title;
+  respond(c, text, p);
+}
+function pushBot(c, text){
+  c.msgs.push({role:'bot', text, at:Date.now()}); save();
+  const p = S.panes.find(x=>x.kind==='chat') || S.panes[0];
+  const root = $(`.pane[data-id="${p.id}"] .pane-body`);
+  if(!root) return;
+  const core = $('[data-core]', root);
+  if(core && core.style.display !== 'none'){ core.classList.add('hide'); setTimeout(()=>core.style.display='none',860); }
+  const box = $('[data-msgs]', root);
+  box.insertAdjacentHTML('beforeend', msgHTML({role:'bot',text}));
+  box.scrollTop = box.scrollHeight;
+}
+async function respond(c, prompt, pane){
+  const p = pane || S.panes.find(x=>x.kind==='chat') || S.panes[0];
+  const root = $(`.pane[data-id="${p.id}"] .pane-body`);
+  const box = root && $('[data-msgs]', root);
+  if(!box) return;
+  box.insertAdjacentHTML('beforeend',
+    `<div class="mrow" data-think><div class="mav"><img src="data:image/png;base64,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" alt=""></div>
+     <div class="bub"><span class="typing"><i></i><i></i><i></i></span></div></div>`);
+  box.scrollTop = box.scrollHeight;
+
+  let answer;
+  try { answer = await askOrbit(c, prompt); }
+  catch(e){ answer = 'Não consegui falar com o servidor agora. Tente de novo em instantes.'; }
+
+  $('[data-think]', box) && $('[data-think]', box).remove();
+  const row = document.createElement('div');
+  row.className = 'mrow';
+  row.innerHTML = `<div class="mav"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH0AAACMCAMAAABmkFarAAAB/lBMVEUAAADJp/7FpP7Usf/Eov7Fo/7////DnP7Eov7Eov6sqf7Eov7Hmf66l/7Dnf5/f//Kpf/Dnv7/f/+8mf4AAP//AP+4fv+0i/zCnv7/qv/Dnv7GjP+qVf++nP2+vv+Uav/Sff/Cnv/Env5/AP+bfPmZmf++o//atv9/P/+/P/+2bf+/oP/MmcwAf/8A//9VVf9/f3+/j/++mv+/n/+qqqrU1P//Vf//mf8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABtUEryAAAAgHRSTlMA/NH+j7ABL3BPBDEREUsCEm0CKAEBBQ6NA60LA0gEBgjS8wIIBSkHBAQHaQUCAQMCIGvFAwYDBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM2ron0AAA9XSURBVHjavVzZYtu4DqW4UxQlWYuXJG2n03Zm7szd1///swuCiyjbiR0nDh9aJ5UIAgQODkC6hOCQ038116b3n7eS3GF0OK1TBuTM3VqEJJxVMCi3jpCpfu8F1DX8obSgXgjTZDX/QGwVBvMLgN8c3lH+VM+E9FpUjEUpFiQu40A2VR6sEgYMUL+XcK+HBdGFBA0SywcaWpWDapDfvY/RCTEr2TCa9dw10at/rhjV08o8N465I0pUR3PrI8POMirPdV6mUO+ivV52VIvg2r2Ux/Zpo02czurbN2sva86y7B1p8KM+9alh65UXTw/80fG0+42Ub9zzNmmud40QxG8C3XbzqWcq/9AOjKNJE+U38m3K150KE/Ed7AATLoTbmXAaPODsifGrU0RxIWiLtrs9zP3SWyr2XBFLmZfLK8bJOXtK2QPO9I6GrQnDTYTcaHx4kzy5+APaUnQNaOWe3c2R0q0JDu/kljSiosKQbroJYzoPrNz99TPMg67Xuq/UPpsH5D9+9o8ELBY9kS28xJi+BfZkNwdvVx7JQqBJH01Ods+s1sc8jQHKRON1D9tweLXZU9oSj0l4ZYiffvfcTkrcHtUktKlT7jGvFl+TFDVZOG189PFnDRmi8yGhExPb9NG+0vUycBviRISbDQZ7+6z0mdRfvfJ9QggIjoew7v4M6MohDPk8yHBCEtZRp9AAZH7eT/f4Cs8AlXKfqOvpTOI8/pSQQyWsXFBe46z8BQ+Oa66z8mDyrMXJa876oZQ7BY6YrlUmLbAQG35TvxCjGG6L8gy8Zp92sFuHZ2YEVK2DqEuv78EGbKU6dS85UHTVPllu/0+XfVZNcsWG9gyXV3nsrM9sOoPgUhsd19i76oLh/Zs2LBQd1ZDG2gYg+pQNDVIFEor/ZstkVCeCav3e9Jg4mAgOoF4GrikADFqpd+Hzr1ulOeV9abTgn7A+c6I8gNaD4Np2uwDuDrcoTLW9iNkqGmtUKezdaT6UY3DKQ8gK6kwm7uOOVUpFqmgv4kRjO4wXxr/52A8JrwMqNMxnoMyi7sc7LwdZ1xLt79+n4WELc7sX7T4BulCNLMe2mJWUx+Z6XkPEMEU0boN0eHoejqPHyx2dn8UgzvRgUzFPL9leeoVxwx73HhwlOnC9ipMpO1ZlZJCOyk+rqBtxcZ+93nuH7MYvYZYv+rx3ptav9fHBv9176SW9k1BkbUlKRCrzNgsRUdfZRN2gULrzZQpKV+Y8n1xJ98/sJZi72SNSeocVubDowstyEx1K2MjVGQ/rSwUY/EXxfb9zG1gsnTjGSP0iIUFQ8KRSY+Tj5K2yOK2neL3hdLMw1TwM2VDua2BfgELiMeg34f0G9Oc/+U/u5Vw5Yxr0btKmvWW8oZDj8L0xogs5Lk9EgCkswPyw3tPT+36x1uBT8kJi3iAgto50mJmBX2+FBzVYduLZMIs6kj7m9ehe1kZgabDxQMyoA4sajLpLHK0O8yriqWSthdBjLxLP46yw86ow26fIQ1VtFaHW+Qlg2R0hMcO9rDsQDBpZFQbH74ovsy6FJo3EO/3oelp4QKYHvH3yzjSToAFkuPkSEeYxlgYfXSanSJ+yFhF65XifFtVhVxzN71Sqa6Q3KLuc4ZaYAxouATymeVERKtqm8LUekIGGAbMWloCssJTMYupCgcyvMTyOT7od12sJxY0u2xtmIrv4EPytiu4ANWRItl84pDK6fVW3o+SmLdmJsrPxC7iSs8aY1ti+kzkxhu3OrDI7+fWUuK7rLi9CR6KgCtuabaONzCEAzNdo91srlr5HQuAlxLq6fnVFFHpZMFnhVZZYqESrbgl5JcHP+GqFJoRY/6buR43FmMpbzvy02AIqaDe4+R47XbZYpPFJjvH5LZ2vgRgKwjO08F3y+6YvIi7VH9w5sYg3FW3J01s6bY9EtYtGhsSeEitV98prlkxTPGxGsiM3t16ARED4ZEynhWauWcG8zZYQu7z7QOM01bd2HQOv0TbOJr5E/IY/N6nGyMpv0r9Ru40vUMtxDX+7ac9ntRaQbcrVSY5TkHyzyZ9E0ZmkfSdvUr2cZBEOkEtIcyKdLABrugJ6nukSXd9q8xr8yJA7kZ4fZ1hODG/ItxSYpi4zoH29+Fk+fi1mcDZ7Mvp93xTIziq3BbyBdaUFq7HcM9m9XvWgXVDiU/RpOpJRhKJObdpP4ziq0babmGEBbsZUNJribfNav5+m2LfbajSsSMJtTN49mXvr04wdXR17DB7fo3iBTqO/Yy4QjXwtyKmIXoDedBsZ9Lj4Oi15JaXLHo+pLevds+fn2vFXeHyzT9n6i1OJwtjq0sjNjt598zCNK7l4zDNLGPO5xjo4s4jUsacXpdPU7BBJ8Wp9BuTlyOklUhGe+l/qvkRtXEFqnx0s0yyrYp+OdJI822EKRV/jGufK3aknk3CGxn6bqa4ZJhotvQckrC4q0C+1693nchUD2T4EZJ67ZUHRr0zYbLqdKbtCOKNzBHrbpuUPBVuhoZ9ECkG7EN1M5MiUGUy/pGatbK/SvZURKniTXUEeoXdb75L4A5g0VWYZGGJRA7iyC3PU03B6unQ6xAhVUHzFRT+xy6QmarKh8ZdeDqNNAAz6n9iM77rosZwn6ugfvyRe+PlSX4XHp/k0xNOxKASIEUj0G9KFIOYlC5Xb/vh8rq3BfkN/Ufcequcf8ggXWtJv54WfW7Q/7SWUS46W5RdNjbEyveJKSf35eElnfE6Tz7D8Zu2gPG56HxUMrSbxd1B+H8Oy7+OJTCOdMc3KxrwnFojS4Qq0OUCiV/lQK7FNmFDGlnEuvwEaliweGwCb0BNyZemiiD+i485e4fKq4SE9FBMIF04/UXrTFLz3odgditKBPIKlFzW5B2zfB1DPw81i6NZiy8CQkvBDWSuaHiORFqxFoHSBzYaNROmhBbI7U5C7wJupVi0/ks5NrORYinJeQCMNvqU0ng3xLDFIDyxxE3Q37Eh6OyWCIwJn9i7UHjm1vzGBvEM8xt9NyyM0oN8YdNdZIkr/WdWFdBt3KiRu+JWdaJzjITQgtOBqRew2/uhSz6EdvI0SsdMXMj/9XSy6h6OnupBOTqTvQmJuQF/bxfn+hPsDPsmA2JFCOoQSw9aKD+OfotU6W4ne4Yk2RbNUtpBOXpTeJIMKWGcpncdgLT3QBHDQ2FhP0rcW0gYJ57ohib1Sunbj6KvIaPmfxBURJxbpwK0w/mC3ULraXCvdlT4fPz8+XCO9KfY9ed33f6HuZ6VXp9Kz/UJtEMK52a/x0ze0oGzla27jIgDUJz5vF5+3Ubq3pjqcSC8jjrThhzXaeA7FBR/XfIuZMSSGtoz3R1pYHqUfSt3tsfQC6yjWL6DNeFQ76vWtjnwOwvz1hURoC18opROTdRf45AbjejMo65G29DCgtQ3nzfGlHEA9o8UJp3UcYH4sfw/xy4SyyHYT1iE2FGj8CXX3Ch1lGexJwPh8QmpZxU4o7fbEIIzvMKGFA8FVX1OtP0IuckOvN/WRIHVo5NBdTnKq62RzUEdL2m103/XxdGgrirq7TSYLdk3MLjVAYpXke6xPr2RWqcDCij/1QioxqCU7HKKV4mmA8Nfg5PawsMp4muaAB+34Rd1hy4d0CryL9nNEHmDaeJ8JrKuXGiecqO6jDTL/HDpRxio826krCD2jtkvMKWY70cl1Q0J5E8YzvGnYeh9vjph/btHaWIrvpLiymoihYQMdKNqlMuwc7SEqxRDOF6GMAmwQuS2fi6vbKqk2Jt9cSS31s0x1OfD5Ov1Wku8EK3QoU5f6aptcLCpf9YRfofo+MldARlbGYHk+zcz8fZEEHzYCBi+unnX51kGqoMUJ2pzjtH3k4vtUQUPV0i2FMYAzDEPKC0fzmaq2TTD7W7oMoMsu9DPCE+mhjc1ga6fuzAHQ+iYDjLq8yUHDibnvSddm1ffOscz8WHVOxmQx1fuSDu/KrU6oQQaM7rqeFffMCGye68HUNWrITrXaj1Y5ErMqzY0d4AS+a1SL6sU7Ns/2baZY8cXJRBIfEoAm1lhbu7q3v8Cn2DFzGaLS7Yfg/N0NvcoywKzLl6WIho+up2W3sAcCQjVJr/BVlrnpeua6TzvGW2oVf4Rs2x4nMWIhNGp+WkhcPv586UxmiaRtEI9F0tkusYnmWAlnkDjm269ksrj1VOUEJ8YzHXKbj4HXmKhuPZ1AZKLjmKPp6NJUafk2oXzic4yjLczNN6IBmR581WarE7TpnzkZAbfn0eJffLTzN1zHxhbOsHTqRYL6o1OhUEP5s/qEB0z8GYgYceQt93FnPAc/pJ30/C7SxXBvKu1Jj/+Il2bjen4Ansm33oKfYk8tH/P6o0hxpDxHbAFfTF7vGzXydcevLw0Qn9ElHIXuZXkS+uAZ1ULgDene9csHdcnphPninMzKc/Jvt/tuypP6eiLvOoZ1Dw2jeBzxaMQb2K7axDV55yHlKsbsbrLahKHVn2u1KmduQ7dr7qgG9baULrcr4HOn2T2Vr8mGLdhNjugthAAtf3hv6fP8qJcG2BByP/9kY+9M5BAAyDm+EPc+I929aYn0B8L8yxMQi784fxPBxqY8/HYk9xj+fMOfKmM1CsEdKQTdEA4cNdIBL7ue7yLfQ4jbaEcawccptZehzPj2ixC97DV+yacj9xrhfh3SnHDUGvoxsA/BIveUjXG/jbe9PPZBxQg5NzaKNGlqSe48YuBTH2KG4IFBrNhacnfhMpbHUfqvUToLdLu7t/AIuKpGy8/+fI3XsWD/Vd7b7ioehccPkdCOscCRd9a9D1s8bnKPfEMgCD3Oi0nefd+R2QwPUC2heCCxmnGJ7euiUr/POCCpwLKSkydl1HTgvm6j90ns56+iNCbcCrcG77ja5orbsu9ieTy1sPXqJKoxN9aqN278qm8Yur367tueyD1NjalQ5Azrftf9Ruyk9WOIvHC8iDcQn+REPkB8MDN629CiIfYfZPhoehaqWGyZsFDLqPsnmQj1TO+wjRbujqrecSY+RDhec/1jS9H0eLeHArXquPkAn0uORxmebLWyBcNP1H+r5WNU918P8NTKqmh5/30YQPrtB0nHAwXwta+M9xyMINhHYHze+BnP134EwPmj+SCUXSlfmdC+eNQfqjoWtPjtUc5iBSc+yuGLPNs2m43G41b7gar7s5wnVN4fEdLL30R5f8TBb14Jgf+LwyiHD5W+fFHrzH8k8AHKd/1yvj3ID5Ze3DW2H646bv0nzflef3oD0PwfxXegTJGJ2woAAAAASUVORK5CYII=" alt=""></div>
+    <div style="min-width:0;flex:1"><div class="bub" data-stream></div></div>`;
+  box.appendChild(row);
+  const target = $('[data-stream]', row);
+  await stream(target, answer, box);
+  target.innerHTML = fmt(answer);
+  row.querySelector('div[style]').insertAdjacentHTML('beforeend',
+    `<div class="mmeta">
+      <button data-copy><svg class="ico sm" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>Copiar</button>
+      <button data-again><svg class="ico sm" viewBox="0 0 24 24"><path d="M20 11a8 8 0 10-2.3 5.7M20 5v6h-6"/></svg>Outra resposta</button>
+    </div>`);
+  c.msgs.push({role:'bot', text:answer, at:Date.now()}); save();
+
+  const code = (answer.match(/```\w*\n([\s\S]*?)```/) || [])[1];
+  if(code){ c.code = code; save();
+    if(S.panes.some(x=>x.kind==='preview')) renderGrid(); }
+}
+function stream(el, text, box){
+  return new Promise(res=>{
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ el.innerHTML = fmt(text); return res(); }
+    let i = 0;
+    const step = ()=>{
+      i = Math.min(text.length, i + Math.max(2, Math.round(text.length/90)));
+      el.innerHTML = fmt(text.slice(0,i)) + (i<text.length?'<span class="caret"></span>':'');
+      box.scrollTop = box.scrollHeight;
+      if(i < text.length) setTimeout(step, 18); else res();
+    };
+    step();
+  });
+}
+
+async function askOrbit(c, prompt){
+  if(ORBIT_ENDPOINT){
+    const r = await fetch(ORBIT_ENDPOINT, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:S.model, mode:c.mode||S.mode, lang:c.lang,
+                             intent:c.intent, messages:c.msgs.slice(-20) })
+    });
+    const d = await r.json();
+    return d.reply || d.text || 'Resposta vazia do servidor.';
+  }
+  await new Promise(r=>setTimeout(r, 480 + Math.random()*520));
+  return demoReply(c, prompt);
+}
+
+/* motor local de demonstração */
+function demoReply(c, q){
+  const mode = c.mode || S.mode;
+  const L = c.lang ? LANGS.find(l=>l.id===c.lang) : null;
+  const ln = L ? L.nm : 'JavaScript';
+  const low = q.toLowerCase();
+
+  if(/tarefa|próxima|proxima|começar|comecar/.test(low) && c.tasks){
+    const t = c.tasks.find(x=>!x.done);
+    if(!t) return 'Você terminou todas as tarefas dessa etapa. Quer que eu monte o próximo bloco, mais puxado?';
+    return `**${t.t}**\n\n${t.d}.\n\nComece pequeno: escreva a menor versão que funcione, mesmo feia. Depois a gente arruma juntos.\n\nQuando terminar, cola o código aqui que eu confiro linha por linha. Se travar antes disso, me diz onde travou.`;
+  }
+  if(/erro|error|undefined|não funciona|nao funciona|bug/.test(low)){
+    return `Vamos por partes.\n\nEsse tipo de erro quase sempre quer dizer que o valor não é o que você acha que é naquele ponto. Antes de mexer no código, coloque uma linha imprimindo o valor logo antes da linha que quebra:\n\n\`\`\`\nconsole.log('valor aqui:', suaVariavel);\n\`\`\`\n\nRode de novo e me diz o que apareceu. Nove em cada dez vezes a resposta está aí: ou a variável está vazia, ou chegou num formato diferente do esperado.`;
+  }
+  if(/laço|laco|loop|while|for\b|repet/.test(low)){
+    const r = (REF[c.lang] || REF.js).find(x=>/while|for/.test(x.t)) || (REF.js)[0];
+    const snippet = r.c.replace(/<[^>]+>/g,'');
+    if(mode === 'direto') return `Repete um bloco N vezes.\n\n\`\`\`\n${snippet}\n\`\`\``;
+    if(mode === 'analog') return `Pensa numa esteira de bagagem no aeroporto: ela dá a volta e passa pelo mesmo ponto várias vezes, e a cada volta você pega uma mala diferente.\n\nO laço é a esteira. O código dentro dele roda de novo a cada volta, só que trabalhando com um item diferente.\n\n\`\`\`\n${snippet}\n\`\`\``;
+    if(mode === 'prof') return `Antes de eu escrever, tenta comigo: se você precisasse mostrar "oi" cinco vezes na tela, o que você faria?\n\nEscreveria a mesma linha cinco vezes, ou pediria para o computador repetir?\n\nMe diz o que você acha e a partir da sua resposta eu mostro o caminho em ${ln}.`;
+    return `Um laço serve para repetir uma instrução várias vezes sem você reescrever ela.\n\nEle tem três partes: onde começa, até onde vai, e o que acontece a cada volta. Em ${ln} fica assim:\n\n\`\`\`\n${snippet}\n\`\`\`\n\nRepare que sem a linha que avança o contador, a condição nunca fica falsa e o programa trava para sempre. É o erro mais comum de quem está começando.`;
+  }
+  if(/variável|variavel|const|let\b/.test(low)){
+    return `Uma variável é uma caixa com nome, onde você guarda um valor para usar depois.\n\n\`\`\`\nlet nome = 'Fernando';\nnome = 'Orbit';  // dá para trocar\n\nconst pi = 3.14; // não dá para trocar\n\`\`\`\n\nA diferença entre \`let\` e \`const\` é só essa: com \`const\` você avisa que aquele valor não vai mudar. Use \`const\` por padrão, e só troque para \`let\` quando precisar mesmo.`;
+  }
+  if(/site|página|pagina|html|botão|botao/.test(low)){
+    return `Boa, vamos montar isso. Começo pelo esqueleto mais simples que já funciona:\n\n\`\`\`\n<button id="meuBotao">Clique em mim</button>\n\n<script>\n  const btn = document.querySelector('#meuBotao');\n  const cores = ['#7B61FF', '#5AC8E8', '#7DD88F'];\n  let i = 0;\n  btn.addEventListener('click', () => {\n    i = (i + 1) % cores.length;\n    btn.style.background = cores[i];\n  });\n<\/script>\n\`\`\`\n\nO painel do lado já está mostrando isso rodando. Clique no botão lá para testar.\n\nQuer que eu adicione mais alguma coisa antes de seguir?`;
+  }
+  const abertura = {
+    passo:'Vamos por partes.', direto:'Direto ao ponto:',
+    analog:'Vou comparar com uma coisa do dia a dia.', prof:'Deixa eu te perguntar uma coisa antes.'
+  }[mode];
+  return `${abertura}\n\nMe dá um detalhe a mais para eu não chutar: você quer entender o conceito, ou já quer o código pronto para colar e testar?\n\nSe tiver um trecho de ${ln} envolvido, cola ele aqui que eu leio e explico o que cada linha está fazendo.`;
+}
+
+/* ---------------- trilha ---------------- */
+function renderLearnPane(body, pane){
+  const c = cur();
+  const tasks = c.tasks || [];
+  const done = tasks.filter(t=>t.done).length;
+  const pct = tasks.length ? done/tasks.length : 0;
+  const xp = tasks.filter(t=>t.done).reduce((a,t)=>a+t.xp,0);
+  const refs = REF[c.lang] || REF.js;
+  const LN = c.lang ? LANGS.find(l=>l.id===c.lang).nm : 'JavaScript';
+  body.innerHTML = `<div class="learn">
+    <div class="lvl">
+      <div class="ring">
+        <svg width="52" height="52"><circle cx="26" cy="26" r="22" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/>
+          <circle cx="26" cy="26" r="22" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"
+            stroke-dasharray="${(2*Math.PI*22).toFixed(1)}" stroke-dashoffset="${((1-pct)*2*Math.PI*22).toFixed(1)}"
+            style="transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.3,1)"/></svg>
+        <span>${Math.round(pct*100)}%</span>
+      </div>
+      <div class="li"><b>Trilha de ${esc(LN)}</b><span>${done} de ${tasks.length} tarefas · ${xp} XP</span></div>
+      <div class="streak"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 3s5 4.5 5 9a5 5 0 01-10 0c0-1.5.6-2.8 1.3-3.8C9 10.5 12 8 12 3z"/></svg>${S.streak}</div>
+    </div>
+
+    <div class="lsec">Suas tarefas</div>
+    ${tasks.length ? tasks.map(t=>`
+      <button class="task ${t.done?'done':''}" data-task="${t.id}">
+        <span class="chk">${t.done?'<svg class="ico sm" viewBox="0 0 24 24" style="stroke-width:2.6"><path d="M20 6L9 17l-5-5"/></svg>':''}</span>
+        <span class="ti"><b>${esc(t.t)}</b><span>${esc(t.d)}</span></span>
+        <span class="xp">+${t.xp}</span>
+      </button>`).join('')
+      : `<div class="emptylist">Essa conversa não tem trilha.<br>Comece uma nova escolhendo "Aprender a programar".</div>`}
+
+    <div class="lsec">Consulta rápida de ${esc(LN)}</div>
+    ${refs.map((r,i)=>`
+      <div class="ref" data-ref="${i}">
+        <button><b style="font-family:'Space Grotesk';font-weight:600">Como funciona <code style="font-family:'JetBrains Mono';color:var(--accent-soft)">${esc(r.t)}</code> em ${esc(LN)}</b>
+          <span class="reftag">${esc(r.t)}</span>
+          <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="rb">${esc(r.d)}<pre>${r.c}</pre></div>
+      </div>`).join('')}
+  </div>`;
+
+  $$('.task', body).forEach(b=> b.addEventListener('click', ()=>{
+    const t = c.tasks.find(x=>x.id===b.dataset.task); if(!t) return;
+    t.done = !t.done; save(); renderGrid();
+    if(t.done){ S.xp += t.xp; save(); toast(`+${t.xp} XP · ${t.t}`, CHECK); }
+  }));
+  $$('.ref', body).forEach(r=> $('button', r).addEventListener('click', ()=> r.classList.toggle('open')));
+}
+
+/* ---------------- projeto / prévia ---------------- */
+function renderPreviewPane(body, pane){
+  const c = cur();
+  const code = c.code || '';
+  const isWeb = /<[a-z!][\s\S]*>/i.test(code) || /document\.|addEventListener/.test(code);
+  pane.tab = pane.tab || 'code';
+  body.innerHTML = `<div class="prev-body">
+    <div class="prev-tabs">
+      <button data-tab="code" class="${pane.tab==='code'?'on':''}">Código</button>
+      <button data-tab="live" class="${pane.tab==='live'?'on':''}">Prévia</button>
+      <span class="sp">
+        <button class="iconbtn" data-copycode title="Copiar código"><svg class="ico sm" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg></button>
+      </span>
+    </div>
+    ${ !code
+      ? `<div class="prev-empty"><svg class="ico" viewBox="0 0 24 24" style="width:34px;height:34px;color:var(--dim)"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/></svg>
+         <span>O código aparece aqui assim que o Orbit escrever o primeiro trecho.</span></div>`
+      : pane.tab === 'code'
+        ? `<div class="codearea">${hl(code)}</div>`
+        : (isWeb
+            ? `<iframe class="liveframe" sandbox="allow-scripts"></iframe>`
+            : `<div class="prev-empty"><span>Prévia ao vivo disponível para HTML, CSS e JavaScript.<br>Esse código roda fora do navegador, então mostro só o texto.</span></div>`)
+    }
+  </div>`;
+  const fr = $('.liveframe', body);
+  if(fr) fr.srcdoc = buildPreview(code);
+  $$('[data-tab]', body).forEach(b=> b.addEventListener('click', ()=>{
+    pane.tab = b.dataset.tab; save(); renderGrid(); }));
+  const cc = $('[data-copycode]', body);
+  cc && cc.addEventListener('click', ()=>{ navigator.clipboard && navigator.clipboard.writeText(code);
+    toast('Código copiado', CHECK); });
+}
+function buildPreview(code){
+  if(/<html/i.test(code)) return code;
+  return `<!doctype html><meta charset="utf-8"><style>
+    body{font-family:system-ui;background:#0E0E14;color:#EEE;display:grid;place-items:center;
+         min-height:100vh;margin:0;padding:24px}
+    button{font:inherit;font-weight:600;background:#7B61FF;color:#fff;border:0;border-radius:10px;
+           padding:12px 28px;cursor:pointer}</style>${code}`;
+}
+
+/* ---------------- perfil ---------------- */
+function openProfile(){
+  const u = S.user, pct = Math.min(100, Math.round(u.usado/u.limite*100));
+  const o = document.createElement('div'); o.className='ovl';
+  o.innerHTML = `<div class="modal">
+    <div style="display:flex;align-items:center;gap:13px;margin-bottom:20px">
+      <span class="avatar" style="width:46px;height:46px;border-radius:14px;font-size:1.05rem">${esc(u.name[0])}</span>
+      <div><h3 style="margin:0">${esc(u.name)}</h3>
+        <span style="font-size:.82rem;color:var(--muted)">${esc(u.name.toLowerCase())}@lunarrift.dev</span></div>
+    </div>
+    <div class="planbox">
+      <svg class="ico" viewBox="0 0 24 24" style="color:var(--accent-soft)"><path d="M12 3l2.6 5.6 6.4.8-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.8z"/></svg>
+      <div class="pb"><b>${esc(u.plan)}</b><span>${u.usado} de ${u.limite} mensagens usadas este mês</span>
+        <div class="meter"><i style="width:${pct}%"></i></div></div>
+    </div>
+    <div class="menu" style="position:static;box-shadow:none;border:0;padding:0;margin-bottom:20px">
+      <button data-a="name"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>Mudar meu nome</button>
+      <button data-a="plan"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.4.8-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.8z"/></svg>Ver planos</button>
+      <button data-a="reset" class="danger"><svg class="ico sm" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Apagar tudo e recomeçar</button>
+    </div>
+    <div class="row"><button class="btn btn-g" data-close>Fechar</button></div></div>`;
+  document.body.appendChild(o);
+  o.addEventListener('click', e=>{
+    if(e.target === o || e.target.closest('[data-close]')) return o.remove();
+    const b = e.target.closest('[data-a]'); if(!b) return;
+    if(b.dataset.a === 'name'){
+      const n = prompt('Como você quer ser chamado?', S.user.name);
+      if(n && n.trim()){ S.user.name = n.trim(); save(); renderAll(); toast('Nome atualizado', CHECK); }
+      o.remove();
+    }
+    if(b.dataset.a === 'plan'){ o.remove(); toast('A tela de planos entra depois do backend.'); }
+    if(b.dataset.a === 'reset'){ o.remove();
+      modal('Apagar tudo?','Some com as conversas, a trilha e as preferências. Você volta para a tela inicial.',
+        [{t:'Cancelar',k:'g'},{t:'Apagar',k:'d',fn:()=>{ store.set('orbit.state', null); location.reload(); }}]); }
+  });
+}
+
+/* ---------------- render geral ---------------- */
+function renderAll(){
+  const c = cur() || newConv('Nova conversa');
+  $('#convTitle').textContent = c.title;
+  $('#convCtx').textContent = CTX_LABEL[c.intent] || 'chat';
+  $('#userName').textContent = S.user.name;
+  $('#avaInit').textContent = S.user.name[0].toUpperCase();
+  $('#planName').textContent = S.user.plan;
+  renderRail(); renderGrid(); syncToggles();
+}
+
+/* ---------------- boot ---------------- */
+function boot(){
+  /* grids do onboarding */
+  fillGrid('#langGrid', LANGS, false, id=>onb.lang=id, true);
+  fillGrid('#nivelGrid', NIVEIS, false, id=>onb.nivel=id);
+  fillGrid('#objGrid', OBJETIVOS, true, (id,all)=>onb.obj=all);
+  fillGrid('#horasGrid', HORAS, false, id=>onb.horas=id);
+  fillGrid('#modoGrid', MODOS, false, id=>onb.modo=id);
+  fillGrid('#projTipoGrid', PROJ_TIPOS, false, id=>onb.projTipo=id);
+  fillGrid('#featGrid', FEATS, true, (id,all)=>onb.feats=all);
+
+  $$('.choice').forEach(b=>{
+    b.addEventListener('pointermove', e=>{ const r=b.getBoundingClientRect();
+      b.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+      b.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%'); });
+    b.addEventListener('click', ()=>{
+      onb.intent = b.dataset.intent; flow = FLOWS[onb.intent]; fi = 0;
+      if(onb.intent==='corrigir'){ $('#langTitle').textContent='Qual linguagem é essa?';
+        $('#langSub').textContent='Se não souber, pode pular: eu descubro pelo código.'; }
+      showStep(flow[0]);
+    });
+  });
+  $$('[data-back]').forEach(b=> b.addEventListener('click', goBack));
+  $$('[data-next]').forEach(b=> b.addEventListener('click', ()=>{
+    const st = b.closest('.onb-step').dataset.step;
+    if(st==='pergunta') onb.q = $('#qText').value.trim();
+    if(st==='objetivo') onb.objText = $('#objText').value.trim();
+    if(st==='projeto')  onb.proj = $('#projText').value.trim();
+    if(st==='detalhes'){ onb.publico=$('#publico').value.trim(); onb.stack=$('#stack').value.trim(); }
+    if(st==='codigo'){ onb.code=$('#codeText').value.trim(); onb.err=$('#errText').value.trim(); }
+    goNext();
+  }));
+  $$('[data-skip]').forEach(b=> b.addEventListener('click', ()=>{
+    const st = b.closest('.onb-step').dataset.step;
+    if(st==='projeto' || st==='detalhes'){ fi = flow.length; return finishOnb(); }
+    goNext();
+  }));
+  renderDots();
+  onbStars();
+
+  /* app */
+  $('#newChat').addEventListener('click', ()=>{
+    newConv('Nova conversa'); renderAll(); toast('Conversa criada', CHECK);
+  });
+  $('#searchConv').addEventListener('input', renderRail);
+  $('#convList').addEventListener('click', e=>{
+    const k = e.target.closest('[data-menu]');
+    if(k){ e.stopPropagation(); convMenu(k.dataset.menu, k); return; }
+    const row = e.target.closest('.conv');
+    if(row && !e.target.closest('input')){ S.current = row.dataset.id; save(); renderAll();
+      if(innerWidth<=900) $('#app').classList.remove('railopen'); }
+  });
+  $('#profileBtn').addEventListener('click', openProfile);
+  $('#railClose').addEventListener('click', ()=>{
+    if(innerWidth<=900) $('#app').classList.remove('railopen');
+    else $('#app').classList.toggle('railoff'); });
+  $('#railOpen').addEventListener('click', ()=>{
+    if(innerWidth<=900) $('#app').classList.toggle('railopen');
+    else $('#app').classList.toggle('railoff'); });
+  $('#scrim').addEventListener('click', ()=> $('#app').classList.remove('railopen'));
+  $('#paneToggles').addEventListener('click', e=>{
+    const b = e.target.closest('[data-add]'); if(b) addPane(b.dataset.add); });
+  $('#grid').addEventListener('click', e=>{
+    const x = e.target.closest('[data-close]');
+    if(x){ S.panes = S.panes.filter(p=>p.id!==x.dataset.close); save(); renderGrid(); syncToggles(); } });
+
+  /* volta direto pro app se já existe histórico */
+  if(S.convs.length){
+    $('#onb').style.display='none';
+    $('#app').classList.add('on');
+    renderAll();
+  }
+}
+
+/* estrelas do fundo do onboarding */
+function onbStars(){
+  const c = $('#onbStars'); if(!c) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const x = c.getContext('2d');
+  let ps = [], mouse = {x:-9999,y:-9999}, W=0, H=0;
+  function size(){ const r=c.getBoundingClientRect(); W=r.width; H=r.height;
+    c.width=W*devicePixelRatio; c.height=H*devicePixelRatio;
+    x.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0); mk(); }
+  function mk(){ ps=[]; const n=Math.min(90, Math.floor(W/14));
+    for(let i=0;i<n;i++) ps.push({x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*.2, vy:(Math.random()-.5)*.2, r:Math.random()*1.4+.4, s:Math.random()>.87}); }
+  function draw(){
+    x.clearRect(0,0,W,H);
+    for(const p of ps){
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=W; if(p.x>W)p.x=0; if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+      const dx=p.x-mouse.x, dy=p.y-mouse.y, d=Math.hypot(dx,dy);
+      if(d<120){ const f=(120-d)/120*1.5; p.x+=dx/d*f; p.y+=dy/d*f; }
+      x.beginPath();
+      if(p.s){ const s=p.r*3.2;
+        x.moveTo(p.x,p.y-s); x.quadraticCurveTo(p.x,p.y,p.x+s,p.y);
+        x.quadraticCurveTo(p.x,p.y,p.x,p.y+s); x.quadraticCurveTo(p.x,p.y,p.x-s,p.y);
+        x.quadraticCurveTo(p.x,p.y,p.x,p.y-s); x.fillStyle='rgba(164,140,255,.8)';
+      } else { x.arc(p.x,p.y,p.r,0,7); x.fillStyle='rgba(255,255,255,.4)'; }
+      x.fill();
+    }
+    for(let i=0;i<ps.length;i++) for(let j=i+1;j<ps.length;j++){
+      const a=ps[i], b=ps[j], d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<100){ x.beginPath(); x.moveTo(a.x,a.y); x.lineTo(b.x,b.y);
+        x.strokeStyle='rgba(123,97,255,'+(.16*(1-d/100))+')'; x.lineWidth=1; x.stroke(); }
+    }
+    requestAnimationFrame(draw);
+  }
+  addEventListener('resize', size);
+  c.addEventListener('pointermove', e=>{ const r=c.getBoundingClientRect();
+    mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top; });
+  c.addEventListener('pointerleave', ()=>{ mouse.x=mouse.y=-9999; });
+  size(); draw();
+}
+
+let _wasMob = innerWidth <= 900;
+addEventListener('resize', ()=>{
+  const m = innerWidth <= 900;
+  if(m !== _wasMob){ _wasMob = m; if($('#app').classList.contains('on')) renderGrid(); }
+});
+
+boot();
+
+</script>
+</body>
+</html>
