@@ -858,9 +858,8 @@ const MODOS = [
   {id:'prof',   nm:'Modo professor', sub:'pergunta antes de entregar'}
 ];
 const MODELOS = [
-  {id:'nano', nm:'Orbit Nano', sub:'respostas rápidas, tarefas simples'},
-  {id:'core', nm:'Orbit Core', sub:'equilíbrio entre rapidez e profundidade'},
-  {id:'max',  nm:'Orbit Max',  sub:'raciocínio longo, projetos complexos'}
+  {id:'blend2',   nm:'Orbit Blend 2',   sub:'rápido, ótimo para o dia a dia'},
+  {id:'fusion32', nm:'Orbit Fusion 3.2', sub:'raciocínio avançado, projetos complexos'}
 ];
 const PROJ_TIPOS = [
   {id:'site', nm:'Site'}, {id:'app', nm:'Aplicativo'}, {id:'jogo', nm:'Jogo'},
@@ -911,7 +910,7 @@ let S = store.get('orbit.state', null) || {
   user:{ name:'Fernando', plan:'Orbit Pro', usado:34, limite:100 },
   convs:[], current:null,
   panes:[{id:uid(), kind:'chat', grow:1}],
-  model:'core', mode:'passo',
+  model:'blend2', mode:'passo',
   xp:0, streak:1
 };
 const save = () => store.set('orbit.state', S);
