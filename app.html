@@ -520,7 +520,15 @@ a{color:inherit;text-decoration:none}
 
 </style>
 </head>
+<style>
+#authgate{position:fixed;inset:0;z-index:999;background:#07070A;display:grid;place-items:center;transition:opacity .4s}
+#authgate.gone{opacity:0;pointer-events:none}
+#authgate .ring{width:34px;height:34px;border-radius:50%;border:2px solid rgba(164,140,255,.22);
+  border-top-color:#A48CFF;animation:agspin .75s linear infinite}
+@keyframes agspin{to{transform:rotate(360deg)}}
+</style>
 <body class="grain">
+<div id="authgate"><div class="ring"></div></div>
 
 <!-- ============ ONBOARDING ============ -->
 <div id="onb">
@@ -760,10 +768,10 @@ a{color:inherit;text-decoration:none}
     <div class="rail-list" id="convList"></div>
     <div class="rail-ft">
       <button class="profile" id="profileBtn">
-        <span class="avatar" id="avaInit">F</span>
+        <span class="avatar" id="avaInit">·</span>
         <span class="pi">
-          <b id="userName">Fernando</b>
-          <span><i class="plan-dot"></i> <span id="planName">Orbit Pro</span></span>
+          <b id="userName">Carregando…</b>
+          <span><i class="plan-dot"></i> <span id="planName">Orbit Free</span></span>
         </span>
         <svg class="ico sm" viewBox="0 0 24 24" style="color:var(--dim)"><path d="M6 15l6-6 6 6"/></svg>
       </button>
@@ -907,7 +915,7 @@ REF.css = [
 /* ---------------- estado ---------------- */
 const uid = () => Math.random().toString(36).slice(2,10);
 let S = store.get('orbit.state', null) || {
-  user:{ name:'Fernando', plan:'Orbit Pro', usado:34, limite:100 },
+  user:{ name:'você', email:'', plan:'Orbit Free', usado:0, limite:100 },
   convs:[], current:null,
   panes:[{id:uid(), kind:'chat', grow:1}],
   model:'blend2', mode:'passo',
@@ -1700,7 +1708,7 @@ function openProfile(){
     <div style="display:flex;align-items:center;gap:13px;margin-bottom:20px">
       <span class="avatar" style="width:46px;height:46px;border-radius:14px;font-size:1.05rem">${esc(u.name[0])}</span>
       <div><h3 style="margin:0">${esc(u.name)}</h3>
-        <span style="font-size:.82rem;color:var(--muted)">${esc(u.name.toLowerCase())}@lunarrift.dev</span></div>
+        <span style="font-size:.82rem;color:var(--muted)">${esc(u.email || 'conta OrbitDual')}</span></div>
     </div>
     <div class="planbox">
       <svg class="ico" viewBox="0 0 24 24" style="color:var(--accent-soft)"><path d="M12 3l2.6 5.6 6.4.8-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.8z"/></svg>
@@ -1710,6 +1718,7 @@ function openProfile(){
     <div class="menu" style="position:static;box-shadow:none;border:0;padding:0;margin-bottom:20px">
       <button data-a="name"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>Mudar meu nome</button>
       <button data-a="plan"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.4.8-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.8z"/></svg>Ver planos</button>
+      <button data-a="logout"><svg class="ico sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>Sair da conta</button>
       <button data-a="reset" class="danger"><svg class="ico sm" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Apagar tudo e recomeçar</button>
     </div>
     <div class="row"><button class="btn btn-g" data-close>Fechar</button></div></div>`;
@@ -1723,6 +1732,9 @@ function openProfile(){
       o.remove();
     }
     if(b.dataset.a === 'plan'){ o.remove(); toast('A tela de planos entra depois do backend.'); }
+    if(b.dataset.a === 'logout'){ o.remove();
+      modal('Sair da conta?','Suas conversas continuam salvas. Você vai precisar entrar de novo para acessá-las.',
+        [{t:'Cancelar',k:'g'},{t:'Sair',k:'d',fn:()=>{ if(window.orbitLogout) window.orbitLogout(); }}]); }
     if(b.dataset.a === 'reset'){ o.remove();
       modal('Apagar tudo?','Some com as conversas, a trilha e as preferências. Você volta para a tela inicial.',
         [{t:'Cancelar',k:'g'},{t:'Apagar',k:'d',fn:()=>{ store.set('orbit.state', null); location.reload(); }}]); }
@@ -1863,6 +1875,102 @@ addEventListener('resize', ()=>{
 
 boot();
 
+/* ---------------- ponte com a autenticação ---------------- */
+/* chamado pelo módulo de login assim que a sessão do Supabase é confirmada */
+window.orbitApplyUser = (u) => {
+  if(!u) return;
+  S.user.name   = u.name  || S.user.name;
+  S.user.email  = u.email || '';
+  S.user.plan   = u.plan  || S.user.plan;
+  if(typeof u.usado  === 'number') S.user.usado  = u.usado;
+  if(typeof u.limite === 'number') S.user.limite = u.limite;
+  save();
+  $('#userName').textContent = S.user.name;
+  $('#avaInit').textContent  = (S.user.name[0] || 'U').toUpperCase();
+  $('#planName').textContent = S.user.plan;
+};
+
+</script>
+
+<script type="module">
+/* =========================================================
+   Guarda de sessão: sem login, ninguém entra no app.
+   Cada conta tem o seu próprio estado local — trocou de
+   usuário no mesmo navegador, o estado antigo é descartado.
+   ========================================================= */
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/+esm';
+
+const SUPABASE_URL = 'https://vbjtqwflriyueqpcltqc.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_qPpQZNv3WQE2dI126isv0Q_r_kZCwpY';
+const LOGIN_URL    = new URL('login.html', location.href).href;
+
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true, flowType:'pkce' }
+});
+window.ORBIT_SB = sb;
+
+window.orbitLogout = async () => {
+  try { await sb.auth.signOut(); } catch(e){}
+  try {
+    localStorage.removeItem('orbit.state');
+    localStorage.removeItem('orbit.uid');
+  } catch(e){}
+  location.replace(LOGIN_URL);
+};
+
+const PLANOS = { free:'Orbit Free', pro:'Orbit Pro', max:'Orbit Max' };
+
+(async () => {
+  const { data:{ session } } = await sb.auth.getSession();
+
+  if(!session){
+    location.replace(LOGIN_URL);
+    return;
+  }
+
+  const user = session.user;
+
+  /* trocou de conta neste navegador? começa limpo */
+  let prev = null, hadState = false;
+  try {
+    prev = localStorage.getItem('orbit.uid');
+    hadState = !!localStorage.getItem('orbit.state');
+  } catch(e){}
+  if(prev !== user.id){
+    try {
+      localStorage.removeItem('orbit.state');
+      localStorage.setItem('orbit.uid', user.id);
+    } catch(e){}
+    if(hadState){ location.reload(); return; }
+  }
+
+  /* nome e plano vêm do perfil; se ainda não existir, usa o que veio do cadastro */
+  let perfil = null;
+  try {
+    const { data } = await sb.from('profiles').select('*').eq('id', user.id).maybeSingle();
+    perfil = data;
+  } catch(e){}
+
+  const meta = user.user_metadata || {};
+  const nome = (perfil && perfil.name) || meta.name || meta.full_name
+            || (user.email ? user.email.split('@')[0] : 'você');
+
+  if(window.orbitApplyUser) window.orbitApplyUser({
+    name:   nome,
+    email:  user.email || '',
+    plan:   PLANOS[(perfil && perfil.plan) || 'free'] || 'Orbit Free',
+    usado:  perfil ? perfil.messages_used  : 0,
+    limite: perfil ? perfil.messages_limit : 100
+  });
+
+  const gate = document.getElementById('authgate');
+  if(gate){ gate.classList.add('gone'); setTimeout(() => gate.remove(), 450); }
+})();
+
+/* sessão caiu ou saiu em outra aba */
+sb.auth.onAuthStateChange((event) => {
+  if(event === 'SIGNED_OUT') location.replace(LOGIN_URL);
+});
 </script>
 </body>
 </html>
