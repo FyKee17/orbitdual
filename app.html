@@ -874,8 +874,9 @@ const MODOS = [
   {id:'prof',   nm:'Modo professor', sub:'pergunta antes de entregar'}
 ];
 const MODELOS = [
-  {id:'blend',  nm:'Orbit Blend',  sub:'rápido, ótimo para o dia a dia',        oc:'~1 OC entrada / 5 OC saída por 1k tokens'},
-  {id:'fusion', nm:'Orbit Fusion', sub:'raciocínio avançado, projetos complexos', oc:'~2,5 OC entrada / 12,5 OC saída por 1k tokens', pro:true}
+  {id:'blend',   nm:'Orbit Blend',      sub:'rápido, ótimo para o dia a dia',           oc:'1 OC entrada / 5 OC saída por 1k tokens'},
+  {id:'fusion',  nm:'Orbit Fusion',     sub:'raciocínio avançado, projetos complexos',  oc:'2,5 OC entrada / 12,5 OC saída por 1k tokens', pro:true},
+  {id:'eclipse', nm:'Orbit Eclipse 3.4', sub:'o mais forte: raciocínio longo e projetos difíceis', oc:'5 OC entrada / 25 OC saída por 1k tokens', pro:true, top:true}
 ];
 const PROJ_TIPOS = [
   {id:'site', nm:'Site'}, {id:'app', nm:'Aplicativo'}, {id:'jogo', nm:'Jogo'},
@@ -2826,14 +2827,31 @@ async function respond(c, prompt, pane, atts){
     paintStream(c, bot);
   };
 
-  const MAX_RODADAS = 14;   // só para quando terminar, cancelar ou faltar OC
-  let rodada = 0, quedas = 0, ocTotal = 0, parar = false;
+  const MAX_RODADAS = 16;     // só para quando terminar, cancelar ou faltar OC
+  const MAX_QUEDAS  = 4;
+  let rodada = 0, quedas = 0, ocTotal = 0, parar = false, motivo = '';
 
   while(!parar && rodada < MAX_RODADAS){
     rodada++;
+    const continuando = rodada > 1;
     const ctrl = new AbortController();
     run.ctrl = ctrl;
-    let recebeuDone = false, incompleto = false, houveTexto = false;
+
+    let recebeuDone = false, incompleto = false, houveTexto = false, veioVazio = false;
+    let pend = '', emendado = !continuando;   // na 1ª rodada não precisa emendar
+
+    const receber = (txt)=>{
+      houveTexto = true;
+      if(emendado){ bot.text += txt; bump(); return; }
+      pend += txt;
+      if(pend.length >= 300){
+        bot.text += emendar(bot.text, pend);
+        pend = ''; emendado = true; bump(true);
+      }
+    };
+    const fecharPendente = ()=>{
+      if(!emendado && pend){ bot.text += emendar(bot.text, pend); pend = ''; emendado = true; bump(true); }
+    };
 
     try{
       const token = window.orbitToken ? await window.orbitToken() : null;
@@ -2845,10 +2863,10 @@ async function respond(c, prompt, pane, atts){
         body: JSON.stringify({
           model: S.model, mode: c.mode||S.mode, lang: c.lang, intent: c.intent,
           messages: c.msgs.filter(m=>!m.streaming).slice(-24).map(m=>({role:m.role, text:m.text})),
-          attachments: rodada === 1 ? (atts || []) : [],
+          attachments: continuando ? [] : (atts || []),
           projeto: projetoAtual(c),
-          continuar: rodada > 1,
-          parcial: rodada > 1 ? bot.text : ''
+          continuar: continuando,
+          parcial: continuando ? bot.text : ''
         })
       });
 
@@ -2858,8 +2876,8 @@ async function respond(c, prompt, pane, atts){
         const msg = d.message || 'Não consegui falar com o servidor agora. Tente de novo em instantes.';
         bot.text += (bot.text ? '\n\n' : '') + '_' + msg + '_';
         if(d.upgrade) bot.text += '\n\n[Ver os planos do Orbit](planos.html)';
-        bump(true);
-        parar = true; break;
+        motivo = d.error || 'http';
+        bump(true); parar = true; break;
       }
 
       const reader = r.body.getReader();
@@ -2876,49 +2894,67 @@ async function respond(c, prompt, pane, atts){
           if(line.startsWith('data:')) line = line.slice(5).trim();
           if(!line) continue;
           let ev; try{ ev = JSON.parse(line); }catch(e){ continue; }
-          if(ev.type === 'delta'){ bot.text += ev.text; houveTexto = true; bump(); }
-          else if(ev.type === 'error'){ bot.text += '\n\n_'+ev.message+'_'; bump(); }
+          if(ev.type === 'delta'){ receber(ev.text); }
+          else if(ev.type === 'error'){ /* registrado no done */ }
           else if(ev.type === 'done'){
             recebeuDone = true;
             incompleto = !!ev.incompleto;
+            veioVazio = !!ev.vazio;
             ocTotal += Number(ev.oc || 0);
             if(typeof ev.balance === 'number'){ S.user.saldo = ev.balance; paintOC(); }
           }
         }
       }
+      fecharPendente();
     }catch(e){
+      fecharPendente();
       if(run.aborted){
-        if(bot.text) bot.text += '\n\n_(resposta interrompida por você)_';
-        else bot.text = '_Resposta cancelada._';
+        bot.text += bot.text ? '\n\n_(resposta interrompida por você)_' : '_Resposta cancelada._';
         parar = true; break;
       }
       quedas++;
-      if(!bot.text || quedas > 3){
-        bot.text = bot.text
-          ? bot.text + '\n\n_A conexão caiu e não consegui retomar. Escreva "continue" que eu sigo daqui._'
-          : 'Não consegui falar com o servidor agora. Verifique sua internet e tente de novo.';
-        parar = true; break;
-      }
+      if(quedas > MAX_QUEDAS){ motivo = 'queda'; parar = true; break; }
       bump(true);
-      await new Promise(r2=>setTimeout(r2, 900));
-      continue;   // tenta retomar de onde parou
+      marcarContinuando(bot, rodada, 'reconectando');
+      await new Promise(r2=>setTimeout(r2, 800 * quedas));
+      continue;
     }
 
     if(run.aborted){ parar = true; break; }
 
-    if(recebeuDone && !incompleto){ parar = true; break; }      // terminou de verdade
-    if(!recebeuDone && !houveTexto){ parar = true; break; }      // não veio nada
+    // terminou de verdade
+    if(recebeuDone && !incompleto && !veioVazio){ parar = true; break; }
 
-    if(!recebeuDone){                                            // stream caiu no meio
+    // não veio nada nesta rodada: tenta de novo em vez de entregar vazio
+    if(!houveTexto){
       quedas++;
-      if(quedas > 3){
-        bot.text += '\n\n_A resposta ficou incompleta. Escreva "continue" que eu sigo daqui._';
-        parar = true; break;
-      }
+      if(quedas > MAX_QUEDAS){ motivo = 'vazio'; parar = true; break; }
+      bump(true);
+      marcarContinuando(bot, rodada, 'tentando de novo');
+      await new Promise(r2=>setTimeout(r2, 800 * quedas));
+      continue;
     }
-    // incompleto por limite de tamanho: continua automaticamente
+
+    // veio texto mas o stream caiu antes do fim
+    if(!recebeuDone){
+      quedas++;
+      if(quedas > MAX_QUEDAS){ motivo = 'queda'; parar = true; break; }
+    }
+
     bump(true);
-    marcarContinuando(bot, rodada);
+    marcarContinuando(bot, rodada, 'continuando a resposta');
+  }
+
+  if(!parar && rodada >= MAX_RODADAS) motivo = motivo || 'longa';
+
+  if(!bot.text.trim()){
+    bot.text = motivo === 'vazio'
+      ? 'A IA não devolveu nada dessa vez, mesmo depois de algumas tentativas. Isso costuma ser um engasgo momentâneo — manda de novo, ou tenta com o **Orbit Blend**, que é mais rápido para pedidos grandes.'
+      : 'Não consegui completar a resposta agora. Tenta de novo em instantes.';
+  } else if(motivo === 'queda'){
+    bot.text += '\n\n_A conexão caiu algumas vezes e eu parei por aqui. Escreva **continue** que eu sigo exatamente de onde parou._';
+  } else if(motivo === 'longa'){
+    bot.text += '\n\n_Esta resposta ficou muito longa e eu pausei. Escreva **continue** para eu seguir._';
   }
 
   bot.oc = ocTotal || bot.oc;
@@ -2926,7 +2962,18 @@ async function respond(c, prompt, pane, atts){
   finish(c, bot, pane);
 }
 
-function marcarContinuando(bot, rodada){
+/* emenda a continuação sem repetir o que já estava escrito */
+function emendar(base, novo){
+  if(!base || !novo) return novo || '';
+  const max = Math.min(500, base.length, novo.length);
+  for(let n = max; n >= 12; n--){
+    if(base.slice(-n) === novo.slice(0, n)) return novo.slice(n);
+  }
+  const corte = novo.replace(/^\s*(continuando|continua\u00e7\u00e3o)[^\n]*\n+/i, '');
+  return corte;
+}
+
+function marcarContinuando(bot, rodada, rotulo){
   const row = document.querySelector(`[data-mid="${bot.id}"] .bub`);
   if(!row) return;
   let tag = row.parentElement.querySelector('.contando');
@@ -2935,7 +2982,7 @@ function marcarContinuando(bot, rodada){
     tag.className = 'contando';
     row.parentElement.appendChild(tag);
   }
-  tag.innerHTML = `<i></i> continuando a resposta · parte ${rodada+1}`;
+  tag.innerHTML = `<i></i> ${esc(rotulo || 'continuando a resposta')} · parte ${rodada+1}`;
 }
 
 function projetoAtual(c){
