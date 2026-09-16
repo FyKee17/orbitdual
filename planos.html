@@ -212,10 +212,12 @@ footer a{color:var(--muted)}footer a:hover{color:#fff}
         <thead><tr><th>Modelo</th><th>Roda em</th><th class="c">Entrada · 1.000 tokens</th>
           <th class="c">Saída · 1.000 tokens</th><th>Melhor para</th></tr></thead>
         <tbody>
-          <tr><td><b>Orbit Blend</b></td><td>Claude Sonnet 5</td><td class="c">1 OC</td><td class="c">5 OC</td>
+          <tr><td><b>OB Blend-4.5</b></td><td>Claude Sonnet 5</td><td class="c">1 OC</td><td class="c">5 OC</td>
             <td>dúvidas, sites, scripts, o dia a dia</td></tr>
-          <tr><td><b>Orbit Fusion</b></td><td>Claude Opus 5</td><td class="c">2,5 OC</td><td class="c">12,5 OC</td>
+          <tr><td><b>OB Fusion 3</b></td><td>Claude Opus 5</td><td class="c">2,5 OC</td><td class="c">12,5 OC</td>
             <td>projeto grande, código difícil, raciocínio longo</td></tr>
+          <tr><td><b>OB Eclipse 3.4</b></td><td>Claude Fable 5.1</td><td class="c">8 OC</td><td class="c">40 OC</td>
+            <td>o mais forte — raciocínio longo e problemas que os outros não resolvem</td></tr>
         </tbody>
       </table>
     </div>
@@ -228,6 +230,8 @@ footer a{color:var(--muted)}footer a:hover{color:#fff}
         <div class="v">~20 <small>OC</small></div><div class="n">Blend · arquivo inteiro</div></div>
       <div class="ex"><div class="q">"Monta um jogo 3D com Three.js"</div>
         <div class="v">~95 <small>OC</small></div><div class="n">Fusion · projeto grande</div></div>
+      <div class="ex"><div class="q">"Refaz a arquitetura inteira do meu sistema"</div>
+        <div class="v">~190 <small>OC</small></div><div class="n">OB Eclipse 3.4 · problema difícil</div></div>
     </div>
     <p style="color:var(--dim);font-size:.78rem;margin-top:14px;text-align:center">
       Estimativas. O valor exato aparece embaixo de cada resposta e no seu histórico de consumo.
@@ -241,8 +245,9 @@ footer a{color:var(--muted)}footer a:hover{color:#fff}
         <thead><tr><th>O que você leva</th><th class="c">Basic</th><th class="c">Pro</th><th class="c">Insider</th></tr></thead>
         <tbody>
           <tr><td>Créditos por mês</td><td class="c">500 OC</td><td class="c">3.000 OC</td><td class="c">6.000 OC</td></tr>
-          <tr><td>Orbit Blend</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
-          <tr><td>Orbit Fusion</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+          <tr><td>OB Blend-4.5</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+          <tr><td>OB Fusion 3</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+          <tr><td>OB Eclipse 3.4</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">✓</td></tr>
           <tr><td>DualView 1.3 com vários arquivos</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
           <tr><td>Anexar arquivos e imagens</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
           <tr><td>Respostas longas sem corte</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
@@ -282,13 +287,13 @@ let ACCT = null;
 const FALLBACK = [
   {id:'basic',name:'Orbit Basic',tagline:'Para começar sem pagar nada',price_cents:0,monthly_oc:500,
    models:['blend'],highlight:false,
-   features:['500 OC por mês','Acesso ao Orbit Blend','Histórico de conversas salvo','DualView 1.3','Trilha de aprendizado guiada']},
+   features:['500 OC por mês','Acesso ao OB Blend-4.5','Histórico de conversas salvo','DualView 1.3','Prévia de páginas e jogos']},
   {id:'pro',name:'Orbit Pro',tagline:'Para quem usa todo dia',price_cents:3000,monthly_oc:3000,
    models:['blend','fusion'],highlight:true,
-   features:['3.000 OC por mês','Orbit Blend + Orbit Fusion','Raciocínio avançado para projetos grandes','Respostas longas sem corte','DualView com vários arquivos','Suporte por e-mail']},
+   features:['3.000 OC por mês','OB Blend-4.5 + OB Fusion 3','Raciocínio avançado para projetos grandes','Respostas longas sem corte','DualView com vários arquivos','Suporte por e-mail']},
   {id:'insider',name:'Orbit Insider',tagline:'Para projetos sérios',price_cents:5500,monthly_oc:6000,
    models:['blend','fusion'],highlight:false,
-   features:['6.000 OC por mês','Orbit Blend + Orbit Fusion','Prioridade na fila de resposta','Respostas longas sem corte','DualView com vários arquivos','Suporte prioritário','Acesso antecipado a novidades']}
+   features:['6.000 OC por mês','OB Blend-4.5 + OB Fusion 3','Prioridade na fila de resposta','Respostas longas sem corte','DualView com vários arquivos','Suporte prioritário','Acesso antecipado a novidades']}
 ];
 
 function cardHTML(p, atual){
@@ -307,7 +312,7 @@ function cardHTML(p, atual){
       </div>
       <ul class="feats">${(p.features||[]).map(f=>
         `<li><svg class="sm" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>${esc(f)}</li>`).join('')}
-        ${p.models.includes('fusion')?'':'<li class="off"><svg class="sm" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>Orbit Fusion não incluso</li>'}
+        ${p.models.includes('fusion')?'':'<li class="off"><svg class="sm" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>OB Fusion 3 não incluso</li>'}
       </ul>
       ${eu ? `<span class="pbtn atual">Seu plano atual</span>`
            : `<button class="pbtn ${p.highlight?'p':''}" data-plan="${p.id}" data-nome="${esc(p.name)}">
@@ -390,8 +395,8 @@ const FAQ = [
   ['Os créditos que sobram acumulam?','Não. Cada ciclo começa com o saldo cheio do seu plano. Assim o preço fica previsível e ninguém paga por crédito parado.'],
   ['O que acontece se meus OC acabarem?','As respostas param até a renovação do ciclo. A data aparece embaixo do saldo, no canto de baixo à esquerda do chat. Se precisar continuar antes, dá para subir de plano.'],
   ['Por que cobrar por token e não por mensagem?','Porque é mais justo. Uma pergunta de uma linha e um jogo 3D inteiro não dão o mesmo trabalho para a IA — nem deviam custar o mesmo para você.'],
-  ['Qual a diferença real entre Blend e Fusion?','O Blend é rápido e resolve a maior parte das coisas muito bem. O Fusion pensa mais antes de responder: ele se sai melhor em código complicado, projeto grande e raciocínio longo. Em troca, consome mais OC.'],
-  ['Preciso pagar para testar?','Não. O Orbit Basic é gratuito e já vem com 500 OC por mês e o Orbit Blend liberado. Dá para fazer bastante coisa antes de decidir.'],
+  ['Qual a diferença entre Blend, Fusion e Eclipse?','O <b>OB Blend-4.5</b> é rápido e resolve a maior parte das coisas muito bem. O <b>OB Fusion 3</b> pensa mais antes de responder e se sai melhor em código complicado e projeto grande. O <b>OB Eclipse 3.4</b> é o mais forte de todos: entra quando o problema é realmente difícil ou o raciocínio é muito longo. Quanto mais forte, mais OC consome — por isso o Eclipse fica só no Insider.'],
+  ['Preciso pagar para testar?','Não. O Orbit Basic é gratuito e já vem com 500 OC por mês e o OB Blend-4.5 liberado. Dá para fazer bastante coisa antes de decidir.'],
   ['Como cancelo?','É só parar de renovar — nada de fidelidade nem multa. Você volta para o Basic no fim do ciclo pago e continua com acesso ao Blend.']
 ];
 document.getElementById('faq').innerHTML = FAQ.map(([q,a])=>`

@@ -272,8 +272,14 @@ section .wrap{position:relative;z-index:2}
 /* ---------- sections ---------- */
 section{position:relative;padding:104px 0;overflow:hidden}
 .sec-head{max-width:660px;margin-bottom:54px}
-.kicker{font-family:'Space Grotesk';font-size:.83rem;color:var(--accent-soft);font-weight:600;margin-bottom:13px;display:flex;align-items:center;gap:9px}
-.kicker::before{content:"";width:26px;height:1px;background:var(--accent)}
+.kicker{font-family:'Space Grotesk';font-size:.78rem;color:var(--accent-soft);font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;display:block}
+.kicker::before{content:none!important;display:none!important}
+.soon{max-width:760px;margin:0 auto;padding:38px 40px;border-radius:22px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(160deg,rgba(123,97,255,.10),rgba(255,255,255,.02));text-align:center;backdrop-filter:blur(6px)}
+.soon-badge{display:inline-block;font-family:'Space Grotesk';font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-soft);border:1px solid rgba(123,97,255,.4);border-radius:999px;padding:5px 13px;margin-bottom:16px}
+.soon h3{font-size:1.45rem;margin:0 0 12px}
+.soon p{margin:0;opacity:.78;line-height:1.7}
+@media(max-width:640px){.soon{padding:28px 22px}}
+
 .sec-head h2{font-size:clamp(1.95rem,3.5vw,2.75rem);font-weight:700;margin-bottom:16px}
 .sec-head p{color:var(--muted);font-size:1.05rem}
 
@@ -568,9 +574,6 @@ footer{border-top:1px solid var(--line);padding:64px 0 34px;background:var(--bg-
 #como .steps .step:nth-child(3){transform:translateY(32px)}
 
 /* highlight rule under section kickers varies per section */
-#integracoes .kicker::before{width:44px;background:linear-gradient(90deg,var(--accent),transparent)}
-#modos .kicker::before{width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px 2px rgba(123,97,255,.7)}
-#aprender .kicker::before{width:34px;height:2px}
 
 @media(max-width:1000px){
   .langs .lcard:nth-child(even){transform:none}
@@ -824,30 +827,13 @@ footer{border-top:1px solid var(--line);padding:64px 0 34px;background:var(--bg-
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker" data-pt="Aprender" data-en="Learn">Aprender</div>
-      <h2 data-pt="Não é só pedir código pronto" data-en="It's not just asking for finished code">Não é só pedir código pronto</h2>
-      <p data-pt="O Orbit foi feito para te ensinar enquanto constrói. Você escolhe o quanto quer aprender pelo caminho." data-en="Orbit was built to teach you while it builds. You choose how much you want to learn along the way.">O Orbit foi feito para te ensinar enquanto constrói. Você escolhe o quanto quer aprender pelo caminho.</p>
+      <h2 data-pt="Aprenda enquanto constrói" data-en="Learn while you build">Aprenda enquanto constrói</h2>
+      <p data-pt="Você pode aprender, tirar dúvidas e programar aqui mesmo, direto na conversa com o Orbit." data-en="You can learn, ask questions and code right here, straight from the conversation with Orbit.">Você pode aprender, tirar dúvidas e programar aqui mesmo, direto na conversa com o Orbit.</p>
     </div>
-    <div class="uses rv">
-      <div class="use">
-        <span class="tag" data-pt="do zero" data-en="from zero">do zero</span>
-        <h3 data-pt="Aprender a programar" data-en="Learn to code">Aprender a programar</h3>
-        <p data-pt="Comece sem saber nada. O Orbit monta a trilha, propõe exercícios do seu nível e corrige o que você escreve, explicando onde errou e por quê." data-en="Start knowing nothing. Orbit lays out the path, suggests exercises at your level and reviews what you write, explaining where you slipped and why.">Comece sem saber nada. O Orbit monta a trilha, propõe exercícios do seu nível e corrige o que você escreve, explicando onde errou e por quê.</p>
-      </div>
-      <div class="use">
-        <span class="tag" data-pt="na hora" data-en="right away">na hora</span>
-        <h3 data-pt="Tirar dúvidas" data-en="Ask anything">Tirar dúvidas</h3>
-        <p data-pt="Travou numa linha e não sabe o que ela faz? Pergunte. Sem esperar resposta de fórum, sem garimpar vídeo de quarenta minutos por trinta segundos de explicação." data-en="Stuck on a line and don't know what it does? Just ask. No waiting on forum replies, no digging through a forty-minute video for thirty seconds of explanation.">Travou numa linha e não sabe o que ela faz? Pergunte. Sem esperar resposta de fórum, sem garimpar vídeo de quarenta minutos por trinta segundos de explicação.</p>
-      </div>
-      <div class="use">
-        <span class="tag" data-pt="junto com você" data-en="alongside you">junto com você</span>
-        <h3 data-pt="Continuar um projeto seu" data-en="Continue your own project">Continuar um projeto seu</h3>
-        <p data-pt="Cole o código que você já tem. O Orbit lê, entende o que está montado e constrói dali pra frente com você, sem te obrigar a recomeçar do zero." data-en="Paste the code you already have. Orbit reads it, understands what's there and builds forward with you, with no starting over.">Cole o código que você já tem. O Orbit lê, entende o que está montado e constrói dali pra frente com você, sem te obrigar a recomeçar do zero.</p>
-      </div>
-      <div class="use">
-        <span class="tag" data-pt="a fundo" data-en="deep dive">a fundo</span>
-        <h3 data-pt="Mergulhar numa linguagem" data-en="Focus on one language">Mergulhar numa linguagem</h3>
-        <p data-pt="Quer entender Python de verdade, ou só SQL? Escolha uma linguagem e converse só sobre ela, no ritmo que você aguentar, até virar natural." data-en="Want to really understand Python, or just SQL? Pick one language and talk only about it, at whatever pace suits you, until it clicks.">Quer entender Python de verdade, ou só SQL? Escolha uma linguagem e converse só sobre ela, no ritmo que você aguentar, até virar natural.</p>
-      </div>
+    <div class="soon rv">
+      <span class="soon-badge" data-pt="Em breve" data-en="Coming soon">Em breve</span>
+      <h3 data-pt="Uma página dedicada ao aprendizado" data-en="A page dedicated to learning">Uma página dedicada ao aprendizado</h3>
+      <p data-pt="Estamos preparando um espaço só para estudar linguagens, com conteúdo organizado e exercícios. Enquanto isso, o chat já dá conta: pergunte, peça explicação linha a linha e construa seus projetos com o Orbit do lado." data-en="We're building a space just for studying languages, with organised content and exercises. In the meantime the chat already covers it: ask, request a line-by-line explanation and build your projects with Orbit alongside you.">Estamos preparando um espaço só para estudar linguagens, com conteúdo organizado e exercícios. Enquanto isso, o chat já dá conta: pergunte, peça explicação linha a linha e construa seus projetos com o Orbit do lado.</p>
     </div>
   </div>
 </section>
@@ -931,6 +917,7 @@ footer{border-top:1px solid var(--line);padding:64px 0 34px;background:var(--bg-
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker" data-pt="Integrações" data-en="Integrations">Integrações</div>
+      <span class="soon-badge" style="margin:0 0 12px" data-pt="Em breve" data-en="Coming soon">Em breve</span>
       <h2 data-pt="Conecte suas ferramentas ao Orbit" data-en="Connect your tools to Orbit">Conecte suas ferramentas ao Orbit</h2>
       <p data-pt="O Orbit não fica preso ao chat. Ligue as ferramentas que você já usa e ele passa a consultar, buscar e executar coisas por você no meio da conversa." data-en="Orbit isn't stuck inside the chat. Plug in the tools you already use and it starts looking things up, fetching and running them for you mid-conversation.">O Orbit não fica preso ao chat. Ligue as ferramentas que você já usa e ele passa a consultar, buscar e executar coisas por você no meio da conversa.</p>
     </div>

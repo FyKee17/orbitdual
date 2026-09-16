@@ -563,8 +563,8 @@ a{color:inherit;text-decoration:none}
           <span class="arrow"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           <span class="cic"><svg class="ico" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M7 10v5c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-5"/><path d="M21 7v6"/></svg></span>
           <h3>Aprender a programar</h3>
-          <p>Uma trilha do seu jeito, com tarefas no seu nível, explicações e uma aba de consulta rápida.</p>
-          <span class="tagline">trilha guiada</span>
+          <p>Aprenda no seu ritmo, direto na conversa: peça explicações, exercícios e correções sempre que quiser.</p>
+          <span class="tagline">no seu ritmo</span>
         </button>
         <button class="choice" data-intent="criar">
           <span class="arrow"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -618,7 +618,7 @@ a{color:inherit;text-decoration:none}
     <section class="onb-step" data-step="nivel">
       <div class="onb-kick">Seu nível</div>
       <h2>Onde você está agora?</h2>
-      <p class="sub">Isso define o tamanho das primeiras tarefas. Se errar a escolha, dá para ajustar depois na aba de trilha.</p>
+      <p class="sub">Isso define a profundidade das explicações. Se errar a escolha, é só me avisar no meio da conversa.</p>
       <div class="optgrid" id="nivelGrid"></div>
       <div class="onb-foot">
         <button class="btn btn-t" data-back><svg class="ico sm" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Voltar</button>
@@ -670,7 +670,7 @@ a{color:inherit;text-decoration:none}
         <button class="btn btn-t" data-back><svg class="ico sm" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Voltar</button>
         <span class="spacer"></span>
         <button class="skip" data-skip>Pular</button>
-        <button class="btn btn-p" data-next disabled>Montar minha trilha</button>
+        <button class="btn btn-p" data-next disabled>Começar</button>
       </div>
     </section>
 
@@ -804,10 +804,7 @@ a{color:inherit;text-decoration:none}
           <svg class="ico sm" viewBox="0 0 24 24"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/></svg>
           <span class="lbl">DualView</span>
         </button>
-        <button data-add="learn" title="Trilha de aprendizado">
-          <svg class="ico sm" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M7 10v5c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-5"/></svg>
-          <span class="lbl">Trilha</span>
-        </button>
+        
       </div>
     </div>
     <div class="grid" id="grid"></div>
@@ -874,8 +871,9 @@ const MODOS = [
   {id:'prof',   nm:'Modo professor', sub:'pergunta antes de entregar'}
 ];
 const MODELOS = [
-  {id:'blend',  nm:'Orbit Blend',  sub:'rápido, ótimo para o dia a dia',        oc:'~1 OC entrada / 5 OC saída por 1k tokens'},
-  {id:'fusion', nm:'Orbit Fusion', sub:'raciocínio avançado, projetos complexos', oc:'~2,5 OC entrada / 12,5 OC saída por 1k tokens', pro:true}
+  {id:'blend',   nm:'OB Blend-4.5',  sub:'rápido, ótimo para o dia a dia',           oc:'1 OC entrada / 5 OC saída por 1k tokens'},
+  {id:'fusion',  nm:'OB Fusion 3',    sub:'raciocínio avançado, projetos complexos',  oc:'2,5 OC entrada / 12,5 OC saída por 1k tokens', pro:true},
+  {id:'eclipse', nm:'OB Eclipse 3.4', sub:'o mais forte: raciocínio longo e projetos difíceis', oc:'8 OC entrada / 40 OC saída por 1k tokens', pro:true, top:true}
 ];
 const PROJ_TIPOS = [
   {id:'site', nm:'Site'}, {id:'app', nm:'Aplicativo'}, {id:'jogo', nm:'Jogo'},
@@ -1005,7 +1003,7 @@ function finishOnb(){
   const langNm = onb.lang ? LANGS.find(l=>l.id===onb.lang).nm : null;
   const titles = {
     duvida:   langNm ? `Dúvida sobre ${langNm}` : 'Tirando uma dúvida',
-    aprender: langNm ? `Aprendendo ${langNm}` : 'Minha trilha',
+    aprender: langNm ? `Aprendendo ${langNm}` : 'Aprendendo a programar',
     criar:    onb.proj ? onb.proj.slice(0,40) : 'Projeto novo',
     corrigir: 'Corrigindo o código'
   };
@@ -1013,8 +1011,7 @@ function finishOnb(){
   c.lang = onb.lang; c.mode = onb.modo || S.mode;
   c.setup = {...onb};
   if(onb.intent === 'aprender'){
-    c.tasks = buildTasks(onb);
-    S.panes = [{id:uid(),kind:'chat',grow:1.4},{id:uid(),kind:'learn',grow:1}];
+    S.panes = [{id:uid(),kind:'chat',grow:1}];
   } else if(onb.intent === 'criar' || onb.intent === 'corrigir'){
     S.panes = [{id:uid(),kind:'chat',grow:1.25},{id:uid(),kind:'preview',grow:1}];
     if(onb.code) c.code = onb.code;
@@ -1042,7 +1039,7 @@ function openingMessage(o){
   }
   if(o.intent === 'aprender'){
     const niv = o.nivel ? NIVEIS.find(n=>n.id===o.nivel).nm.toLowerCase() : null;
-    return {bot:`Montei sua trilha de ${L||'programação'}${niv?`, partindo de "${niv}"`:''}. Ela está na aba <b>Trilha</b>, aqui do lado.\n\nComece pela primeira tarefa. Você escreve o código, eu corrijo e explico onde apertou. Quando travar em alguma palavra que não conhece, procura ela na consulta rápida da mesma aba, ou me pergunta direto.\n\nPode começar quando quiser.`};
+    return {bot:`Bora aprender ${L||'programação'}${niv?`, partindo de "${niv}"`:''}.\n\nFunciona assim: você me pede uma explicação ou um exercício, escreve o código, e eu corrijo e explico onde apertou. Pode perguntar qualquer coisa no meio do caminho, por menor que pareça.\n\nMe diz por onde você quer começar — ou peça um primeiro exercício que eu monto agora.`};
   }
   if(o.intent === 'criar'){
     if(o.proj) return {user:`Quero criar: ${o.proj}` + (o.feats.length?`\n\nPreciso que tenha: ${o.feats.map(f=>FEATS.find(x=>x.id===f).nm).join(', ')}.`:'') + (o.publico?`\n\nQuem vai usar: ${o.publico}.`:'') + (o.stack?`\n\nSobre tecnologia: ${o.stack}.`:'')};
@@ -1092,7 +1089,7 @@ function newConv(title, intent){
   S.convs.unshift(c); S.current = c.id; save(); return c;
 }
 const cur = () => S.convs.find(c=>c.id===S.current);
-const CTX_LABEL = {duvida:'dúvida', aprender:'trilha', criar:'projeto', corrigir:'correção', chat:'chat'};
+const CTX_LABEL = {duvida:'dúvida', aprender:'aprendizado', criar:'projeto', corrigir:'correção', chat:'chat'};
 
 function renderRail(){
   const q = ($('#searchConv').value||'').toLowerCase().trim();
@@ -1194,7 +1191,7 @@ const PANE_META = {
   chat:    {t:'Conversa principal', k:'chat'},
   chat2:   {t:'Dúvida rápida',      k:'aux'},
   preview: {t:'DualView 1.3',       k:'projeto'},
-  learn:   {t:'Trilha',             k:'estudo'}
+  learn:   {t:'Aprender',           k:'estudo'}
 };
 function renderGrid(){
   const g = $('#grid');
@@ -1356,7 +1353,7 @@ function coreTitle(c){
 }
 function coreSub(c){
   return {duvida:'Escreva do seu jeito. Se for um erro, cole a mensagem inteira.',
-          aprender:'Abra a trilha ao lado ou me peça a próxima tarefa.',
+          aprender:'Me peça uma explicação ou um exercício para começar.',
           criar:'Descreva a ideia e eu monto o primeiro pedaço.',
           corrigir:'Cole o código e a mensagem de erro que apareceu.'}[c.intent]
         || 'Escreva abaixo e eu começo a trabalhar.';
@@ -1745,7 +1742,7 @@ function openProfile(){
       modal('Sair da conta?','Suas conversas continuam salvas. Você vai precisar entrar de novo para acessá-las.',
         [{t:'Cancelar',k:'g'},{t:'Sair',k:'d',fn:()=>{ if(window.orbitLogout) window.orbitLogout(); }}]); }
     if(b.dataset.a === 'reset'){ o.remove();
-      modal('Apagar tudo?','Some com as conversas, a trilha e as preferências. Você volta para a tela inicial.',
+      modal('Apagar tudo?','Some com as conversas e as preferências. Você volta para a tela inicial.',
         [{t:'Cancelar',k:'g'},{t:'Apagar',k:'d',fn:()=>{ store.set('orbit.state', null); location.reload(); }}]); }
   });
 }
@@ -2146,13 +2143,6 @@ textarea.inp2{resize:vertical;min-height:110px;line-height:1.55}
   .sheet .card{width:100%;border-radius:20px 20px 0 0}
 }
 
-
-/* tabelas fora das mensagens (configuracoes, ajuda) */
-.bigbody .tablewrap{overflow-x:auto;margin:13px 0;border:1px solid var(--line);border-radius:11px}
-.bigbody table{border-collapse:collapse;width:100%;font-size:.84rem}
-.bigbody th,.bigbody td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line)}
-.bigbody th{background:rgba(255,255,255,.04);font-weight:600;color:#fff;white-space:nowrap}
-.bigbody tr:last-child td{border-bottom:0}
 /* densidade compacta */
 body.compacto .mrow{margin-bottom:15px}
 body.compacto .bub{padding:11px 14px;font-size:.89rem;line-height:1.62}
@@ -2161,6 +2151,253 @@ body.compacto .comp-in textarea{min-height:38px;padding:10px 14px 2px}
 body.compacto .composer{padding:4px 18px 10px}
 body.compacto .comp-note{display:none}
 
+/* tabelas fora das mensagens (configuracoes, ajuda) */
+.bigbody .tablewrap{overflow-x:auto;margin:13px 0;border:1px solid var(--line);border-radius:11px}
+.bigbody table{border-collapse:collapse;width:100%;font-size:.84rem}
+.bigbody th,.bigbody td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line)}
+.bigbody th{background:rgba(255,255,255,.04);font-weight:600;color:#fff;white-space:nowrap}
+.bigbody tr:last-child td{border-bottom:0}
+
+/* ============================================================
+   camada 3 — painel lateral, edições, menu de perfil
+   ============================================================ */
+
+/* ---------- painel lateral fecha sem deixar buraco ---------- */
+@media(min-width:901px){
+  #app{transition:grid-template-columns .3s cubic-bezier(.4,0,.2,1)}
+  #app.railoff{grid-template-columns:0 1fr}
+  #app.railoff .rail{margin-left:0;border-right-color:transparent}
+  .rail{min-width:0;overflow:hidden}
+  .rail-hd,.rail-act,.rail-list,.rail-ft{min-width:var(--rail)}
+  #app:not(.railoff) #railOpen{display:none}
+}
+
+/* ---------- aviso de resposta continuando ---------- */
+.contando{display:inline-flex;align-items:center;gap:7px;margin-top:9px;font-size:.71rem;
+  color:var(--accent-soft);background:rgba(123,97,255,.1);border:1px solid rgba(123,97,255,.22);
+  border-radius:99px;padding:4px 11px}
+.contando i{width:6px;height:6px;border-radius:50%;background:currentColor;animation:ocp 1.3s ease-in-out infinite}
+
+/* ---------- cartão de alteração pontual ---------- */
+.editbox{margin:13px 0;border:1px solid rgba(123,97,255,.3);border-radius:12px;overflow:hidden;
+  background:rgba(123,97,255,.05)}
+.eb-hd{display:flex;align-items:center;gap:9px;padding:9px 13px;
+  background:rgba(123,97,255,.1);border-bottom:1px solid rgba(123,97,255,.22)}
+.eb-hd .ico{color:var(--accent-soft)}
+.eb-hd b{font-family:'JetBrains Mono';font-size:.74rem;font-weight:500;color:#EAEAF2}
+.eb-hd span{margin-left:auto;font-size:.7rem;color:var(--muted)}
+.eb-diff{font-family:'JetBrains Mono';font-size:.73rem;line-height:1.6;overflow-x:auto;
+  border-bottom:1px solid rgba(255,255,255,.05)}
+.eb-diff:last-child{border-bottom:0}
+.eb-diff .ln{display:flex;gap:9px;padding:1px 13px;white-space:pre}
+.eb-diff .ln i{font-style:normal;opacity:.6;flex:none;width:9px;text-align:center}
+.eb-diff .ln.del{background:rgba(227,107,122,.09);color:#E9A6AE}
+.eb-diff .ln.add{background:rgba(125,216,143,.09);color:#9FDDAE}
+.eb-diff .ln span{flex:1;min-width:0}
+
+/* ---------- menu de perfil ---------- */
+.sheet .card{width:min(322px,94vw);padding:0;overflow:hidden}
+.sh-mail{padding:13px 16px 11px;font-size:.78rem;color:var(--muted);word-break:break-all;
+  border-bottom:1px solid var(--line)}
+.sh-me{display:flex;align-items:center;gap:11px;padding:13px 14px 12px}
+.sh-av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex:none;
+  font-family:'Space Grotesk';font-weight:600;font-size:.92rem;color:#fff;
+  background:linear-gradient(140deg,var(--accent),#4A36AF);
+  box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.sh-txt{min-width:0;flex:1}
+.sh-txt b{display:block;font-family:'Space Grotesk';font-size:.92rem;color:#fff;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sh-txt span{display:block;font-size:.74rem;color:var(--muted)}
+.sh-up{flex:none;font-size:.73rem;font-weight:600;color:#fff;background:var(--accent);
+  border-radius:8px;padding:5px 11px;transition:.18s}
+.sh-up:hover{background:var(--accent-soft)}
+.sh-badge{flex:none;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:#8FDDA0;
+  background:rgba(125,216,143,.12);border:1px solid rgba(125,216,143,.28);border-radius:99px;padding:3px 9px}
+.sh-oc{padding:0 16px 13px}
+.sh-ocl{display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
+.sh-ocl b{font-family:'Space Grotesk';font-size:.92rem;color:#fff}
+.sh-ocl span{font-size:.72rem;color:var(--muted)}
+.sh-ocl i{margin-left:auto;font-style:normal;font-size:.68rem;color:var(--dim)}
+.sh-bar{height:4px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.sh-bar i{display:block;height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-soft));transition:width .5s}
+.sh-bar.low i{background:linear-gradient(90deg,#E36B7A,#F0A05A)}
+.sh-sep{height:1px;background:var(--line);margin:5px 0}
+.sheet button.it,.sheet a.it{gap:12px;padding:10px 16px;border-radius:0;font-size:.865rem}
+.sheet button.it:hover,.sheet a.it:hover{background:rgba(255,255,255,.055)}
+.sheet a.it.adm{color:#C9BBFF}
+.sheet a.it.adm .ico{color:var(--accent-soft)}
+.sheet a.it.adm:hover{background:rgba(123,97,255,.14)}
+.sheet a.it.adm .seta{margin-left:auto;opacity:.5}
+.sheet .card > *:last-child{margin-bottom:6px}
+
+/* ============================================================
+   OrbitDual — camada 4
+   Chat reformulado (Orbit sem balão), menu de perfil ancorado,
+   idioma, integrações, editor de arquivos do DualView.
+   ============================================================ */
+
+/* ---------- medida de leitura e respiro ---------- */
+:root{ --measure:820px; }
+
+.chatscroll .msgs,.msgs{padding:38px 0 14px}
+.mrow{max-width:var(--measure);margin:0 auto 30px;padding:0 30px;display:block;gap:0;
+  animation:msgIn .4s cubic-bezier(.2,.8,.3,1)}
+.mrow .mav{display:none}
+
+/* Orbit: sem balão, texto direto na página */
+.mrow.ai .abody{min-width:0}
+.mrow.ai .bub{background:none!important;border:0!important;border-radius:0!important;
+  padding:0!important;box-shadow:none!important;max-width:none;
+  color:#DCDCE4;font-size:.985rem;line-height:1.8;overflow-wrap:anywhere}
+.mrow.ai .bub p+p{margin-top:14px}
+.mrow.ai .bub ul,.mrow.ai .bub ol{margin:12px 0 12px 22px}
+.mrow.ai .bub h1,.mrow.ai .bub h2,.mrow.ai .bub h3{margin-top:22px}
+.mrow.ai + .mrow.me{margin-top:36px}
+
+/* nome de quem fala */
+.mwho{display:flex;align-items:center;gap:8px;margin-bottom:9px;
+  font-family:'Space Grotesk';font-size:.74rem;font-weight:600;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--dim)}
+.mwho i{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;
+  box-shadow:0 0 8px 1px rgba(123,97,255,.6)}
+
+/* usuário: alinhado à direita, quebrando certo, sem corte */
+.mrow.me{display:flex;justify-content:flex-end}
+.mrow.me .ubox{max-width:78%;min-width:0;display:flex;flex-direction:column;align-items:flex-end}
+.mrow.me .bub{background:rgba(255,255,255,.055)!important;color:#EDEDF2!important;
+  border:1px solid var(--line)!important;border-radius:18px;border-bottom-right-radius:6px;
+  padding:13px 17px;max-width:100%;width:auto;text-align:left;
+  white-space:normal;overflow-wrap:anywhere;word-break:break-word;font-size:.94rem;line-height:1.7}
+.mrow.me .bub pre{white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* ações da mensagem */
+.mmeta{margin-top:14px;gap:4px}
+.mrow.ai .mmeta{opacity:.55}
+.mrow.ai:hover .mmeta{opacity:1}
+
+/* ---------- faixa de status "o que o Orbit está fazendo" ---------- */
+.status{display:flex;align-items:center;gap:10px;margin-bottom:12px;
+  font-size:.82rem;color:var(--muted);min-height:20px}
+.status .sp3{display:inline-flex;gap:4px;align-items:center}
+.status .sp3 i{width:5px;height:5px;border-radius:50%;background:var(--accent-soft);display:block;
+  animation:td 1.3s ease-in-out infinite}
+.status .sp3 i:nth-child(2){animation-delay:.18s}
+.status .sp3 i:nth-child(3){animation-delay:.36s}
+.status .txt{position:relative;overflow:hidden;background:linear-gradient(90deg,
+  var(--muted) 0%,#fff 22%,var(--muted) 44%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shimmer 2.4s linear infinite}
+@keyframes shimmer{from{background-position:120% 0}to{background-position:-120% 0}}
+.status.done .txt{animation:none;-webkit-text-fill-color:var(--dim);color:var(--dim)}
+.status.done .sp3{display:none}
+.status .step{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono';
+  font-size:.74rem;color:var(--accent-soft);background:rgba(123,97,255,.12);
+  border:1px solid rgba(123,97,255,.22);border-radius:7px;padding:2px 8px}
+
+/* pensamento recolhível */
+.think{margin:0 0 14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.022);overflow:hidden}
+.think > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:9px;
+  padding:10px 14px;font-size:.8rem;color:var(--muted)}
+.think > summary::-webkit-details-marker{display:none}
+.think > summary:hover{color:var(--white);background:rgba(255,255,255,.03)}
+.think > summary .ch{transition:transform .2s;color:var(--dim)}
+.think[open] > summary .ch{transform:rotate(90deg)}
+.think .tbody{padding:2px 16px 14px;font-size:.86rem;line-height:1.72;color:var(--muted);
+  border-top:1px solid var(--line);margin-top:0;padding-top:12px}
+
+/* ---------- composer mais espaçoso ---------- */
+.composer{padding:10px 30px 20px}
+.comp-in{max-width:var(--measure);border-radius:20px}
+.comp-in textarea{padding:15px 18px 5px;font-size:.95rem;min-height:50px;max-height:260px}
+.comp-note{max-width:var(--measure)}
+.chatscroll .core{padding:22px 22px 26px}
+
+@media(max-width:900px){
+  .mrow{padding:0 16px;margin-bottom:24px}
+  .mrow.me .ubox{max-width:88%}
+  .composer{padding:8px 14px 14px}
+}
+
+/* ---------- menu de perfil ancorado (popover) ---------- */
+.pop{position:fixed;inset:0;z-index:120}
+.pop .bg{position:absolute;inset:0;background:transparent}
+.pop .card{position:absolute;width:296px;max-height:min(78vh,620px);overflow:auto;
+  background:rgba(16,16,22,.97);border:1px solid var(--line-2);border-radius:16px;
+  box-shadow:0 26px 60px -18px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.03);
+  padding:7px;backdrop-filter:blur(18px);
+  animation:popIn .17s cubic-bezier(.2,.9,.3,1);transform-origin:var(--ox,left) var(--oy,bottom)}
+@keyframes popIn{from{opacity:0;transform:scale(.95) translateY(6px)}to{opacity:1;transform:none}}
+.pop .phd{padding:10px 11px 9px;display:flex;align-items:center;gap:10px}
+.pop .pav{width:34px;height:34px;border-radius:11px;flex:none;display:grid;place-items:center;
+  font-family:'Space Grotesk';font-weight:700;font-size:.92rem;color:#fff;
+  background:linear-gradient(150deg,var(--accent),#4A3AA8)}
+.pop .ptx{min-width:0;flex:1}
+.pop .ptx b{display:block;font-size:.88rem;color:var(--white);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pop .ptx span{display:block;font-size:.73rem;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pop .pup{font-size:.7rem;color:var(--accent-soft);border:1px solid rgba(123,97,255,.4);
+  border-radius:999px;padding:3px 9px;flex:none}
+.pop .pup:hover{background:rgba(123,97,255,.16)}
+.pop .poc{margin:2px 4px 8px;padding:9px 11px;border-radius:11px;background:rgba(255,255,255,.035);
+  border:1px solid var(--line)}
+.pop .pocl{display:flex;align-items:baseline;gap:6px;font-size:.74rem;color:var(--dim);margin-bottom:7px}
+.pop .pocl b{font-family:'Space Grotesk';font-size:.95rem;color:var(--white)}
+.pop .pocl i{margin-left:auto;font-style:normal;font-size:.68rem}
+.pop .pbar{height:4px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.pop .pbar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent-soft));transition:width .4s}
+.pop .pbar.low i{background:linear-gradient(90deg,#E36B7A,#F0925A)}
+.pop .psep{height:1px;background:var(--line);margin:6px 4px}
+.pop .it{width:100%;display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:10px;
+  font-size:.86rem;color:#CFCFDA;text-align:left;transition:.15s}
+.pop .it:hover{background:rgba(255,255,255,.07);color:#fff}
+.pop .it .ico{color:var(--dim);flex:none}
+.pop .it:hover .ico{color:var(--accent-soft)}
+.pop .it .seta{margin-left:auto;color:var(--dim)}
+.pop .it .val{margin-left:auto;font-size:.74rem;color:var(--dim)}
+.pop .it.danger:hover{background:rgba(227,107,122,.14);color:#FF9AA7}
+.pop .it.adm{color:var(--accent-soft)}
+.pop .pback{display:flex;align-items:center;gap:9px;padding:9px 11px;font-size:.8rem;color:var(--dim);width:100%}
+.pop .pback:hover{color:#fff}
+.pop .ptitle{padding:4px 11px 9px;font-family:'Space Grotesk';font-size:.74rem;font-weight:700;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--dim)}
+.pop .it.sel{background:rgba(123,97,255,.14);color:#fff}
+.pop .it.sel .ico{color:var(--accent-soft)}
+
+/* ---------- integrações ---------- */
+.intg{display:grid;gap:10px}
+.intg .row{display:flex;align-items:center;gap:13px;padding:13px 15px;border:1px solid var(--line);
+  border-radius:13px;background:rgba(255,255,255,.025)}
+.intg .mk{width:38px;height:38px;border-radius:11px;flex:none;display:grid;place-items:center;
+  background:rgba(255,255,255,.06);border:1px solid var(--line);font-family:'Space Grotesk';
+  font-weight:700;font-size:.9rem;color:var(--white)}
+.intg .nm{flex:1;min-width:0}
+.intg .nm b{display:block;font-size:.9rem;color:var(--white)}
+.intg .nm span{display:block;font-size:.76rem;color:var(--dim);margin-top:2px}
+.intg .go{flex:none;font-size:.76rem;padding:7px 13px;border-radius:9px;border:1px solid var(--line-2);color:#CFCFDA}
+.intg .go:hover{background:rgba(123,97,255,.16);border-color:rgba(123,97,255,.45);color:#fff}
+.intg .go.on{background:rgba(125,216,143,.14);border-color:rgba(125,216,143,.35);color:#9FE4AE}
+.intg .soonp{flex:none;font-size:.7rem;color:var(--dim);border:1px dashed var(--line-2);border-radius:999px;padding:4px 10px}
+
+/* ---------- editor de arquivos do DualView (Pro+) ---------- */
+.dv-edit{width:100%;min-height:200px;background:#08080C;border:0;outline:none;resize:none;
+  font-family:'JetBrains Mono';font-size:.8rem;line-height:1.8;color:#D8D8E2;padding:14px 16px;
+  white-space:pre;overflow:auto;tab-size:2}
+.dv-editbar{display:flex;align-items:center;gap:8px;padding:8px 12px;border-top:1px solid var(--line);
+  background:rgba(255,255,255,.02)}
+.dv-editbar .msg{font-size:.74rem;color:var(--dim);margin-right:auto}
+.dv-editbar button{font-size:.76rem;padding:6px 12px;border-radius:8px;border:1px solid var(--line-2);color:#CFCFDA}
+.dv-editbar button:hover{background:rgba(255,255,255,.07);color:#fff}
+.dv-editbar button.pri{background:var(--accent);border-color:transparent;color:#fff}
+.dv-editbar button.pri:hover{background:var(--accent-soft)}
+.dv-lock{display:flex;align-items:center;gap:8px;font-size:.75rem;color:var(--dim);
+  padding:8px 12px;border-top:1px solid var(--line)}
+.dv-lock a{color:var(--accent-soft);text-decoration:underline;text-underline-offset:2px}
+
+/* avisos não podem bloquear o clique na caixa de mensagem */
+.toast{pointer-events:none}
+
+/* a tela de boas-vindas some assim que a conversa começa */
+.chatscroll:has(.msgs .mrow) .core{display:none!important}
 </style>
 <script>
 /* ============================================================
@@ -2251,6 +2488,32 @@ function hl(code, lang){
     (_,k)=>bag[+k.replace(/[QWERTYUIOP]/g, c => 'QWERTYUIOP'.indexOf(c))]);
 }
 
+
+/* cartão visual para os blocos de edição pontual */
+function editCard(arquivo, corpo, aberto){
+  const pr = /@@\s*PROCURAR\s*\n([\s\S]*?)\n@@\s*SUBSTITUIR\s*\n([\s\S]*?)(?=\n@@\s*FIM|\n@@\s*PROCURAR|$)/g;
+  const itens = [];
+  let m;
+  while((m = pr.exec(corpo||'')) !== null){
+    itens.push({de:m[1], para:m[2].replace(/\n@@\s*FIM\s*$/,'')});
+  }
+  const nome = esc(arquivo || 'projeto');
+  if(!itens.length){
+    return `<div class="editbox"><div class="eb-hd"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>
+      <b>${nome}</b><span>${aberto?'escrevendo a alteração…':'preparando alteração'}</span></div></div>`;
+  }
+  const linhas = (txt, tipo)=> String(txt).replace(/\n+$/,'').split('\n')
+    .map(l=>`<div class="ln ${tipo}"><i>${tipo==='del'?'−':'+'}</i><span>${esc(l) || '&nbsp;'}</span></div>`).join('');
+  return `<div class="editbox">
+    <div class="eb-hd">
+      <svg class="ico sm" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>
+      <b>${nome}</b>
+      <span>${itens.length === 1 ? '1 alteração' : itens.length+' alterações'}${aberto?' · escrevendo…':''}</span>
+    </div>
+    ${itens.map(it=>`<div class="eb-diff">${linhas(it.de,'del')}${linhas(it.para,'add')}</div>`).join('')}
+  </div>`;
+}
+
 function inlineMd(s){
   s = s.replace(/`([^`]+)`/g, (m,c)=>'<code>'+c+'</code>');
   s = s.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
@@ -2264,12 +2527,12 @@ function fmt(text, opts){
   const stream = opts && opts.stream;
   const raw = String(text ?? '');
   const parts = [];
-  const re = /```([a-zA-Z0-9+#._-]*)[^\n]*\n([\s\S]*?)(?:```|$)/g;
+  const re = /```([a-zA-Z0-9+#._-]*)([^\n]*)\n([\s\S]*?)(?:```|$)/g;
   let last = 0, m;
   while((m = re.exec(raw)) !== null){
     parts.push({txt: raw.slice(last, m.index)});
     const closed = raw.slice(m.index).includes('\n```') || /```\s*$/.test(raw.slice(m.index));
-    parts.push({code: m[2], lang: m[1] || '', open: !closed && stream});
+    parts.push({code: m[3], lang: m[1] || '', info: (m[2]||'').trim(), open: !closed && stream});
     last = re.lastIndex;
   }
   parts.push({txt: raw.slice(last)});
@@ -2278,6 +2541,7 @@ function fmt(text, opts){
   let fileHint = '';
   parts.forEach(p=>{
     if(p.code !== undefined){
+      if((p.lang||'').toLowerCase() === 'edit'){ html += editCard(p.info, p.code, p.open); return; }
       const lname = LANG_NM[(p.lang||'').toLowerCase()] || (p.lang ? p.lang.toUpperCase() : 'código');
       const nm = fileHint || lname;
       fileHint = '';
@@ -2554,7 +2818,7 @@ function wireChat(root, pane, c){
       t:m.nm + (podeModelo(m.id)?'':'  ·  Pro'),
       sub:m.sub, i:m.id, on:m.id===S.model})),
       k=>{
-        if(!podeModelo(k)){ openPlanos('O Orbit Fusion está nos planos Pro e Insider.'); return; }
+        if(!podeModelo(k)){ openPlanos('O OB Fusion 3 está nos planos Pro e Insider.'); return; }
         S.model=k; save(); renderGrid();
         toast('Modelo: '+(MODELOS.find(m=>m.id===k)||MODELOS[0]).nm, CHECK);
       }, 'Modelo do Orbit');
@@ -2635,11 +2899,87 @@ function sendMessage(text, auto, pane, atts){
 /* ---------------- resposta em streaming ---------------- */
 const ENDPOINT = 'https://vbjtqwflriyueqpcltqc.supabase.co/functions/v1/orbit-chat';
 
-async function respond(c, prompt, pane, atts){
+/* resposta local para o modo demonstração (painel de visualização) */
+function respostaDemo(prompt){
+  const q = String(prompt||'').toLowerCase();
+  if(/jogo|game|cobrinha|snake|3d/.test(q)){
+    return ["Aqui vai um exemplo rodando no DualView ao lado.",
+"",
+"**index.html**",
+"```html",
+"<!doctype html>",
+'<html lang="pt-BR"><head><meta charset="utf-8"><title>Alvo</title>',
+"<style>",
+"  body{margin:0;height:100vh;display:grid;place-items:center;background:#0E0E14;",
+"       font-family:system-ui;color:#EEE;overflow:hidden}",
+"  #a{width:64px;height:64px;border-radius:50%;cursor:pointer;position:absolute;",
+"     background:radial-gradient(circle at 35% 30%,#A48CFF,#4B37B0);",
+"     box-shadow:0 0 34px -4px #7B61FF;transition:transform .09s}",
+"  #a:active{transform:scale(.88)}",
+"  #p{position:fixed;top:18px;left:20px;font-size:20px;font-weight:600}",
+"</style></head><body>",
+'<div id="p">Pontos: <span id="n">0</span></div>',
+'<div id="a"></div>',
+"<script>",
+"  const a = document.getElementById('a'), n = document.getElementById('n');",
+"  let pts = 0;",
+"  function mover(){",
+"    a.style.left = (Math.random() * (innerWidth  - 90) + 12) + 'px';",
+"    a.style.top  = (Math.random() * (innerHeight - 90) + 12) + 'px';",
+"  }",
+"  a.addEventListener('click', () => { pts++; n.textContent = pts; mover(); });",
+"  mover();",
+"<\/script></body></html>",
+"```",
+"",
+"Clique no círculo para pontuar. No site publicado o Orbit escreve projetos bem maiores que este."].join("\n");
+  }
+  if(/tabela|compar/.test(q)){
+    return ["Exemplo de tabela:","",
+"| Modelo | Velocidade | Custo por 1k de saída | Melhor para |",
+"|---|---|---|---|",
+"| OB Blend-4.5 | rápida | 5 OC | dúvidas, sites, scripts |",
+"| OB Fusion 3 | média | 12,5 OC | projetos grandes, código difícil |",
+"",
+"Esta é uma resposta de exemplo — no site publicado ela vem da IA de verdade."].join("\n");
+  }
+  return ["Esta é uma **demonstração da interface**: o chat, o DualView 1.3, os anexos e os painéis "
+        + "funcionam, mas não há IA conectada aqui.",
+"",
+"Para conversar de verdade, abra [orbitdual.vercel.app](https://orbitdual.vercel.app/app.html) e entre na sua conta.",
+"",
+"Enquanto isso, experimente pedir **um jogo** ou **uma tabela** que eu mostro como o resultado aparece."].join("\n");
+}
+
+async function respondDemo(c, prompt, pane){
   const bot = {id:uid(), role:'bot', text:'', at:Date.now(), streaming:true};
   c.msgs.push(bot);
-  const ctrl = new AbortController();
-  RUNS[c.id] = {ctrl, msgId:bot.id, aborted:false};
+  RUNS[c.id] = {ctrl:{abort(){}}, msgId:bot.id, aborted:false};
+  markBusy(c, true);
+  renderStreamRow(c, bot, pane);
+  const alvo = respostaDemo(prompt);
+  await new Promise(res=>{
+    let i = 0;
+    const passo = ()=>{
+      if(RUNS[c.id] && RUNS[c.id].aborted) return res();
+      i = Math.min(alvo.length, i + 14);
+      bot.text = alvo.slice(0, i);
+      paintStream(c, bot);
+      if(i < alvo.length) setTimeout(passo, 16); else res();
+    };
+    setTimeout(passo, 420);
+  });
+  bot.streaming = false;
+  finish(c, bot, pane);
+}
+
+async function respond(c, prompt, pane, atts){
+  if(window.ORBIT_DEMO) return respondDemo(c, prompt, pane);
+
+  const bot = {id:uid(), role:'bot', text:'', at:Date.now(), streaming:true};
+  c.msgs.push(bot);
+  const run = {ctrl:null, aborted:false, msgId:bot.id};
+  RUNS[c.id] = run;
   markBusy(c, true);
   renderStreamRow(c, bot, pane);
 
@@ -2650,68 +2990,232 @@ async function respond(c, prompt, pane, atts){
     paintStream(c, bot);
   };
 
-  try{
-    const token = window.orbitToken ? await window.orbitToken() : null;
-    const r = await fetch(ENDPOINT, {
-      method:'POST',
-      signal: ctrl.signal,
-      headers:{ 'Content-Type':'application/json',
-                ...(token ? {Authorization:'Bearer '+token} : {}) },
-      body: JSON.stringify({
-        model: S.model, mode: c.mode||S.mode, lang: c.lang, intent: c.intent,
-        messages: c.msgs.filter(m=>!m.streaming).slice(-24).map(m=>({role:m.role, text:m.text})),
-        attachments: atts || []
-      })
-    });
+  const MAX_RODADAS = 16;     // só para quando terminar, cancelar ou faltar OC
+  const MAX_QUEDAS  = 4;
+  let rodada = 0, quedas = 0, ocTotal = 0, parar = false, motivo = '';
 
-    const ct = r.headers.get('content-type') || '';
-    if(!r.ok || ct.includes('application/json')){
-      let d = {}; try{ d = await r.json(); }catch(e){}
-      bot.text = d.message || 'Não consegui falar com o servidor agora. Tente de novo em instantes.';
-      bot.streaming = false;
-      if(d.upgrade) bot.text += '\n\n[Ver os planos do Orbit](planos.html)';
-      bump(true); finish(c, bot, pane); return;
-    }
+  while(!parar && rodada < MAX_RODADAS){
+    rodada++;
+    const continuando = rodada > 1;
+    const ctrl = new AbortController();
+    run.ctrl = ctrl;
 
-    const reader = r.body.getReader();
-    const dec = new TextDecoder();
-    let buf = '';
-    while(true){
-      const {done, value} = await reader.read();
-      if(done) break;
-      buf += dec.decode(value, {stream:true});
-      let nl;
-      while((nl = buf.indexOf('\n')) >= 0){
-        let line = buf.slice(0,nl).trim(); buf = buf.slice(nl+1);
-        if(!line || line[0] === ':') continue;
-        if(line.startsWith('data:')) line = line.slice(5).trim();
-        if(!line) continue;
-        let ev; try{ ev = JSON.parse(line); }catch(e){ continue; }
-        if(ev.type === 'delta'){ bot.text += ev.text; bump(); }
-        else if(ev.type === 'error'){ bot.text += '\n\n_'+ev.message+'_'; bump(); }
-        else if(ev.type === 'done'){
-          bot.oc = ev.oc;
-          if(typeof ev.balance === 'number'){ S.user.saldo = ev.balance; paintOC(); }
+    let recebeuDone = false, incompleto = false, houveTexto = false, veioVazio = false;
+    let pend = '', emendado = !continuando;   // na 1ª rodada não precisa emendar
+
+    const receber = (txt)=>{
+      houveTexto = true;
+      if(emendado){ bot.text += txt; bump(); return; }
+      pend += txt;
+      if(pend.length >= 300){
+        bot.text += emendar(bot.text, pend);
+        pend = ''; emendado = true; bump(true);
+      }
+    };
+    const fecharPendente = ()=>{
+      if(!emendado && pend){ bot.text += emendar(bot.text, pend); pend = ''; emendado = true; bump(true); }
+    };
+
+    try{
+      const token = window.orbitToken ? await window.orbitToken() : null;
+      const r = await fetch(ENDPOINT, {
+        method:'POST',
+        signal: ctrl.signal,
+        headers:{ 'Content-Type':'application/json',
+                  ...(token ? {Authorization:'Bearer '+token} : {}) },
+        body: JSON.stringify({
+          model: S.model, mode: c.mode||S.mode, lang: c.lang, intent: c.intent,
+          messages: c.msgs.filter(m=>!m.streaming).slice(-24).map(m=>({role:m.role, text:m.text})),
+          attachments: continuando ? [] : (atts || []),
+          projeto: projetoAtual(c),
+          continuar: continuando,
+          parcial: continuando ? bot.text : ''
+        })
+      });
+
+      const ct = r.headers.get('content-type') || '';
+      if(!r.ok || ct.includes('application/json')){
+        let d = {}; try{ d = await r.json(); }catch(e){}
+        const msg = d.message || 'Não consegui falar com o servidor agora. Tente de novo em instantes.';
+        bot.text += (bot.text ? '\n\n' : '') + '_' + msg + '_';
+        if(d.upgrade) bot.text += '\n\n[Ver os planos do Orbit](planos.html)';
+        motivo = d.error || 'http';
+        bump(true); parar = true; break;
+      }
+
+      const reader = r.body.getReader();
+      const dec = new TextDecoder();
+      let buf = '';
+      while(true){
+        const {done, value} = await reader.read();
+        if(done) break;
+        buf += dec.decode(value, {stream:true});
+        let nl;
+        while((nl = buf.indexOf('\n')) >= 0){
+          let line = buf.slice(0,nl).trim(); buf = buf.slice(nl+1);
+          if(!line || line[0] === ':') continue;
+          if(line.startsWith('data:')) line = line.slice(5).trim();
+          if(!line) continue;
+          let ev; try{ ev = JSON.parse(line); }catch(e){ continue; }
+          if(ev.type === 'delta'){ receber(ev.text); }
+          else if(ev.type === 'error'){ /* registrado no done */ }
+          else if(ev.type === 'done'){
+            recebeuDone = true;
+            incompleto = !!ev.incompleto;
+            veioVazio = !!ev.vazio;
+            ocTotal += Number(ev.oc || 0);
+            if(typeof ev.balance === 'number'){ S.user.saldo = ev.balance; paintOC(); }
+          }
         }
       }
+      fecharPendente();
+    }catch(e){
+      fecharPendente();
+      if(run.aborted){
+        bot.text += bot.text ? '\n\n_(resposta interrompida por você)_' : '_Resposta cancelada._';
+        parar = true; break;
+      }
+      quedas++;
+      if(quedas > MAX_QUEDAS){ motivo = 'queda'; parar = true; break; }
+      bump(true);
+      marcarContinuando(bot, rodada, 'reconectando');
+      await new Promise(r2=>setTimeout(r2, 800 * quedas));
+      continue;
     }
-  }catch(e){
-    if(RUNS[c.id] && RUNS[c.id].aborted){
-      if(bot.text) bot.text += '\n\n_(resposta interrompida por você)_';
-      else bot.text = '_Resposta cancelada._';
-    } else {
-      bot.text = bot.text
-        ? bot.text + '\n\n_A conexão caiu no meio. O texto acima foi mantido — peça "continue" que eu sigo daqui._'
-        : 'Não consegui falar com o servidor agora. Verifique sua internet e tente de novo.';
+
+    if(run.aborted){ parar = true; break; }
+
+    // terminou de verdade
+    if(recebeuDone && !incompleto && !veioVazio){ parar = true; break; }
+
+    // não veio nada nesta rodada: tenta de novo em vez de entregar vazio
+    if(!houveTexto){
+      quedas++;
+      if(quedas > MAX_QUEDAS){ motivo = 'vazio'; parar = true; break; }
+      bump(true);
+      marcarContinuando(bot, rodada, 'tentando de novo');
+      await new Promise(r2=>setTimeout(r2, 800 * quedas));
+      continue;
     }
+
+    // veio texto mas o stream caiu antes do fim
+    if(!recebeuDone){
+      quedas++;
+      if(quedas > MAX_QUEDAS){ motivo = 'queda'; parar = true; break; }
+    }
+
+    bump(true);
+    marcarContinuando(bot, rodada, 'continuando a resposta');
   }
 
+  if(!parar && rodada >= MAX_RODADAS) motivo = motivo || 'longa';
+
+  if(!bot.text.trim()){
+    bot.text = motivo === 'vazio'
+      ? 'A IA não devolveu nada dessa vez, mesmo depois de algumas tentativas. Isso costuma ser um engasgo momentâneo — manda de novo, ou tenta com o **OB Blend-4.5**, que é mais rápido para pedidos grandes.'
+      : 'Não consegui completar a resposta agora. Tenta de novo em instantes.';
+  } else if(motivo === 'queda'){
+    bot.text += '\n\n_A conexão caiu algumas vezes e eu parei por aqui. Escreva **continue** que eu sigo exatamente de onde parou._';
+  } else if(motivo === 'longa'){
+    bot.text += '\n\n_Esta resposta ficou muito longa e eu pausei. Escreva **continue** para eu seguir._';
+  }
+
+  bot.oc = ocTotal || bot.oc;
   bot.streaming = false;
   finish(c, bot, pane);
 }
 
+/* emenda a continuação sem repetir o que já estava escrito */
+function emendar(base, novo){
+  if(!base || !novo) return novo || '';
+  const max = Math.min(500, base.length, novo.length);
+  for(let n = max; n >= 12; n--){
+    if(base.slice(-n) === novo.slice(0, n)) return novo.slice(n);
+  }
+  const corte = novo.replace(/^\s*(continuando|continua\u00e7\u00e3o)[^\n]*\n+/i, '');
+  return corte;
+}
+
+function marcarContinuando(bot, rodada, rotulo){
+  const row = document.querySelector(`[data-mid="${bot.id}"] .bub`);
+  if(!row) return;
+  let tag = row.parentElement.querySelector('.contando');
+  if(!tag){
+    tag = document.createElement('div');
+    tag.className = 'contando';
+    row.parentElement.appendChild(tag);
+  }
+  tag.innerHTML = `<i></i> ${esc(rotulo || 'continuando a resposta')} · parte ${rodada+1}`;
+}
+
+function projetoAtual(c){
+  const fs = (c.files || []).filter(f=>f && f.code);
+  if(!fs.length) return null;
+  let total = 0;
+  const out = [];
+  for(const f of fs.slice(0,6)){
+    if(total > 110000) break;
+    out.push({name:f.name, code:f.code});
+    total += f.code.length;
+  }
+  return {files: out};
+}
+
+/* ---------------- edições pontuais no projeto ---------------- */
+function extrairEdicoes(text){
+  const out = [];
+  const re = /```edit[ \t]*([^\n]*)\n([\s\S]*?)(?:```|$)/g;
+  let m;
+  while((m = re.exec(String(text||''))) !== null){
+    const arquivo = (m[1]||'').trim();
+    const corpo = m[2] || '';
+    const pr = /@@\s*PROCURAR\s*\n([\s\S]*?)\n@@\s*SUBSTITUIR\s*\n([\s\S]*?)(?=\n@@\s*FIM|\n@@\s*PROCURAR|$)/g;
+    let p;
+    while((p = pr.exec(corpo)) !== null){
+      out.push({arquivo, procurar:p[1], substituir:p[2].replace(/\n@@\s*FIM\s*$/,'')});
+    }
+  }
+  return out;
+}
+
+function aplicarEdicoes(c, eds){
+  const res = {ok:0, falhas:[]};
+  if(!eds.length) return res;
+  if(!c.files || !c.files.length){ res.falhas.push('não há arquivo aberto no DualView'); return res; }
+  const semRabo = s => String(s).split('\n').map(l=>l.replace(/[ \t]+$/,'')).join('\n').replace(/^\n+|\n+$/g,'');
+
+  eds.forEach(e=>{
+    const f = c.files.find(x=>x.name === e.arquivo)
+           || (c.files.length === 1 ? c.files[0] : null);
+    if(!f){ res.falhas.push(`${e.arquivo||'arquivo'}: não encontrei esse arquivo`); return; }
+
+    const alvo = semRabo(e.procurar);
+    const novo = semRabo(e.substituir);
+    if(!alvo){ res.falhas.push(`${f.name}: bloco de busca vazio`); return; }
+
+    let i = f.code.indexOf(alvo);
+    if(i >= 0){
+      if(f.code.indexOf(alvo, i + 1) >= 0){
+        res.falhas.push(`${f.name}: o trecho aparece mais de uma vez`); return;
+      }
+      f.code = f.code.slice(0,i) + novo + f.code.slice(i + alvo.length);
+      res.ok++; return;
+    }
+    const cn = semRabo(f.code);
+    const j = cn.indexOf(alvo);
+    if(j < 0){ res.falhas.push(`${f.name}: não achei o trecho no arquivo`); return; }
+    f.code = cn.slice(0,j) + novo + cn.slice(j + alvo.length);
+    res.ok++;
+  });
+
+  if(res.ok){ c.code = c.files.map(f=>f.code).join('\n\n'); save(); }
+  return res;
+}
+
 function finish(c, bot, pane){
   delete RUNS[c.id];
+  const tg = document.querySelector(`[data-mid="${bot.id}"] .contando`);
+  if(tg) tg.remove();
   bot.streaming = false;
   save();
   markBusy(c, false);
@@ -2728,12 +3232,27 @@ function finish(c, bot, pane){
       </div>`);
     }
   }
-  const files = extractFiles(bot.text);
-  if(files.length){
-    setFiles(c, files);
-    if(PREFS.autoPreview && tool('dualview') && !S.panes.some(x=>x.kind==='preview') && ehVisual(files)){
-      abrirDualView('live');
-    } else if(S.panes.some(x=>x.kind==='preview')) renderGrid();
+  const eds = extrairEdicoes(bot.text);
+  if(eds.length){
+    const r = aplicarEdicoes(c, eds);
+    if(r.ok){
+      toast(r.ok === 1 ? 'Uma alteração aplicada no projeto' : `${r.ok} alterações aplicadas no projeto`, CHECK);
+      if(!S.panes.some(x=>x.kind==='preview')) abrirDualView('live'); else renderGrid();
+    }
+    if(r.falhas.length){
+      bot.text += '\n\n_Não consegui aplicar: ' + r.falhas.join('; ') + '._';
+      save();
+      const h = document.querySelector(`[data-mid="${bot.id}"] [data-body]`);
+      if(h) h.innerHTML = fmt(bot.text);
+    }
+  } else {
+    const files = extractFiles(bot.text);
+    if(files.length){
+      setFiles(c, files);
+      if(PREFS.autoPreview && tool('dualview') && !S.panes.some(x=>x.kind==='preview') && ehVisual(files)){
+        abrirDualView('live');
+      } else if(S.panes.some(x=>x.kind==='preview')) renderGrid();
+    }
   }
   renderRail();
   if(window.orbitRefreshAccount) window.orbitRefreshAccount();
@@ -2772,6 +3291,7 @@ function extractFiles(text){
     const code = (m[3]||'').replace(/\s+$/,'');
     if(code.split('\n').length < 2 && code.length < 40) continue;
     const lang = (m[2]||'').toLowerCase();
+    if(lang === 'edit') continue;
     let name = (m[1]||'').trim();
     if(!/^[\w./-]+\.[a-zA-Z0-9]{1,5}$/.test(name)) name = '';
     if(!name) name = nomeArquivo(lang);
@@ -3017,25 +3537,66 @@ function openBig(titulo, secoes, render, wire, inicial){
 function openProfile(){
   closeMenus();
   const u = S.user;
+  const admin = !!(u.admin || (window.ORBIT_ACCOUNT && window.ORBIT_ACCOUNT.is_admin));
   const saldo = Math.max(0, Math.round(u.saldo ?? 0));
+  const cota  = Math.max(1, u.cota ?? 500);
+  const pct   = Math.min(100, saldo / cota * 100);
+  const dia   = u.cicloFim ? new Date(u.cicloFim) : null;
+  const ini   = (u.name || u.email || 'o')[0].toUpperCase();
+
   const o = document.createElement('div'); o.className = 'sheet';
   o.innerHTML = `<div class="bg"></div><div class="card">
-    <div class="who">
-      <div class="nm">${esc(u.name||'você')}</div>
-      <div class="em">${esc(u.email || 'conta OrbitDual')}</div>
-      <div class="plnrow">
-        <svg class="ico sm" viewBox="0 0 24 24" style="color:var(--accent-soft)"><path d="M12 3l2.6 5.6 6.4.8-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.8z"/></svg>
-        <b>${esc(u.plan||'Orbit Basic')}</b><span>${saldo.toLocaleString('pt-BR')} OC</span>
+    <div class="sh-mail">${esc(u.email || 'conta OrbitDual')}</div>
+
+    <div class="sh-me">
+      <span class="sh-av">${esc(ini)}</span>
+      <div class="sh-txt">
+        <b>${esc(u.name || 'você')}</b>
+        <span>${esc(u.plan || 'Orbit Basic')}</span>
       </div>
+      ${u.planId === 'basic'
+        ? '<a class="sh-up" href="planos.html">Melhorar</a>'
+        : '<span class="sh-badge">ativo</span>'}
     </div>
-    <button class="it" data-a="config"><svg class="ico sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-2.7 1.1V21a2 2 0 11-4 0v-.1A1.6 1.6 0 007 19.4a1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1A1.6 1.6 0 003 15a2 2 0 010-4 1.6 1.6 0 001.1-2.7l-.1-.1a2 2 0 112.8-2.8l.1.1A1.6 1.6 0 009 4.6V4a2 2 0 114 0v.1A1.6 1.6 0 0017 4.6l.1-.1a2 2 0 112.8 2.8l-.1.1A1.6 1.6 0 0021 11a2 2 0 010 4"/></svg>Configurações</button>
-    <a class="it" href="planos.html"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.4.8-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.8z"/></svg>Planos e créditos</a>
-    <button class="it" data-a="ajuda"><svg class="ico sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a2.9 2.9 0 015.5 1c0 1.9-2.7 2.5-2.7 2.5M12 17h.01"/></svg>Receber ajuda</button>
-    <button class="it" data-a="feed"><svg class="ico sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Dar feedback</button>
-    ${u.admin?`<hr><a class="it" href="admin.html"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V7z"/></svg>Painel de administrador</a>`:''}
-    <hr>
-    <button class="it" data-a="logout"><svg class="ico sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>Sair da conta</button>
-    <button class="it danger" data-a="reset"><svg class="ico sm" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Apagar conversas deste aparelho</button>
+
+    <div class="sh-oc">
+      <div class="sh-ocl"><b>${saldo.toLocaleString('pt-BR')}</b> <span>de ${cota.toLocaleString('pt-BR')} OC</span>
+        ${dia && !isNaN(dia) ? `<i>renova ${dia.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'})}</i>` : ''}</div>
+      <div class="sh-bar ${pct<15?'low':''}"><i style="width:${pct}%"></i></div>
+    </div>
+
+    <div class="sh-sep"></div>
+
+    <button class="it" data-a="config">
+      <svg class="ico sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-2.7 1.1V21a2 2 0 11-4 0v-.1A1.6 1.6 0 007 19.4a1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1A1.6 1.6 0 003 15a2 2 0 010-4 1.6 1.6 0 001.1-2.7l-.1-.1a2 2 0 112.8-2.8l.1.1A1.6 1.6 0 009 4.6V4a2 2 0 114 0v.1A1.6 1.6 0 0017 4.6l.1-.1a2 2 0 112.8 2.8l-.1.1A1.6 1.6 0 0021 11a2 2 0 010 4"/></svg>
+      Configurações</button>
+
+    <a class="it" href="planos.html">
+      <svg class="ico sm" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.4.8-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.8z"/></svg>
+      Planos e créditos</a>
+
+    <button class="it" data-a="ajuda">
+      <svg class="ico sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a2.9 2.9 0 015.5 1c0 1.9-2.7 2.5-2.7 2.5M12 17h.01"/></svg>
+      Receber ajuda</button>
+
+    <button class="it" data-a="feed">
+      <svg class="ico sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Dar feedback</button>
+
+    ${admin ? `<div class="sh-sep"></div>
+    <a class="it adm" href="admin.html">
+      <svg class="ico sm" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V7z"/><path d="M9.5 12l1.8 1.8 3.4-3.6"/></svg>
+      Painel de administrador
+      <svg class="ico sm seta" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/></svg></a>` : ''}
+
+    <div class="sh-sep"></div>
+
+    <button class="it" data-a="logout">
+      <svg class="ico sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+      Sair da conta</button>
+    <button class="it danger" data-a="reset">
+      <svg class="ico sm" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>
+      Apagar conversas deste aparelho</button>
   </div>`;
   document.body.appendChild(o);
   o.addEventListener('click', e=>{
@@ -3128,8 +3689,9 @@ function openConfig(inicial){
         um jogo inteiro custa mais.</p>
         <div class="tablewrap" style="margin-top:12px"><table><thead><tr>
           <th>Modelo</th><th>Entrada (1k tokens)</th><th>Saída (1k tokens)</th></tr></thead><tbody>
-          <tr><td>Orbit Blend</td><td>1 OC</td><td>5 OC</td></tr>
-          <tr><td>Orbit Fusion</td><td>2,5 OC</td><td>12,5 OC</td></tr>
+          <tr><td>OB Blend-4.5</td><td>1 OC</td><td>5 OC</td></tr>
+          <tr><td>OB Fusion 3</td><td>2,5 OC</td><td>12,5 OC</td></tr>
+          <tr><td>OB Eclipse 3.4</td><td>8 OC</td><td>40 OC</td></tr>
         </tbody></table></div>
         <p style="font-size:.76rem;color:var(--dim);margin-top:10px">Mínimo de 1 OC por mensagem. Sempre arredondado para cima.</p>
       </div>`;
@@ -3161,7 +3723,7 @@ function openConfig(inicial){
     return `<div class="fsec"><h4>OrbitDual</h4>
       <p style="font-size:.85rem;color:var(--muted);line-height:1.7">
       OrbitDual é um espaço para aprender a programar e construir coisas de verdade conversando.
-      O <b>Orbit Blend</b> dá conta do dia a dia; o <b>Orbit Fusion</b> entra quando o projeto aperta.
+      O <b>OB Blend-4.5</b> dá conta do dia a dia; o <b>OB Fusion 3</b> entra quando o projeto aperta.
       O <b>DualView 1.3</b> mostra o código e a prévia lado a lado, para você ver o que está sendo feito
       enquanto é feito.</p>
       <div class="stat" style="margin-top:16px">
@@ -3236,7 +3798,7 @@ const FAQ = [
   {g:'Primeiros passos', q:'Como faço para ele criar um jogo ou uma página?', a:'Peça direto: <b>"faz um jogo da cobrinha completo"</b> ou <b>"cria uma landing page para a minha loja"</b>. Ele escreve o arquivo inteiro e o <b>DualView 1.3</b> abre do lado mostrando o código e a prévia rodando. Você pode recarregar, abrir em outra aba ou baixar o arquivo.'},
   {g:'Primeiros passos', q:'O que é o DualView 1.3?', a:'É o painel do projeto. Ele mostra o código com numeração de linha e a prévia ao vivo lado a lado. Quando o Orbit entrega vários arquivos, cada um vira uma aba lá em cima. Abre pelo botão <b>DualView</b> na barra do topo.'},
   {g:'Créditos e planos', q:'O que são OC?', a:'OC é Orbit Credits, a moeda do OrbitDual. Cada mensagem consome OC de acordo com o tamanho real do que foi escrito — pergunta curta gasta pouco, projeto grande gasta mais. Você vê o saldo no canto de baixo à esquerda.'},
-  {g:'Créditos e planos', q:'Quanto custa cada mensagem?', a:'No <b>Orbit Blend</b>: 1 OC a cada 1.000 tokens de entrada e 5 OC a cada 1.000 de saída. No <b>Orbit Fusion</b>: 2,5 OC de entrada e 12,5 OC de saída. Sempre no mínimo 1 OC por mensagem.'},
+  {g:'Créditos e planos', q:'Quanto custa cada mensagem?', a:'No <b>OB Blend-4.5</b>: 1 OC a cada 1.000 tokens de entrada e 5 OC a cada 1.000 de saída. No <b>OB Fusion 3</b>: 2,5 OC de entrada e 12,5 OC de saída. No <b>OB Eclipse 3.4</b>: 8 OC de entrada e 40 OC de saída. Sempre no mínimo 1 OC por mensagem.'},
   {g:'Créditos e planos', q:'Meus créditos acabaram, e agora?', a:'Eles voltam automaticamente na renovação do ciclo (a data aparece embaixo do saldo). Se quiser continuar agora, dá para subir de plano na página de <b>Planos</b>.'},
   {g:'Créditos e planos', q:'Qual a diferença entre Blend e Fusion?', a:'O <b>Blend</b> é rápido e dá conta da maior parte das coisas. O <b>Fusion</b> pensa mais antes de responder e se sai melhor em projeto grande, código complicado e raciocínio longo — em troca, custa mais OC. O Fusion está nos planos Pro e Insider.'},
   {g:'Usando o chat', q:'A resposta parou no meio. O que aconteceu?', a:'Se a conexão cair, o texto que já chegou fica salvo. É só escrever <b>"continue"</b> que o Orbit segue de onde parou. Você também pode parar uma resposta de propósito no botão <b>Parar</b>.'},
@@ -3382,84 +3944,637 @@ addEventListener('beforeunload', e=>{
   if(Object.keys(RUNS).length){ e.preventDefault(); e.returnValue = ''; }
 });
 
+/* ============================================================
+   OrbitDual — camada 4
+   Chat estilo Claude (Orbit sem balão, narração do que está
+   fazendo), menu de perfil ancorado com submenus, idioma,
+   integrações, pagamento e edição de arquivos no DualView.
+   ============================================================ */
+
+/* ---------- idioma ---------- */
+const IDIOMAS = [
+  {id:'pt-BR', nm:'Português (Brasil)', sub:'Padrão'},
+  {id:'en',    nm:'English',            sub:'Inglês'},
+  {id:'es',    nm:'Español',            sub:'Espanhol'},
+  {id:'fr',    nm:'Français',           sub:'Francês'},
+  {id:'de',    nm:'Deutsch',            sub:'Alemão'},
+  {id:'it',    nm:'Italiano',           sub:'Italiano'},
+  {id:'ja',    nm:'日本語',              sub:'Japonês'},
+  {id:'zh',    nm:'中文',                sub:'Chinês'}
+];
+function idiomaAtual(){ return PREFS.idioma || 'pt-BR'; }
+function idiomaNome(id){ const i = IDIOMAS.find(x=>x.id===(id||idiomaAtual())); return i ? i.nm : 'Português (Brasil)'; }
+
+/* manda o idioma escolhido junto de cada pedido, sem mexer no respond() */
+(function(){
+  const _fetch = window.fetch.bind(window);
+  window.fetch = function(url, opt){
+    try{
+      if(typeof url === 'string' && url.indexOf(ENDPOINT) === 0 && opt && typeof opt.body === 'string'){
+        const b = JSON.parse(opt.body);
+        if(b && b.messages){ b.idioma = idiomaAtual(); opt = Object.assign({}, opt, {body: JSON.stringify(b)}); }
+      }
+    }catch(e){}
+    return _fetch(url, opt);
+  };
+})();
+
+/* ---------- planos: quem pode editar arquivo ---------- */
+function podeEditarArquivos(){
+  const p = S.user && S.user.planId;
+  return p === 'pro' || p === 'insider';
+}
+
+/* ---------- trilha removida (item 5) ---------- */
+function renderLearnPane(body){
+  body.innerHTML = `<div class="learn"><div class="emptylist">
+    A página de aprendizado está sendo preparada.<br>
+    Por enquanto, é só pedir aqui no chat: explicação, exercício ou correção.</div></div>`;
+}
+function addPane(kind){
+  if(kind === 'learn'){ toast('A trilha vira uma página própria em breve. Peça por aqui mesmo.'); return; }
+  if(S.panes.some(p=>p.kind===kind)){
+    S.panes = S.panes.filter(p=>p.kind!==kind); save(); renderGrid(); syncToggles(); return;
+  }
+  if(S.panes.length >= 3){ toast('Três painéis é o máximo. Feche um antes.'); return; }
+  S.panes.push({id:uid(), kind, grow:1}); save(); renderGrid(); syncToggles();
+}
+
+/* ---------- mensagens: Orbit sem balão ---------- */
+function msgHTML(m){
+  if(!m.id) m.id = uid();
+  if(m.role === 'user'){
+    const at = (m.atts||[]).map(a=> a.kind==='image'
+      ? `<span class="att"><img src="data:${a.media_type};base64,${a.data}" alt=""><span class="nm">${esc(a.name||'imagem')}</span></span>`
+      : `<span class="att"><svg class="ico sm" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/></svg><span class="nm">${esc(a.name||'arquivo')}</span></span>`
+    ).join('');
+    return `<div class="mrow me" data-mid="${m.id}"><div class="ubox">`
+         + (at?`<div class="attach-row" style="justify-content:flex-end;padding:0 0 7px">${at}</div>`:'')
+         + `<div class="bub">${fmt(m.text)}</div></div></div>`;
+  }
+  const meta = m.streaming ? '' : `<div class="mmeta">
+      <button data-copy><svg class="ico sm" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>Copiar</button>
+      <button data-again><svg class="ico sm" viewBox="0 0 24 24"><path d="M20 11a8 8 0 10-2.3 5.7M20 5v6h-6"/></svg>Outra resposta</button>
+      ${m.oc?`<span style="font-size:.68rem;color:var(--dim);align-self:center;margin-left:4px">${m.oc} OC</span>`:''}
+    </div>`;
+  const st = m.streaming
+    ? `<div class="status" data-status><span class="sp3"><i></i><i></i><i></i></span><span class="txt">Pensando…</span></div>`
+    : '';
+  const inner = fmt(m.text || '', {stream:m.streaming});
+  return `<div class="mrow ai" data-mid="${m.id}">
+    <div class="abody"><div class="mwho"><i></i>Orbit</div>${st}<div class="bub" data-body>${inner}</div>${meta}</div></div>`;
+}
+
+/* o que o Orbit está fazendo agora, lido do próprio texto que chega */
+function statusDe(txt){
+  const t = String(txt || '');
+  if(!t.trim()) return 'Pensando…';
+  const cercas = t.match(/```[^\n]*/g) || [];
+  if(cercas.length % 2 === 1){
+    const ult = cercas[cercas.length-1].slice(3).trim();
+    const low = ult.toLowerCase();
+    if(low.startsWith('edit')){
+      const arq = ult.slice(4).trim();
+      return arq ? `Editando ${arq}` : 'Editando o arquivo';
+    }
+    const nm = LANG_NM[low.split(/\s+/)[0]] || '';
+    return nm ? `Escrevendo o ${nm}` : 'Escrevendo o código';
+  }
+  const fim = t.slice(-700);
+  if(/\|\s*:?-{2,}/.test(fim)) return 'Montando a tabela…';
+  if(/^\s*(\d+\.|[-*])\s/m.test(fim)) return 'Organizando os pontos…';
+  return 'Escrevendo a resposta…';
+}
+function setStatus(bot, texto, fixo){
+  const el = document.querySelector(`[data-mid="${bot.id}"] [data-status]`);
+  if(!el) return;
+  const t = el.querySelector('.txt');
+  if(t) t.textContent = texto;
+  el.classList.toggle('done', !!fixo);
+}
+
+function paintStream(c, bot){
+  const row = document.querySelector(`[data-mid="${bot.id}"]`);
+  if(!row) return;                          // painel fechado: o texto continua salvo no estado
+  const holder = row.querySelector('[data-body]');
+  if(!holder) return;
+  const box = row.closest('[data-msgs]');
+  const stick = box ? nearBottom(box) : false;
+  const aberto = ((bot.text.match(/```/g)||[]).length % 2) === 1;
+  holder.innerHTML = fmt(bot.text, {stream:true}) + (aberto ? '' : '<span class="caret"></span>');
+  if(!bot._st || Date.now() - bot._st > 700){
+    bot._st = Date.now();
+    setStatus(bot, statusDe(bot.text));
+  }
+  if(box && stick) box.scrollTop = box.scrollHeight;
+}
+
+function marcarContinuando(bot, rodada, rotulo){
+  setStatus(bot, `${rotulo || 'continuando a resposta'} · parte ${rodada+1}`);
+}
+
+function finish(c, bot, pane){
+  delete RUNS[c.id];
+  bot.streaming = false;
+  save();
+  markBusy(c, false);
+  const row = document.querySelector(`[data-mid="${bot.id}"]`);
+  if(row){
+    const st = row.querySelector('[data-status]'); if(st) st.remove();
+    const tg = row.querySelector('.contando'); if(tg) tg.remove();
+    const holder = row.querySelector('[data-body]');
+    if(holder) holder.innerHTML = fmt(bot.text);
+    if(!row.querySelector('.mmeta')){
+      const wrap = row.querySelector('[data-body]') && row.querySelector('[data-body]').parentElement;
+      wrap && wrap.insertAdjacentHTML('beforeend', `<div class="mmeta">
+        <button data-copy><svg class="ico sm" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>Copiar</button>
+        <button data-again><svg class="ico sm" viewBox="0 0 24 24"><path d="M20 11a8 8 0 10-2.3 5.7M20 5v6h-6"/></svg>Outra resposta</button>
+        ${bot.oc?`<span style="font-size:.68rem;color:var(--dim);align-self:center;margin-left:4px">${bot.oc} OC</span>`:''}
+      </div>`);
+    }
+  }
+  const eds = extrairEdicoes(bot.text);
+  if(eds.length){
+    const r = aplicarEdicoes(c, eds);
+    if(r.ok){
+      toast(r.ok === 1 ? 'Uma alteração aplicada no projeto' : `${r.ok} alterações aplicadas no projeto`, CHECK);
+      if(!S.panes.some(x=>x.kind==='preview')) abrirDualView('live'); else renderGrid();
+    }
+    if(r.falhas.length){
+      bot.text += '\n\n_Não consegui aplicar: ' + r.falhas.join('; ') + '._';
+      save();
+      const h = document.querySelector(`[data-mid="${bot.id}"] [data-body]`);
+      if(h) h.innerHTML = fmt(bot.text);
+    }
+  } else {
+    const files = extractFiles(bot.text);
+    if(files.length){
+      setFiles(c, files);
+      if(PREFS.autoPreview && tool('dualview') && !S.panes.some(x=>x.kind==='preview') && ehVisual(files)){
+        abrirDualView('live');
+      } else if(S.panes.some(x=>x.kind==='preview')) renderGrid();
+    }
+  }
+  renderRail();
+  if(window.orbitRefreshAccount) window.orbitRefreshAccount();
+}
+
+/* ---------- popover ancorado ---------- */
+function abrirPop(anchorEl, render){
+  closeMenus();
+  document.querySelectorAll('.pop').forEach(p=>p.remove());
+  const o = document.createElement('div'); o.className = 'pop';
+  o.innerHTML = '<div class="bg"></div><div class="card"></div>';
+  document.body.appendChild(o);
+  const card = o.querySelector('.card');
+  const fechar = ()=>{ o.remove(); removeEventListener('keydown', key); };
+  const key = e=>{ if(e.key === 'Escape') fechar(); };
+  addEventListener('keydown', key);
+  o.querySelector('.bg').addEventListener('click', fechar);
+
+  const posicionar = ()=>{
+    const r = anchorEl && anchorEl.getBoundingClientRect
+      ? anchorEl.getBoundingClientRect()
+      : {left:20, right:320, top:innerHeight-60, bottom:innerHeight-20, width:300};
+    const w = card.offsetWidth, h = card.offsetHeight, m = 10;
+    let left = r.left;
+    if(left + w > innerWidth - m) left = Math.max(m, innerWidth - w - m);
+    if(left < m) left = m;
+    let top = r.top - h - 8;                 // acima do ponto clicado, como no Claude
+    let oy = 'bottom';
+    if(top < m){ top = Math.min(r.bottom + 8, innerHeight - h - m); oy = 'top'; }
+    card.style.left = left + 'px';
+    card.style.top  = Math.max(m, top) + 'px';
+    card.style.setProperty('--oy', oy);
+  };
+  const pintar = (html)=>{ card.innerHTML = html; posicionar(); };
+  render(pintar, fechar, card);
+  addEventListener('resize', posicionar, {once:true});
+  return {card, fechar, posicionar};
+}
+
+const IC = {
+  cfg:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-2.7 1.1V21a2 2 0 11-4 0v-.1A1.6 1.6 0 007 19.4a1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1A1.6 1.6 0 003 15a2 2 0 010-4 1.6 1.6 0 001.1-2.7l-.1-.1a2 2 0 112.8-2.8l.1.1A1.6 1.6 0 009 4.6V4a2 2 0 114 0v.1A1.6 1.6 0 0017 4.6l.1-.1a2 2 0 112.8 2.8l-.1.1A1.6 1.6 0 0021 11a2 2 0 010 4"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/>',
+  lock:'<rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/>',
+  card:'<rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/>',
+  graf:'<path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/>',
+  glob:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18a15 15 0 010-18"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a2.9 2.9 0 015.5 1c0 1.9-2.7 2.5-2.7 2.5M12 17h.01"/>',
+  chat:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>',
+  plug:'<path d="M9 2v6M15 2v6"/><path d="M6 8h12v4a6 6 0 01-12 0z"/><path d="M12 18v4"/>',
+  star:'<path d="M12 3l2.6 5.6 6.4.8-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.8z"/>',
+  adm:'<path d="M12 3l8 4v5c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V7z"/><path d="M9.5 12l1.8 1.8 3.4-3.6"/>',
+  out:'<path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/>',
+  lixo:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+  seta:'<path d="M9 6l6 6-6 6"/>',
+  volta:'<path d="M15 6l-6 6 6 6"/>',
+  ok:'<path d="M5 12.5l4.5 4.5L19 7.5"/>'
+};
+const svg = (d, cls)=>`<svg class="ico sm ${cls||''}" viewBox="0 0 24 24">${d}</svg>`;
+
+function openProfile(ev){
+  const anchor = (ev && (ev.currentTarget || ev.target && ev.target.closest && ev.target.closest('#profileBtn')))
+                 || document.getElementById('profileBtn');
+  const u = S.user;
+  const admin = !!(u.admin || (window.ORBIT_ACCOUNT && window.ORBIT_ACCOUNT.is_admin));
+
+  abrirPop(anchor, (pintar, fechar, card)=>{
+    const raiz = ()=>{
+      const saldo = Math.max(0, Math.round(u.saldo ?? 0));
+      const cota  = Math.max(1, u.cota ?? 500);
+      const pct   = Math.min(100, saldo / cota * 100);
+      const dia   = u.cicloFim ? new Date(u.cicloFim) : null;
+      const ini   = (u.name || u.email || 'o')[0].toUpperCase();
+      pintar(`
+        <div class="phd">
+          <span class="pav">${esc(ini)}</span>
+          <div class="ptx"><b>${esc(u.name || 'você')}</b><span>${esc(u.email || 'conta OrbitDual')}</span></div>
+          ${u.planId === 'basic' ? '<a class="pup" href="planos.html">Melhorar</a>' : ''}
+        </div>
+        <div class="poc">
+          <div class="pocl"><b>${saldo.toLocaleString('pt-BR')}</b> de ${cota.toLocaleString('pt-BR')} OC
+            ${dia && !isNaN(dia) ? `<i>renova ${dia.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'})}</i>` : ''}</div>
+          <div class="pbar ${pct<15?'low':''}"><i style="width:${pct}%"></i></div>
+        </div>
+        <div class="psep"></div>
+        <button class="it" data-v="config">${svg(IC.cfg)} Configurações ${svg(IC.seta,'seta')}</button>
+        <button class="it" data-v="idioma">${svg(IC.glob)} Idioma <span class="val">${esc(idiomaNome())}</span></button>
+        <button class="it" data-a="integra">${svg(IC.plug)} Integrações</button>
+        <a class="it" href="planos.html">${svg(IC.star)} Planos e créditos</a>
+        <div class="psep"></div>
+        <a class="it" href="ajuda.html" target="_blank" rel="noopener">${svg(IC.help)} Receber ajuda</a>
+        <button class="it" data-a="feed">${svg(IC.chat)} Enviar feedback</button>
+        ${admin ? `<div class="psep"></div>
+        <a class="it adm" href="admin.html">${svg(IC.adm)} Painel de admin</a>` : ''}
+        <div class="psep"></div>
+        <button class="it" data-a="logout">${svg(IC.out)} Sair da conta</button>
+        <button class="it danger" data-a="reset">${svg(IC.lixo)} Apagar conversas deste aparelho</button>`);
+    };
+    const config = ()=> pintar(`
+      <button class="pback" data-v="raiz">${svg(IC.volta)} Voltar</button>
+      <div class="ptitle">Configurações</div>
+      <button class="it" data-a="cfg-perfil">${svg(IC.user)} Perfil</button>
+      <button class="it" data-a="cfg-privacidade">${svg(IC.lock)} Privacidade</button>
+      <button class="it" data-a="cfg-pagamento">${svg(IC.card)} Pagamento</button>
+      <button class="it" data-a="cfg-uso">${svg(IC.graf)} Uso de OCs</button>`);
+    const idioma = ()=> pintar(`
+      <button class="pback" data-v="raiz">${svg(IC.volta)} Voltar</button>
+      <div class="ptitle">Idioma das respostas</div>
+      ${IDIOMAS.map(i=>`<button class="it ${i.id===idiomaAtual()?'sel':''}" data-idi="${i.id}">
+        ${i.id===idiomaAtual()?svg(IC.ok):'<span style="width:16px"></span>'} ${esc(i.nm)}
+        <span class="val">${esc(i.sub)}</span></button>`).join('')}`);
+
+    const vistas = {raiz, config, idioma};
+    raiz();
+
+    card.addEventListener('click', e=>{
+      const v = e.target.closest('[data-v]');
+      if(v){ (vistas[v.dataset.v] || raiz)(); return; }
+      const idi = e.target.closest('[data-idi]');
+      if(idi){
+        PREFS.idioma = idi.dataset.idi; savePrefs();
+        const sb = window.ORBIT_SB, uid2 = ACCT && ACCT.user_id;
+        if(sb && uid2) sb.from('profiles').update({locale:PREFS.idioma}).eq('id', uid2).then(()=>{},()=>{});
+        toast(`O Orbit vai responder em ${idiomaNome()}`, CHECK);
+        fechar(); return;
+      }
+      const b = e.target.closest('[data-a]');
+      if(!b) return;
+      const a = b.dataset.a; fechar();
+      if(a === 'cfg-perfil')      openConfig('perfil');
+      if(a === 'cfg-privacidade') openConfig('dados');
+      if(a === 'cfg-uso')         openConfig('uso');
+      if(a === 'cfg-pagamento')   openPagamento();
+      if(a === 'integra')         openIntegracoes();
+      if(a === 'feed')            openFeedback();
+      if(a === 'logout') modal('Sair da conta?','Suas conversas continuam salvas. Você vai precisar entrar de novo para acessá-las.',
+        [{t:'Cancelar',k:'g'},{t:'Sair',k:'d',fn:()=>{ if(window.orbitLogout) window.orbitLogout(); }}]);
+      if(a === 'reset') modal('Apagar as conversas deste aparelho?','Isso limpa o histórico salvo neste navegador e volta para a tela inicial. Sua conta continua.',
+        [{t:'Cancelar',k:'g'},{t:'Apagar',k:'d',fn:()=>{ store.set('orbit.state', null); location.reload(); }}]);
+    });
+  });
+}
+
+/* ---------- pagamento ---------- */
+function openPagamento(){
+  const u = S.user;
+  openBig('Pagamento', [{id:'pag', nm:'Pagamento', ic:IC.card}], ()=>{
+    const sit = (ACCT && ACCT.subscription && ACCT.subscription.payment_status) || '';
+    const dia = u.cicloFim ? new Date(u.cicloFim) : null;
+    return `
+      <div class="fsec"><h4>Seu plano</h4>
+        <div class="frow"><div class="fl"><b>${esc(u.plan || 'Orbit Basic')}</b>
+          <span>${(u.cota||500).toLocaleString('pt-BR')} OC por ciclo</span></div>
+          <div class="fr"><a class="btn btn-p btn-sm" href="planos.html" style="padding:7px 14px;font-size:.8rem">Trocar de plano</a></div></div>
+        ${dia && !isNaN(dia) ? `<div class="frow"><div class="fl"><b>Próxima renovação</b>
+          <span>Os OC voltam ao valor cheio nesse dia.</span></div>
+          <div class="fr"><span style="font-size:.84rem;color:var(--muted)">${dia.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}</span></div></div>` : ''}
+        ${sit ? `<div class="frow"><div class="fl"><b>Situação</b><span>Como a sua assinatura está hoje.</span></div>
+          <div class="fr"><span style="font-size:.84rem;color:var(--muted)">${esc(sit)}</span></div></div>` : ''}
+      </div>
+      <div class="fsec"><h4>Forma de pagamento</h4>
+        <div class="frow"><div class="fl"><b>Cartão</b>
+          <span>O pagamento automático ainda está sendo montado. Por enquanto a troca de plano é combinada direto com a equipe: escolha na página de planos e a gente fala com você.</span></div>
+          <div class="fr"><span style="font-size:.84rem;color:var(--dim)">em breve</span></div></div>
+      </div>
+      <div class="fsec"><h4>Recibos</h4>
+        <div class="frow"><div class="fl"><b>Histórico de cobrança</b>
+          <span>Assim que a cobrança automática entrar no ar, seus recibos aparecem aqui.</span></div>
+          <div class="fr"><span style="font-size:.84rem;color:var(--dim)">nada ainda</span></div></div>
+      </div>`;
+  }, ()=>{}, 'pag');
+}
+
+/* ---------- integrações ---------- */
+function openIntegracoes(){
+  const linha = (mk, nome, desc, estado)=>`
+    <div class="row" data-int="${esc(mk)}"><span class="mk">${esc(mk)}</span>
+      <span class="nm"><b>${esc(nome)}</b><span>${esc(desc)}</span></span>
+      ${estado === 'on' ? '<span class="go on">Conectado</span>'
+        : estado === 'link' ? '<a class="go" href="login.html">Conectar</a>'
+        : estado === 'checando' ? '<span class="soonp">verificando…</span>'
+        : '<span class="soonp">em breve</span>'}</div>`;
+  return openBig('Integrações', [{id:'int', nm:'Integrações', ic:IC.plug}], ()=>`
+    <div class="fsec"><h4>Contas ligadas ao Orbit</h4>
+      <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin:0 0 14px">
+        Ligue as contas que você já usa. Hoje o Google serve para entrar mais rápido;
+        as outras entram assim que estiverem prontas, sempre com você decidindo o que o Orbit pode alcançar.</p>
+      <div class="intg" data-intg>
+        ${linha('G','Conecte Google com Orbit','Entrar na sua conta com o Google','checando')}
+        ${linha('GH','Conecte GitHub com Orbit','Abrir e salvar código nos seus repositórios','soon')}
+        ${linha('D','Conecte Google Drive com Orbit','Ler e salvar arquivos do seu Drive','soon')}
+        ${linha('N','Conecte Notion com Orbit','Enviar respostas e documentos para o Notion','soon')}
+        ${linha('S','Conecte Slack com Orbit','Chamar o Orbit dentro do seu Slack','soon')}
+      </div>
+    </div>`, (bb)=>{
+      const sb = window.ORBIT_SB;
+      const primeira = bb.querySelector('[data-intg] .row');
+      const marca = (html)=>{ if(!primeira) return; const alvo = primeira.lastElementChild; if(alvo) alvo.outerHTML = html; };
+      if(sb && sb.auth && sb.auth.getUser){
+        sb.auth.getUser().then(({data})=>{
+          const meta = (data && data.user && data.user.app_metadata) || {};
+          const provedores = [].concat(meta.providers || (meta.provider ? [meta.provider] : []));
+          marca(provedores.indexOf('google') >= 0
+            ? '<span class="go on">Conectado</span>'
+            : '<a class="go" href="login.html">Conectar</a>');
+        }).catch(()=> marca('<span class="soonp">indisponível</span>'));
+      } else marca('<span class="soonp">indisponível</span>');
+    }, 'int');
+}
+
+/* ---------- DualView: editar os arquivos (Pro para cima) ---------- */
+function renderPreviewPane(body, pane){
+  const c = cur();
+  const files = (c.files && c.files.length) ? c.files
+              : (c.code ? [{name:nomeArquivo(''), lang:'', code:c.code}] : []);
+  pane.tab = pane.tab || 'code';
+  if(pane.fi == null || pane.fi >= files.length) pane.fi = 0;
+  const f = files[pane.fi];
+  const podeRodar = ehVisual(files);
+  if(pane.tab === 'live' && !podeRodar) pane.tab = 'code';
+  const editando = !!pane.editando && pane.tab === 'code' && !!f && podeEditarArquivos();
+  if(pane.editando && !podeEditarArquivos()) pane.editando = false;
+
+  const linhas = f ? f.code.split('\n').length : 0;
+  const chars  = f ? f.code.length : 0;
+
+  body.innerHTML = `<div class="dv">
+    <div class="dv-hd">
+      <div class="dv-seg">
+        <button data-tab="code" class="${pane.tab==='code'?'on':''}">Código</button>
+        <button data-tab="live" class="${pane.tab==='live'?'on':''}" ${podeRodar?'':'disabled style="opacity:.4;cursor:not-allowed"'}>Prévia</button>
+      </div>
+      <span class="sp">
+        <span class="dv-ver">DualView 1.3</span>
+        ${f && pane.tab==='code' ? `<button class="iconbtn" data-ed title="${editando?'Cancelar edição':'Editar este arquivo'}">
+          <svg class="ico sm" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button>` : ''}
+        ${f?`<button class="iconbtn" data-cp title="Copiar arquivo"><svg class="ico sm" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg></button>
+        <button class="iconbtn" data-dlf title="Baixar arquivo"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></button>`:''}
+        ${podeRodar?`<button class="iconbtn" data-rl title="Recarregar prévia"><svg class="ico sm" viewBox="0 0 24 24"><path d="M20 11a8 8 0 10-2.3 5.7M20 5v6h-6"/></svg></button>
+        <button class="iconbtn" data-nt title="Abrir em uma aba nova"><svg class="ico sm" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></button>`:''}
+        <button class="iconbtn" data-fs title="Tela cheia"><svg class="ico sm" viewBox="0 0 24 24"><path d="M4 9V4h5M20 15v5h-5M20 9V4h-5M4 15v5h5"/></svg></button>
+      </span>
+    </div>
+    ${files.length>1?`<div class="dv-files">${files.map((x,i)=>
+      `<button data-f="${i}" class="${i===pane.fi?'on':''}"><i class="dot"></i>${esc(x.name)}</button>`).join('')}</div>`:''}
+    <div class="dv-stage">
+      ${!files.length
+        ? `<div class="dv-empty"><div class="ring2"></div><b>Nada para mostrar ainda</b>
+           <span>Peça uma página, um jogo ou um programa para o Orbit.<br>O código e a prévia aparecem aqui na hora.</span></div>`
+        : pane.tab === 'code'
+          ? (editando
+            ? `<textarea class="dv-edit" data-edit spellcheck="false">${esc(f.code)}</textarea>`
+            : `<div class="dv-code"><pre><div class="dv-ln">${
+              Array.from({length:linhas},(_,i)=>i+1).join('\n')}</div><code class="dv-src">${hl(f.code, f.lang)}</code></pre></div>`)
+          : `<iframe class="dv-live" sandbox="allow-scripts allow-pointer-lock allow-modals allow-forms allow-popups"></iframe>`}
+    </div>
+    ${editando ? `<div class="dv-editbar">
+      <span class="msg">Editando ${esc(f.name)} · o Orbit passa a enxergar esta versão</span>
+      <button data-cancel>Cancelar</button>
+      <button class="pri" data-save>Salvar</button>
+    </div>` : ''}
+    ${(!editando && f && pane.tab==='code' && !podeEditarArquivos()) ? `<div class="dv-lock">
+      ${svg(IC.lock)} Editar os arquivos aqui é do plano Pro pra cima. <a href="planos.html">Ver planos</a>
+    </div>` : ''}
+    ${files.length && !editando ?`<div class="dv-ft">
+      <span>${esc(f?f.name:'')}</span><span>·</span><span>${linhas} linhas</span>
+      <span>·</span><span>${(chars/1024).toFixed(1)} KB</span>
+      <span class="sp"></span>
+      <span>${files.length} arquivo${files.length>1?'s':''}</span>
+    </div>`:''}
+  </div>`;
+
+  const dv = $('.dv', body);
+  const fr = $('.dv-live', body);
+  if(fr) fr.srcdoc = montarPreview(files);
+
+  $$('[data-tab]', body).forEach(b=> b.addEventListener('click', ()=>{
+    if(b.disabled) return; pane.tab = b.dataset.tab; pane.editando = false; save(); renderGrid(); }));
+  $$('[data-f]', body).forEach(b=> b.addEventListener('click', ()=>{
+    pane.fi = +b.dataset.f; pane.editando = false; save(); renderGrid(); }));
+
+  const on = (sel, fn)=>{ const el = $(sel, body); el && el.addEventListener('click', fn); };
+  on('[data-ed]', ()=>{
+    if(!podeEditarArquivos()){
+      modal('Editar arquivos é do Pro pra cima',
+        'No plano Pro e no Insider você pode abrir qualquer arquivo que o Orbit gerar e mexer nele aqui mesmo, direto no DualView.',
+        [{t:'Agora não',k:'g'},{t:'Ver planos',k:'d',fn:()=>{ location.href='planos.html'; }}]);
+      return;
+    }
+    pane.editando = !pane.editando; save(); renderGrid();
+  });
+  on('[data-cancel]', ()=>{ pane.editando = false; save(); renderGrid(); });
+  on('[data-save]', ()=>{
+    const ta = $('[data-edit]', body); if(!ta) return;
+    const novo = ta.value;
+    const lista = (c.files && c.files.length) ? c.files.slice() : files.slice();
+    lista[pane.fi] = Object.assign({}, lista[pane.fi], {code:novo});
+    setFiles(c, lista);
+    pane.editando = false; save(); renderGrid();
+    toast('Arquivo salvo. O Orbit já enxerga esta versão.', CHECK);
+  });
+  const ta = $('[data-edit]', body);
+  if(ta){
+    ta.focus();
+    ta.addEventListener('keydown', e=>{
+      if(e.key === 'Tab'){ e.preventDefault();
+        const s = ta.selectionStart, t = ta.selectionEnd;
+        ta.value = ta.value.slice(0,s) + '  ' + ta.value.slice(t);
+        ta.selectionStart = ta.selectionEnd = s + 2;
+      }
+      if((e.ctrlKey||e.metaKey) && e.key === 's'){ e.preventDefault(); const b = $('[data-save]', body); b && b.click(); }
+      if(e.key === 'Escape'){ pane.editando = false; save(); renderGrid(); }
+    });
+  }
+  on('[data-cp]', ()=>{ navigator.clipboard && navigator.clipboard.writeText(f.code); toast('Código copiado', CHECK); });
+  on('[data-dlf]', ()=> baixar(f.name, f.code));
+  on('[data-rl]', ()=>{ if(fr) fr.srcdoc = montarPreview(files); toast('Prévia recarregada', CHECK); });
+  on('[data-nt]', ()=>{
+    const b = new Blob([montarPreview(files)], {type:'text/html'});
+    window.open(URL.createObjectURL(b), '_blank');
+  });
+  on('[data-fs]', ()=>{
+    dv.classList.toggle('full');
+    if(dv.classList.contains('full')){
+      const esc1 = e=>{ if(e.key==='Escape'){ dv.classList.remove('full'); removeEventListener('keydown', esc1); } };
+      addEventListener('keydown', esc1);
+      toast('Esc para sair da tela cheia');
+    }
+  });
+}
+
+/* ---------- ajuda vira página ---------- */
+function openAjuda(){ window.open('ajuda.html', '_blank', 'noopener'); }
+
+/* ---------- limpeza de estado antigo (trilha) ---------- */
+(function(){
+  try{
+    if(S.panes && S.panes.some(p=>p.kind === 'learn')){
+      S.panes = S.panes.filter(p=>p.kind !== 'learn');
+      if(!S.panes.length) S.panes = [{id:uid(), kind:'chat', grow:1}];
+      save();
+    }
+  }catch(e){}
+  const b = document.querySelector('#paneToggles [data-add="learn"]');
+  if(b) b.remove();
+})();
+
+/* garante que o clique no perfil abra o painel novo, mesmo que o
+   listener antigo tenha sido preso ao carregar a página */
+document.addEventListener('click', function(e){
+  const b = e.target && e.target.closest && e.target.closest('#profileBtn');
+  if(!b) return;
+  e.preventDefault(); e.stopImmediatePropagation();
+  openProfile({currentTarget:b});
+}, true);
 </script>
 <script type="module">
 /* =========================================================
    Sessão, conta, plano e créditos (OC)
+   Em contexto sem origem http (painel de visualização, arquivo
+   local), o app entra em modo demonstração em vez de travar.
    ========================================================= */
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/+esm';
+const ONLINE = /^https?:$/.test(location.protocol);
 
-const SUPABASE_URL = 'https://vbjtqwflriyueqpcltqc.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_qPpQZNv3WQE2dI126isv0Q_r_kZCwpY';
-const LOGIN_URL    = new URL('login.html', location.href).href;
+function urlRel(p){ try{ return new URL(p, location.href).href; }catch(e){ return p; } }
+window.orbitUrl = urlRel;
 
-const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
-  auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true, flowType:'pkce' }
-});
-window.ORBIT_SB = sb;
-
-window.orbitToken = async () => {
-  const { data:{ session } } = await sb.auth.getSession();
-  return session ? session.access_token : null;
-};
-
-window.orbitLogout = async () => {
-  try { await sb.auth.signOut(); } catch(e){}
-  try { localStorage.removeItem('orbit.state'); localStorage.removeItem('orbit.uid'); } catch(e){}
-  location.replace(LOGIN_URL);
-};
-
-/* recarrega plano + saldo do servidor */
-window.orbitRefreshAccount = async () => {
-  try {
-    const { data, error } = await sb.rpc('my_account');
-    if(error || !data || data.error) return null;
-    window.ORBIT_ACCOUNT = data;
-    if(window.orbitApplyAccount) window.orbitApplyAccount(data);
-    return data;
-  } catch(e){ return null; }
-};
-
-(async () => {
-  const { data:{ session } } = await sb.auth.getSession();
-  if(!session){ location.replace(LOGIN_URL); return; }
-  const user = session.user;
-
-  let prev = null, hadState = false;
-  try {
-    prev = localStorage.getItem('orbit.uid');
-    hadState = !!localStorage.getItem('orbit.state');
-  } catch(e){}
-  if(prev !== user.id){
-    try { localStorage.removeItem('orbit.state'); localStorage.setItem('orbit.uid', user.id); } catch(e){}
-    if(hadState){ location.reload(); return; }
-  }
-
-  const acct = await window.orbitRefreshAccount();
-
-  const meta = user.user_metadata || {};
-  const nome = (acct && acct.name) || meta.name || meta.full_name
-            || (user.email ? user.email.split('@')[0] : 'você');
-
+function abrirDemo(motivo){
+  window.ORBIT_DEMO = true;
+  window.orbitToken = async () => null;
+  window.orbitLogout = async () => { alert('No modo demonstração não há sessão para encerrar.'); };
+  window.orbitRefreshAccount = async () => null;
   if(window.orbitApplyUser) window.orbitApplyUser({
-    name:  nome,
-    email: user.email || '',
-    plan:  (acct && acct.plan && acct.plan.name) || 'Orbit Basic',
-    saldo: (acct && acct.credits) ? Number(acct.credits.balance) : 0,
-    cota:  (acct && acct.plan) ? Number(acct.plan.monthly_oc) : 500,
-    admin: !!(acct && acct.is_admin),
-    planId:(acct && acct.plan && acct.plan.id) || 'basic',
-    models:(acct && acct.plan && acct.plan.models) || ['blend'],
-    cicloFim:(acct && acct.credits && acct.credits.cycle_end) || null
+    name:'Visitante', email:'demonstração', plan:'Orbit Insider',
+    saldo:6000, cota:6000, admin:false, planId:'insider',
+    models:['blend','fusion'],
+    cicloFim:new Date(Date.now()+30*864e5).toISOString()
   });
-
   const gate = document.getElementById('authgate');
-  if(gate){ gate.classList.add('gone'); setTimeout(() => gate.remove(), 450); }
-})();
+  if(gate){ gate.classList.add('gone'); setTimeout(() => gate.remove(), 400); }
+  if(window.toast) setTimeout(()=> window.toast(motivo || 'Modo demonstração: a interface funciona, mas sem conta e sem IA de verdade.'), 900);
+}
 
-sb.auth.onAuthStateChange((event) => {
-  if(event === 'SIGNED_OUT') location.replace(LOGIN_URL);
-});
+if(!ONLINE){
+  abrirDemo('Modo demonstração — abra o site publicado para conversar de verdade.');
+} else {
+  const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/+esm');
+
+  const SUPABASE_URL = 'https://vbjtqwflriyueqpcltqc.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_qPpQZNv3WQE2dI126isv0Q_r_kZCwpY';
+  const LOGIN_URL    = urlRel('login.html');
+
+  const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true, flowType:'pkce' }
+  });
+  window.ORBIT_SB = sb;
+
+  window.orbitToken = async () => {
+    const { data:{ session } } = await sb.auth.getSession();
+    return session ? session.access_token : null;
+  };
+
+  window.orbitLogout = async () => {
+    try { await sb.auth.signOut(); } catch(e){}
+    try { localStorage.removeItem('orbit.state'); localStorage.removeItem('orbit.uid'); } catch(e){}
+    location.replace(LOGIN_URL);
+  };
+
+  window.orbitRefreshAccount = async () => {
+    try {
+      const { data, error } = await sb.rpc('my_account');
+      if(error || !data || data.error) return null;
+      window.ORBIT_ACCOUNT = data;
+      if(window.orbitApplyAccount) window.orbitApplyAccount(data);
+      return data;
+    } catch(e){ return null; }
+  };
+
+  (async () => {
+    let session = null;
+    try { ({ data:{ session } } = await sb.auth.getSession()); }
+    catch(e){ return abrirDemo('Não consegui verificar a sessão aqui. Abrindo em modo demonstração.'); }
+
+    if(!session){ location.replace(LOGIN_URL); return; }
+    const user = session.user;
+
+    let prev = null, hadState = false;
+    try {
+      prev = localStorage.getItem('orbit.uid');
+      hadState = !!localStorage.getItem('orbit.state');
+    } catch(e){}
+    if(prev !== user.id){
+      try { localStorage.removeItem('orbit.state'); localStorage.setItem('orbit.uid', user.id); } catch(e){}
+      if(hadState){ location.reload(); return; }
+    }
+
+    const acct = await window.orbitRefreshAccount();
+
+    const meta = user.user_metadata || {};
+    const nome = (acct && acct.name) || meta.name || meta.full_name
+              || (user.email ? user.email.split('@')[0] : 'você');
+
+    if(window.orbitApplyUser) window.orbitApplyUser({
+      name:  nome,
+      email: user.email || '',
+      plan:  (acct && acct.plan && acct.plan.name) || 'Orbit Basic',
+      saldo: (acct && acct.credits) ? Number(acct.credits.balance) : 0,
+      cota:  (acct && acct.plan) ? Number(acct.plan.monthly_oc) : 500,
+      admin: !!(acct && acct.is_admin),
+      planId:(acct && acct.plan && acct.plan.id) || 'basic',
+      models:(acct && acct.plan && acct.plan.models) || ['blend'],
+      cicloFim:(acct && acct.credits && acct.credits.cycle_end) || null
+    });
+
+    const gate = document.getElementById('authgate');
+    if(gate){ gate.classList.add('gone'); setTimeout(() => gate.remove(), 450); }
+  })();
+
+  sb.auth.onAuthStateChange((event) => {
+    if(event === 'SIGNED_OUT') location.replace(LOGIN_URL);
+  });
+}
 </script>
 </body>
 </html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ajuda e suporte — OrbitDual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08080C; --panel:#101018; --panel-2:#15151F; --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.16); --white:#F4F4F8; --muted:#9A9AAC; --dim:#63636F;
+  --accent:#7B61FF; --accent-soft:#A48CFF; --ok:#7DD88F; --warn:#F0A05A; --bad:#E36B7A;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Inter',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.65}
+button,a,input,textarea,select{font:inherit;color:inherit}
+button,a{background:none;border:0;cursor:pointer;text-decoration:none}
+svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+svg.sm{width:15px;height:15px}
+h1,h2,h3,h4{font-family:'Space Grotesk';font-weight:600;line-height:1.2;letter-spacing:-.02em}
+
+.blob{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0;
+  animation:drift 28s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate3d(38px,-30px,0) scale(1.15)}}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{position:relative;z-index:2;max-width:1060px;margin:0 auto;padding:0 22px}
+
+header.top{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);
+  background:rgba(8,8,12,.74);border-bottom:1px solid var(--line)}
+.topin{display:flex;align-items:center;gap:14px;height:62px;max-width:1060px;margin:0 auto;padding:0 22px}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;font-size:1.02rem}
+.brand .orb{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#C9B6FF,#7B61FF 52%,#2E2360);
+  box-shadow:0 0 14px 2px rgba(123,97,255,.5)}
+.brand i{font-style:normal;color:var(--accent-soft)}
+.sp{flex:1}
+.gbtn{display:inline-flex;align-items:center;gap:8px;height:37px;padding:0 15px;border-radius:11px;
+  font-size:.85rem;border:1px solid var(--line-2);transition:.2s}
+.gbtn:hover{background:rgba(255,255,255,.07)}
+.gbtn.p{background:var(--accent);border-color:transparent;font-weight:600}
+.gbtn.p:hover{background:var(--accent-soft)}
+@media(max-width:640px){.hidesm{display:none}}
+
+.hero{padding:62px 0 34px;text-align:center}
+.kick{display:inline-flex;align-items:center;gap:9px;font-family:'Space Grotesk';font-size:.76rem;
+  font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-soft);
+  border:1px solid rgba(123,97,255,.34);border-radius:999px;padding:6px 14px;margin-bottom:20px}
+.hero h1{font-size:clamp(2rem,5vw,3rem);margin-bottom:14px}
+.hero h1 em{font-style:normal;color:var(--accent-soft)}
+.hero p{color:var(--muted);max-width:620px;margin:0 auto}
+
+.search{max-width:560px;margin:26px auto 0;position:relative}
+.search input{width:100%;height:50px;padding:0 16px 0 46px;border-radius:14px;background:var(--panel);
+  border:1px solid var(--line-2);color:var(--white);outline:none;transition:.2s}
+.search input:focus{border-color:rgba(123,97,255,.65);box-shadow:0 0 0 4px rgba(123,97,255,.1)}
+.search svg{position:absolute;left:16px;top:16px;color:var(--dim)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin:38px 0 10px}
+.card{padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--panel);transition:.22s;display:block}
+.card:hover{border-color:rgba(123,97,255,.4);transform:translateY(-3px);background:var(--panel-2)}
+.card .ci{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;margin-bottom:13px;
+  background:rgba(123,97,255,.14);border:1px solid rgba(123,97,255,.26);color:var(--accent-soft)}
+.card h3{font-size:.98rem;margin-bottom:6px}
+.card p{font-size:.83rem;color:var(--dim);line-height:1.6}
+
+section.blk{padding:46px 0 10px}
+.shd{margin-bottom:22px}
+.shd h2{font-size:1.5rem;margin-bottom:7px}
+.shd p{color:var(--muted);font-size:.92rem}
+
+.grp{margin-bottom:26px}
+.grp > h4{font-family:'Space Grotesk';font-size:.76rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--dim);margin-bottom:11px}
+details.q{border:1px solid var(--line);border-radius:13px;background:var(--panel);margin-bottom:9px;overflow:hidden;transition:.2s}
+details.q[open]{border-color:rgba(123,97,255,.3);background:var(--panel-2)}
+details.q > summary{list-style:none;cursor:pointer;padding:15px 18px;display:flex;align-items:flex-start;gap:12px;
+  font-size:.93rem;font-weight:500}
+details.q > summary::-webkit-details-marker{display:none}
+details.q > summary:hover{color:var(--accent-soft)}
+details.q > summary .ch{flex:none;margin-top:3px;color:var(--dim);transition:transform .22s}
+details.q[open] > summary .ch{transform:rotate(90deg);color:var(--accent-soft)}
+details.q .ans{padding:0 18px 17px 42px;color:var(--muted);font-size:.89rem;line-height:1.75}
+details.q .ans b{color:var(--white)}
+details.q .ans code{font-family:'JetBrains Mono';font-size:.82em;background:rgba(123,97,255,.14);
+  border:1px solid rgba(123,97,255,.2);border-radius:5px;padding:1px 5px}
+details.q .ans ul{margin:9px 0 0 18px}
+details.q .ans li{margin:5px 0}
+details.q .ans a{color:var(--accent-soft);text-decoration:underline;text-underline-offset:2px}
+.nores{color:var(--dim);font-size:.9rem;padding:20px;text-align:center;border:1px dashed var(--line-2);border-radius:13px}
+
+.fix{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:22px;margin-bottom:12px}
+.fix h3{font-size:1rem;margin-bottom:10px;display:flex;align-items:center;gap:9px}
+.fix h3 svg{color:var(--warn)}
+.fix ol{margin-left:20px;color:var(--muted);font-size:.89rem}
+.fix li{margin:7px 0}
+
+.contato{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.contato{grid-template-columns:1fr}}
+.box{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:22px}
+.box h3{font-size:1.02rem;margin-bottom:9px}
+.box p{font-size:.87rem;color:var(--muted);margin-bottom:14px}
+.fld{margin-bottom:12px}
+.fld label{display:block;font-size:.78rem;color:var(--dim);margin-bottom:6px}
+.fld input,.fld textarea,.fld select{width:100%;background:var(--panel-2);border:1px solid var(--line);
+  border-radius:11px;padding:11px 13px;color:var(--white);outline:none;font-size:.89rem;transition:.2s}
+.fld textarea{min-height:120px;resize:vertical;line-height:1.6}
+.fld input:focus,.fld textarea:focus,.fld select:focus{border-color:rgba(123,97,255,.6);box-shadow:0 0 0 3px rgba(123,97,255,.1)}
+.send{width:100%;height:44px;border-radius:12px;background:var(--accent);font-weight:600;transition:.2s}
+.send:hover{background:var(--accent-soft)}
+.send:disabled{opacity:.55;cursor:not-allowed}
+.aviso{font-size:.8rem;margin-top:11px;padding:10px 12px;border-radius:10px;display:none}
+.aviso.ok{display:block;background:rgba(125,216,143,.12);border:1px solid rgba(125,216,143,.3);color:#9FE4AE}
+.aviso.err{display:block;background:rgba(227,107,122,.12);border:1px solid rgba(227,107,122,.3);color:#FF9AA7}
+.lista{list-style:none}
+.lista li{display:flex;gap:11px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:.88rem;color:var(--muted)}
+.lista li:last-child{border-bottom:0}
+.lista svg{flex:none;margin-top:3px;color:var(--accent-soft)}
+.lista b{color:var(--white)}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding:26px 0 40px;color:var(--dim);font-size:.82rem;text-align:center}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--accent-soft)}
+</style>
+</head>
+<body>
+<div class="blob" style="width:600px;height:520px;top:-16%;right:-12%;background:rgba(123,97,255,.15)"></div>
+<div class="blob" style="width:500px;height:460px;bottom:-10%;left:-14%;background:rgba(80,140,255,.1);animation-delay:-9s"></div>
+<div class="grain"></div>
+
+<header class="top">
+  <div class="topin">
+    <a class="brand" href="index.html"><span class="orb"></span><span>Orbit<i>Dual</i></span></a>
+    <span class="sp"></span>
+    <a class="gbtn hidesm" href="planos.html">Planos</a>
+    <a class="gbtn p" href="app.html">Abrir o Orbit</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="kick">Ajuda e suporte</span>
+    <h1>Como podemos <em>ajudar você</em>?</h1>
+    <p>Respostas para as dúvidas mais comuns sobre o Orbit, os créditos, os planos e a sua conta.
+       Se não achar aqui, fale com a gente no fim da página.</p>
+    <div class="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="busca" placeholder="Buscar na ajuda… (ex: créditos, senha, DualView)" autocomplete="off">
+    </div>
+  </section>
+
+  <div class="cards">
+    <a class="card" href="#comecar">
+      <span class="ci"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <h3>Primeiros passos</h3><p>Como conversar com o Orbit e tirar o máximo dele.</p></a>
+    <a class="card" href="#creditos">
+      <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h5M9.5 14.5h5"/></svg></span>
+      <h3>Créditos e planos</h3><p>O que é OC, quanto custa e como o consumo funciona.</p></a>
+    <a class="card" href="#dualview">
+      <span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="16" rx="2"/><rect x="14" y="4" width="7" height="16" rx="2"/></svg></span>
+      <h3>DualView</h3><p>Ver, rodar, editar e baixar o que o Orbit cria.</p></a>
+    <a class="card" href="#conta">
+      <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg></span>
+      <h3>Conta e acesso</h3><p>Entrar, trocar senha, idioma e apagar dados.</p></a>
+    <a class="card" href="#problemas">
+      <span class="ci"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L2.4 17.5A2 2 0 004.1 20.5h15.8a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg></span>
+      <h3>Problemas</h3><p>Resposta travou, cortou, deu erro. O que fazer.</p></a>
+  </div>
+
+  <section class="blk" id="faq">
+    <div class="shd">
+      <h2>Perguntas frequentes</h2>
+      <p>Clique para abrir. Use a busca lá em cima para filtrar.</p>
+    </div>
+    <div id="faqbox"></div>
+    <div class="nores" id="nores" hidden>Nada encontrado com esse termo. Tente outra palavra, ou fale com a gente abaixo.</div>
+  </section>
+
+  <section class="blk" id="problemas">
+    <div class="shd">
+      <h2>Resolvendo na hora</h2>
+      <p>Os três problemas que mais aparecem e o passo a passo para cada um.</p>
+    </div>
+    <div class="fix">
+      <h3><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg> A resposta parou no meio</h3>
+      <ol>
+        <li>Veja o saldo de OC no canto de baixo do painel lateral. Se zerou, a resposta para de propósito — é o único limite.</li>
+        <li>Se ainda tem saldo, escreva <b>continue</b> na conversa: o Orbit retoma exatamente de onde parou, sem reescrever o que já estava pronto.</li>
+        <li>Pedidos muito grandes são escritos em partes. Isso é normal e você vê o aviso “continuando a resposta”.</li>
+        <li>Se repetir, tente o <b>OB Blend-4.5</b>, que é mais rápido para projetos longos.</li>
+      </ol>
+    </div>
+    <div class="fix">
+      <h3><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg> A prévia do DualView está em branco ou travada</h3>
+      <ol>
+        <li>Clique no botão de recarregar, no topo do DualView.</li>
+        <li>Se aparecer uma barra vermelha no rodapé da prévia, ela mostra o erro e a linha: copie e cole na conversa pedindo a correção.</li>
+        <li>Abra a aba <b>Código</b> e confira se o arquivo está completo.</li>
+        <li>Abrir em uma aba nova (o ícone de seta) ajuda quando o jogo precisa de tela cheia ou de travar o cursor.</li>
+      </ol>
+    </div>
+    <div class="fix">
+      <h3><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg> Não consigo entrar na conta</h3>
+      <ol>
+        <li>Confira se o e-mail está escrito certo e sem espaço no fim.</li>
+        <li>Se criou a conta com o Google, entre pelo botão do Google — a senha de e-mail não vale para esse acesso.</li>
+        <li>Use “Esqueci a senha” na tela de entrada e olhe também a caixa de spam.</li>
+        <li>Se nada funcionar, mande uma mensagem no formulário abaixo com o e-mail da conta.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="blk" id="contato">
+    <div class="shd">
+      <h2>Falar com a gente</h2>
+      <p>Respondemos pelo e-mail que você deixar. Quanto mais detalhe, mais rápido resolvemos.</p>
+    </div>
+    <div class="contato">
+      <div class="box">
+        <h3>Abrir um chamado</h3>
+        <p>Conte o que aconteceu, o que você esperava e o que apareceu na tela.</p>
+        <div class="fld"><label for="assunto">Assunto</label>
+          <select id="assunto">
+            <option value="duvida">Dúvida de uso</option>
+            <option value="bug">Alguma coisa quebrou</option>
+            <option value="cobranca">Plano, créditos ou cobrança</option>
+            <option value="conta">Conta e acesso</option>
+            <option value="ideia">Sugestão de melhoria</option>
+          </select></div>
+        <div class="fld"><label for="email">Seu e-mail</label>
+          <input id="email" type="email" placeholder="voce@email.com"></div>
+        <div class="fld"><label for="msg">O que aconteceu</label>
+          <textarea id="msg" placeholder="Ex.: pedi um jogo da cobrinha no OB Fusion 3 e a resposta ficou vazia depois de uns dois minutos."></textarea></div>
+        <button class="send" id="enviar">Enviar chamado</button>
+        <div class="aviso" id="aviso"></div>
+      </div>
+      <div class="box">
+        <h3>Antes de enviar</h3>
+        <p>Essas informações costumam resolver o chamado na primeira resposta:</p>
+        <ul class="lista">
+          <li><svg class="sm" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            <span><b>Qual modelo</b> você estava usando (Blend, Fusion ou Eclipse).</span></li>
+          <li><svg class="sm" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            <span><b>O que você pediu</b>, se possível o texto exato.</span></li>
+          <li><svg class="sm" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            <span><b>O que apareceu</b>: mensagem de erro, tela em branco, resposta cortada.</span></li>
+          <li><svg class="sm" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            <span><b>Navegador e aparelho</b> (Chrome no PC, Safari no celular…).</span></li>
+          <li><svg class="sm" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            <span><b>Quando aconteceu</b>, mais ou menos o horário.</span></li>
+        </ul>
+        <p style="margin:16px 0 0">Prefere e-mail direto? Escreva para
+          <a href="mailto:suporte@orbitdual.com" style="color:var(--accent-soft)">suporte@orbitdual.com</a>.
+          No plano Insider o seu chamado entra na fila prioritária.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  OrbitDual · LunarRift Interactive &nbsp;·&nbsp;
+  <a href="app.html">Chat</a> &nbsp;·&nbsp; <a href="index.html">Site</a> &nbsp;·&nbsp; <a href="planos.html">Planos</a>
+</footer>
+
+<script>
+/* A ajuda funciona mesmo sem rede: o Supabase só é carregado na hora de enviar. */
+let _sbP = null;
+function getSB(){
+  if(!_sbP) _sbP = import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/+esm')
+    .then(m => m.createClient('https://vbjtqwflriyueqpcltqc.supabase.co',
+      'sb_publishable_qPpQZNv3WQE2dI126isv0Q_r_kZCwpY',
+      { auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true, flowType:'pkce' } }));
+  return _sbP;
+}
+const $ = s => document.querySelector(s);
+const esc = t => String(t??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+const FAQ = [
+ {g:'Primeiros passos', id:'comecar', itens:[
+  ['O que é o Orbit, exatamente?','O Orbit é o assistente de IA do OrbitDual. Você conversa com ele em português e ele explica conceitos, escreve código, monta páginas e jogos inteiros, corrige erros, faz tabelas, planos de estudo e documentos. É o mesmo tipo de assistente que você usaria para trabalhar, só que voltado para quem está aprendendo a programar e para quem já programa.'],
+  ['Como eu peço as coisas para ele?','Escreva como falaria com uma pessoa. Quanto mais claro o pedido, melhor a resposta: diga <b>o que</b> quer, <b>para quem</b> é e <b>o que não pode faltar</b>. Em vez de “faz um site”, tente “faz uma página de portfólio escura, com foto, três projetos e um formulário de contato”.'],
+  ['Qual é a diferença entre os modelos?','O <b>OB Blend-4.5</b> é rápido e resolve a maior parte das coisas muito bem — é o padrão. O <b>OB Fusion 3</b> pensa mais antes de responder e se sai melhor em código complicado e projeto grande. O <b>OB Eclipse 3.4</b> é o mais forte de todos, para problemas realmente difíceis e raciocínio longo. Quanto mais forte, mais OC consome.'],
+  ['Posso mandar arquivos e imagens?','Pode. Use o botão <code>+</code> ao lado da caixa de mensagem. Arquivos de texto e código entram inteiros na conversa; imagens o Orbit consegue enxergar e descrever. Dá para mandar um print de erro e pedir a correção.'],
+  ['Dá para ter duas conversas ao mesmo tempo?','Dá. O botão de painel duplo, no topo, abre uma segunda conversa ao lado para uma dúvida rápida, sem bagunçar o assunto principal.'],
+  ['O Orbit troca o jeito de explicar?','Sim. O botão de modo, embaixo da caixa de mensagem, alterna entre passo a passo, direto ao ponto, por analogia e modo professor (ele pergunta antes de entregar a resposta pronta).'],
+  ['Ele erra?','Erra, como qualquer IA. Confira o código antes de usar em coisa séria e desconfie de número, data e nome próprio. Se ele afirmar algo estranho, peça para explicar de onde tirou.'],
+ ]},
+ {g:'Créditos e planos', id:'creditos', itens:[
+  ['O que é OC?','OC é o Orbit Credit, a moeda do OrbitDual. Em vez de contar mensagens, a gente conta tokens de verdade — pedaços de texto que entram e saem da IA. Pergunta curta custa quase nada; um jogo inteiro custa o que um jogo inteiro custa.'],
+  ['Quanto custa cada modelo?','Por 1.000 tokens: <b>OB Blend-4.5</b> 1 OC de entrada e 5 OC de saída. <b>OB Fusion 3</b> 2,5 e 12,5. <b>OB Eclipse 3.4</b> 8 e 40. Toda mensagem consome no mínimo 1 OC.'],
+  ['Por que o Eclipse custa tanto mais?','Porque o modelo por trás dele raciocina muito mais antes de responder, e esse raciocínio também é cobrado em tokens. Ele existe para o pedido que os outros dois não resolvem — use quando precisar da força, não no dia a dia.'],
+  ['Onde vejo meu saldo?','No canto de baixo do painel lateral do chat, junto do seu nome. Também em <b>Configurações → Uso de OCs</b>, com o histórico do ciclo.'],
+  ['Meus OC acumulam para o mês seguinte?','Não. O saldo volta ao valor cheio do plano a cada renovação de ciclo. O que sobrou não é somado.'],
+  ['O que acontece quando os OC acabam?','A conversa para de propósito e o que já foi escrito continua salvo. Quando o ciclo renovar, ou quando você subir de plano, é só escrever <b>continue</b> que o Orbit retoma de onde parou.'],
+  ['Como eu troco de plano?','Na <a href="planos.html">página de planos</a>. O pagamento automático no cartão ainda está sendo montado, então por enquanto a troca é combinada direto com a equipe — o botão de assinar registra o seu interesse e a gente fala com você.'],
+  ['O plano gratuito serve para alguma coisa?','Serve bastante. O Orbit Basic vem com 500 OC por mês e o OB Blend-4.5 liberado, o que dá para tirar muita dúvida e montar páginas pequenas antes de decidir se vale assinar.'],
+ ]},
+ {g:'DualView', id:'dualview', itens:[
+  ['O que é o DualView?','É o painel que abre ao lado da conversa com o que o Orbit criou: o código com numeração de linha em uma aba e a página ou jogo rodando de verdade na outra. Ele aparece sozinho quando o Orbit entrega algo visual.'],
+  ['Posso editar o código ali mesmo?','Pode, a partir do plano <b>Pro</b>. No topo do DualView existe um botão de lápis: ele abre o arquivo para edição, e ao salvar o Orbit passa a enxergar exatamente a versão que você deixou. <kbd>Ctrl</kbd>+<kbd>S</kbd> salva e <kbd>Esc</kbd> cancela.'],
+  ['Como eu peço uma mudança sem que ele reescreva tudo?','É só pedir a mudança. O Orbit foi ensinado a devolver só o trecho que muda, e o DualView aplica a alteração no arquivo que já está lá. Você vê um cartão com o antes e o depois.'],
+  ['Consigo baixar o que ele fez?','Sim, pelo ícone de download no topo do DualView. Cada arquivo baixa separado, do jeito que está na tela.'],
+  ['A prévia mostra erro do meu código?','Mostra. Se o código quebrar enquanto roda, aparece uma barra vermelha no rodapé da prévia com a mensagem e a linha. Copie e cole na conversa que o Orbit corrige.'],
+  ['Dá para abrir em tela cheia?','Dá, pelo ícone de tela cheia. <kbd>Esc</kbd> volta. Para jogos que travam o cursor, abrir em uma aba nova funciona melhor.'],
+ ]},
+ {g:'Conta e acesso', id:'conta', itens:[
+  ['Como eu crio uma conta?','Na <a href="login.html">tela de entrada</a>, por e-mail e senha ou pelo botão do Google. Contas novas já entram no Orbit Basic, com 500 OC.'],
+  ['Esqueci a senha.','Use “Esqueci a senha” na tela de entrada. Chega um link no seu e-mail — olhe também a caixa de spam. Se você entrou com o Google, não existe senha: é só usar o botão do Google de novo.'],
+  ['Posso mudar o idioma das respostas?','Pode. Clique no seu perfil, no canto de baixo do chat, e escolha <b>Idioma</b>. O Orbit passa a responder no idioma escolhido a partir da próxima mensagem.'],
+  ['Minhas conversas ficam salvas onde?','No seu navegador e, quando você está logado, na sua conta. “Apagar conversas deste aparelho”, no menu de perfil, limpa só o que está neste navegador.'],
+  ['Vocês treinam IA com as minhas conversas?','Não. Suas conversas são usadas para você conversar com o Orbit e nada mais. Em <b>Configurações → Privacidade</b> você vê o que fica guardado e pode apagar.'],
+  ['Como eu apago minha conta?','Mande um chamado pelo formulário no fim desta página, com o e-mail da conta. A gente apaga os dados e confirma por e-mail.'],
+ ]},
+ {g:'Aprender a programar', id:'aprender', itens:[
+  ['Tem uma página de aprendizado?','Ainda não — está sendo preparada. Por enquanto você aprende direto na conversa: peça explicações, exercícios do seu nível e correções do que escreveu. É só dizer por onde quer começar.'],
+  ['Nunca programei. Dá para começar do zero?','Dá. Diga isso para ele logo na primeira mensagem: “nunca programei, quero começar por Python”. Ele ajusta o tamanho do passo e explica cada palavra nova que aparecer.'],
+  ['Ele corrige o que eu escrevo?','Corrige. Cole o seu código e peça a correção. Ele aponta onde apertou, explica o porquê e mostra o conserto — e, se você pedir, dá outra tarefa parecida para fixar.'],
+ ]},
+ {g:'Problemas conhecidos', id:'bugs', itens:[
+  ['A resposta veio vazia.','Costuma ser um engasgo momentâneo da IA. Mande a mesma mensagem de novo; se repetir, troque para o <b>OB Blend-4.5</b>. Se continuar acontecendo, abra um chamado dizendo o modelo e o horário.'],
+  ['“Sua sessão expirou”.','É só entrar de novo. Isso acontece quando o navegador fica muito tempo sem atualizar o acesso — o que você escreveu continua salvo.'],
+  ['“A IA está sobrecarregada”.','Esperar alguns segundos e mandar de novo resolve na maioria das vezes. Nada é cobrado quando a resposta não sai.'],
+  ['A página do chat está estranha depois de uma atualização.','Recarregue com <kbd>Ctrl</kbd>+<kbd>F5</kbd> (ou <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> no Mac) para o navegador pegar a versão nova.'],
+ ]}
+];
+
+function pintarFaq(filtro){
+  const f = (filtro||'').trim().toLowerCase();
+  let achou = 0;
+  const html = FAQ.map(g=>{
+    const norm = t => String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    const itens = g.itens.filter(([q,a])=> !f || norm(g.g+' '+q+' '+a).includes(norm(f)));
+    if(!itens.length) return '';
+    achou += itens.length;
+    return `<div class="grp" id="${g.id}"><h4>${esc(g.g)}</h4>` + itens.map(([q,a])=>`
+      <details class="q"${f?' open':''}>
+        <summary><svg class="sm ch" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg><span>${esc(q)}</span></summary>
+        <div class="ans">${a}</div>
+      </details>`).join('') + '</div>';
+  }).join('');
+  $('#faqbox').innerHTML = html;
+  $('#nores').hidden = achou > 0;
+}
+pintarFaq('');
+$('#busca').addEventListener('input', e=> pintarFaq(e.target.value));
+
+// pré-preenche o e-mail de quem está logado (silencioso se não der)
+getSB().then(sb => sb.auth.getUser()).then(({data})=>{
+  const u = data && data.user;
+  if(u && u.email && !$('#email').value) $('#email').value = u.email;
+}).catch(()=>{});
+
+$('#enviar').addEventListener('click', async ()=>{
+  const btn = $('#enviar'), aviso = $('#aviso');
+  const email = $('#email').value.trim();
+  const msg = $('#msg').value.trim();
+  const kind = $('#assunto').value;
+  aviso.className = 'aviso';
+  if(!msg){ aviso.className = 'aviso err'; aviso.textContent = 'Escreva o que aconteceu antes de enviar.'; return; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+    aviso.className = 'aviso err'; aviso.textContent = 'Coloque um e-mail válido para a gente conseguir responder.'; return; }
+  btn.disabled = true; btn.textContent = 'Enviando…';
+  try{
+    const sb = await getSB();
+    const { data } = await sb.auth.getUser();
+    const uid = data && data.user ? data.user.id : null;
+    const { error } = await sb.from('feedback').insert({
+      user_id: uid, kind, email,
+      message: msg + '\n\n---\nNavegador: ' + navigator.userAgent.slice(0,180),
+      page: 'ajuda'
+    });
+    if(error) throw error;
+    aviso.className = 'aviso ok';
+    aviso.textContent = 'Chamado recebido. A gente responde no e-mail que você deixou.';
+    $('#msg').value = '';
+  }catch(e){
+    aviso.className = 'aviso err';
+    aviso.textContent = 'Não consegui enviar agora. Tente de novo em instantes, ou escreva para suporte@orbitdual.com.';
+  }
+  btn.disabled = false; btn.textContent = 'Enviar chamado';
+});
+</script>
+</body>
+</html>
