@@ -482,7 +482,7 @@ async function abrirUsuario(id){
     if(a==='plan')   return trocarPlano(id, o);
     if(a==='oc')     return darCreditos(id, o);
     if(a==='reset'){ await sb.auth.resetPasswordForEmail(p.email,
-        {redirectTo:new URL('login.html',location.href).href}); toast('Link de redefinição enviado.'); return; }
+        {redirectTo:(function(){try{return new URL('login.html',location.href).href}catch(e){return 'login.html'}})()}); toast('Link de redefinição enviado.'); return; }
     if(a==='susp')   return acao(id,'set_status',{status:'suspended'}, o, 'Conta suspensa.');
     if(a==='ban')    return acao(id,'set_status',{status:'banned'}, o, 'Conta banida.');
     if(a==='ativar') return acao(id,'set_status',{status:'active'}, o, 'Conta reativada.');
@@ -801,15 +801,27 @@ async function viewLogs(){
 window.__abrir = abrirUsuario;
 
 /* ============ BOOT ============ */
+function gateMsg(html){
+  const g = document.getElementById('gate');
+  document.getElementById('gtxt').innerHTML = html;
+  const r = g.querySelector('.ring'); if(r) r.style.display = 'none';
+}
+
 (async ()=>{
-  const { data:{ session } } = await sb.auth.getSession();
+  if(!/^https?:$/.test(location.protocol)){
+    gateMsg('O painel precisa de uma sessão de verdade.<br>'+
+            'Abra <a href="https://orbitdual.vercel.app/admin.html" style="color:var(--accent-soft)">'+
+            'orbitdual.vercel.app/admin.html</a> no navegador.');
+    return;
+  }
+  let session = null;
+  try { ({ data:{ session } } = await sb.auth.getSession()); }
+  catch(e){ gateMsg('Não consegui verificar a sessão aqui.'); return; }
   if(!session){ location.replace('login.html'); return; }
   const { data:prof } = await sb.from('profiles').select('id,name,email,is_admin')
     .eq('id', session.user.id).maybeSingle();
   if(!prof || !prof.is_admin){
-    document.getElementById('gtxt').innerHTML =
-      'Esta área é só para administradores.<br><a href="app.html" style="color:var(--accent-soft)">Voltar ao chat</a>';
-    document.querySelector('#gate .ring').style.display = 'none';
+    gateMsg('Esta área é só para administradores.<br><a href="app.html" style="color:var(--accent-soft)">Voltar ao chat</a>');
     return;
   }
   ME = prof;

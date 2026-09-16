@@ -2635,7 +2635,83 @@ function sendMessage(text, auto, pane, atts){
 /* ---------------- resposta em streaming ---------------- */
 const ENDPOINT = 'https://vbjtqwflriyueqpcltqc.supabase.co/functions/v1/orbit-chat';
 
+/* resposta local para o modo demonstração (painel de visualização) */
+function respostaDemo(prompt){
+  const q = String(prompt||'').toLowerCase();
+  if(/jogo|game|cobrinha|snake|3d/.test(q)){
+    return ["Aqui vai um exemplo rodando no DualView ao lado.",
+"",
+"**index.html**",
+"```html",
+"<!doctype html>",
+'<html lang="pt-BR"><head><meta charset="utf-8"><title>Alvo</title>',
+"<style>",
+"  body{margin:0;height:100vh;display:grid;place-items:center;background:#0E0E14;",
+"       font-family:system-ui;color:#EEE;overflow:hidden}",
+"  #a{width:64px;height:64px;border-radius:50%;cursor:pointer;position:absolute;",
+"     background:radial-gradient(circle at 35% 30%,#A48CFF,#4B37B0);",
+"     box-shadow:0 0 34px -4px #7B61FF;transition:transform .09s}",
+"  #a:active{transform:scale(.88)}",
+"  #p{position:fixed;top:18px;left:20px;font-size:20px;font-weight:600}",
+"</style></head><body>",
+'<div id="p">Pontos: <span id="n">0</span></div>',
+'<div id="a"></div>',
+"<script>",
+"  const a = document.getElementById('a'), n = document.getElementById('n');",
+"  let pts = 0;",
+"  function mover(){",
+"    a.style.left = (Math.random() * (innerWidth  - 90) + 12) + 'px';",
+"    a.style.top  = (Math.random() * (innerHeight - 90) + 12) + 'px';",
+"  }",
+"  a.addEventListener('click', () => { pts++; n.textContent = pts; mover(); });",
+"  mover();",
+"<\/script></body></html>",
+"```",
+"",
+"Clique no círculo para pontuar. No site publicado o Orbit escreve projetos bem maiores que este."].join("\n");
+  }
+  if(/tabela|compar/.test(q)){
+    return ["Exemplo de tabela:","",
+"| Modelo | Velocidade | Custo por 1k de saída | Melhor para |",
+"|---|---|---|---|",
+"| Orbit Blend | rápida | 5 OC | dúvidas, sites, scripts |",
+"| Orbit Fusion | média | 12,5 OC | projetos grandes, código difícil |",
+"",
+"Esta é uma resposta de exemplo — no site publicado ela vem da IA de verdade."].join("\n");
+  }
+  return ["Esta é uma **demonstração da interface**: o chat, o DualView 1.3, os anexos e os painéis "
+        + "funcionam, mas não há IA conectada aqui.",
+"",
+"Para conversar de verdade, abra [orbitdual.vercel.app](https://orbitdual.vercel.app/app.html) e entre na sua conta.",
+"",
+"Enquanto isso, experimente pedir **um jogo** ou **uma tabela** que eu mostro como o resultado aparece."].join("\n");
+}
+
+async function respondDemo(c, prompt, pane){
+  const bot = {id:uid(), role:'bot', text:'', at:Date.now(), streaming:true};
+  c.msgs.push(bot);
+  RUNS[c.id] = {ctrl:{abort(){}}, msgId:bot.id, aborted:false};
+  markBusy(c, true);
+  renderStreamRow(c, bot, pane);
+  const alvo = respostaDemo(prompt);
+  await new Promise(res=>{
+    let i = 0;
+    const passo = ()=>{
+      if(RUNS[c.id] && RUNS[c.id].aborted) return res();
+      i = Math.min(alvo.length, i + 14);
+      bot.text = alvo.slice(0, i);
+      paintStream(c, bot);
+      if(i < alvo.length) setTimeout(passo, 16); else res();
+    };
+    setTimeout(passo, 420);
+  });
+  bot.streaming = false;
+  finish(c, bot, pane);
+}
+
 async function respond(c, prompt, pane, atts){
+  if(window.ORBIT_DEMO) return respondDemo(c, prompt, pane);
+
   const bot = {id:uid(), role:'bot', text:'', at:Date.now(), streaming:true};
   c.msgs.push(bot);
   const ctrl = new AbortController();
@@ -3191,7 +3267,7 @@ function openConfig(inicial){
     const tl = $('[data-tools]', bb); tl && tl.addEventListener('click', ()=>{ ovl.remove(); openTools(); });
     const pw = $('[data-pw]', bb); pw && pw.addEventListener('click', async ()=>{
       const sb = window.ORBIT_SB; if(!sb || !S.user.email) return;
-      await sb.auth.resetPasswordForEmail(S.user.email, {redirectTo: new URL('login.html', location.href).href});
+      await sb.auth.resetPasswordForEmail(S.user.email, {redirectTo: (window.orbitUrl ? window.orbitUrl('login.html') : 'login.html')});
       toast('Link de redefinição enviado para o seu e-mail', CHECK);
     });
     const out = $('[data-out]', bb); out && out.addEventListener('click', ()=> window.orbitLogout && window.orbitLogout());
@@ -3378,6 +3454,15 @@ function renderAll(){
 /* ---------------- ajustes finais ---------------- */
 document.addEventListener('DOMContentLoaded', ()=>{ aplicarDensidade(); });
 setTimeout(()=>{ aplicarDensidade(); paintOC(); }, 60);
+setTimeout(()=>{
+  const g = document.getElementById('authgate');
+  if(g && !window.ORBIT_ACCOUNT && !window.ORBIT_DEMO){
+    g.classList.add('gone'); setTimeout(()=>g.remove(), 400);
+    window.ORBIT_DEMO = true;
+    if(!window.orbitToken) window.orbitToken = async()=>null;
+    toast('Não consegui falar com o servidor. A interface está em modo demonstração.');
+  }
+}, 9000);
 addEventListener('beforeunload', e=>{
   if(Object.keys(RUNS).length){ e.preventDefault(); e.returnValue = ''; }
 });
@@ -3386,80 +3471,109 @@ addEventListener('beforeunload', e=>{
 <script type="module">
 /* =========================================================
    Sessão, conta, plano e créditos (OC)
+   Em contexto sem origem http (painel de visualização, arquivo
+   local), o app entra em modo demonstração em vez de travar.
    ========================================================= */
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/+esm';
+const ONLINE = /^https?:$/.test(location.protocol);
 
-const SUPABASE_URL = 'https://vbjtqwflriyueqpcltqc.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_qPpQZNv3WQE2dI126isv0Q_r_kZCwpY';
-const LOGIN_URL    = new URL('login.html', location.href).href;
+function urlRel(p){ try{ return new URL(p, location.href).href; }catch(e){ return p; } }
+window.orbitUrl = urlRel;
 
-const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
-  auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true, flowType:'pkce' }
-});
-window.ORBIT_SB = sb;
-
-window.orbitToken = async () => {
-  const { data:{ session } } = await sb.auth.getSession();
-  return session ? session.access_token : null;
-};
-
-window.orbitLogout = async () => {
-  try { await sb.auth.signOut(); } catch(e){}
-  try { localStorage.removeItem('orbit.state'); localStorage.removeItem('orbit.uid'); } catch(e){}
-  location.replace(LOGIN_URL);
-};
-
-/* recarrega plano + saldo do servidor */
-window.orbitRefreshAccount = async () => {
-  try {
-    const { data, error } = await sb.rpc('my_account');
-    if(error || !data || data.error) return null;
-    window.ORBIT_ACCOUNT = data;
-    if(window.orbitApplyAccount) window.orbitApplyAccount(data);
-    return data;
-  } catch(e){ return null; }
-};
-
-(async () => {
-  const { data:{ session } } = await sb.auth.getSession();
-  if(!session){ location.replace(LOGIN_URL); return; }
-  const user = session.user;
-
-  let prev = null, hadState = false;
-  try {
-    prev = localStorage.getItem('orbit.uid');
-    hadState = !!localStorage.getItem('orbit.state');
-  } catch(e){}
-  if(prev !== user.id){
-    try { localStorage.removeItem('orbit.state'); localStorage.setItem('orbit.uid', user.id); } catch(e){}
-    if(hadState){ location.reload(); return; }
-  }
-
-  const acct = await window.orbitRefreshAccount();
-
-  const meta = user.user_metadata || {};
-  const nome = (acct && acct.name) || meta.name || meta.full_name
-            || (user.email ? user.email.split('@')[0] : 'você');
-
+function abrirDemo(motivo){
+  window.ORBIT_DEMO = true;
+  window.orbitToken = async () => null;
+  window.orbitLogout = async () => { alert('No modo demonstração não há sessão para encerrar.'); };
+  window.orbitRefreshAccount = async () => null;
   if(window.orbitApplyUser) window.orbitApplyUser({
-    name:  nome,
-    email: user.email || '',
-    plan:  (acct && acct.plan && acct.plan.name) || 'Orbit Basic',
-    saldo: (acct && acct.credits) ? Number(acct.credits.balance) : 0,
-    cota:  (acct && acct.plan) ? Number(acct.plan.monthly_oc) : 500,
-    admin: !!(acct && acct.is_admin),
-    planId:(acct && acct.plan && acct.plan.id) || 'basic',
-    models:(acct && acct.plan && acct.plan.models) || ['blend'],
-    cicloFim:(acct && acct.credits && acct.credits.cycle_end) || null
+    name:'Visitante', email:'demonstração', plan:'Orbit Insider',
+    saldo:6000, cota:6000, admin:false, planId:'insider',
+    models:['blend','fusion'],
+    cicloFim:new Date(Date.now()+30*864e5).toISOString()
   });
-
   const gate = document.getElementById('authgate');
-  if(gate){ gate.classList.add('gone'); setTimeout(() => gate.remove(), 450); }
-})();
+  if(gate){ gate.classList.add('gone'); setTimeout(() => gate.remove(), 400); }
+  if(window.toast) setTimeout(()=> window.toast(motivo || 'Modo demonstração: a interface funciona, mas sem conta e sem IA de verdade.'), 900);
+}
 
-sb.auth.onAuthStateChange((event) => {
-  if(event === 'SIGNED_OUT') location.replace(LOGIN_URL);
-});
+if(!ONLINE){
+  abrirDemo('Modo demonstração — abra o site publicado para conversar de verdade.');
+} else {
+  const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/+esm');
+
+  const SUPABASE_URL = 'https://vbjtqwflriyueqpcltqc.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_qPpQZNv3WQE2dI126isv0Q_r_kZCwpY';
+  const LOGIN_URL    = urlRel('login.html');
+
+  const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true, flowType:'pkce' }
+  });
+  window.ORBIT_SB = sb;
+
+  window.orbitToken = async () => {
+    const { data:{ session } } = await sb.auth.getSession();
+    return session ? session.access_token : null;
+  };
+
+  window.orbitLogout = async () => {
+    try { await sb.auth.signOut(); } catch(e){}
+    try { localStorage.removeItem('orbit.state'); localStorage.removeItem('orbit.uid'); } catch(e){}
+    location.replace(LOGIN_URL);
+  };
+
+  window.orbitRefreshAccount = async () => {
+    try {
+      const { data, error } = await sb.rpc('my_account');
+      if(error || !data || data.error) return null;
+      window.ORBIT_ACCOUNT = data;
+      if(window.orbitApplyAccount) window.orbitApplyAccount(data);
+      return data;
+    } catch(e){ return null; }
+  };
+
+  (async () => {
+    let session = null;
+    try { ({ data:{ session } } = await sb.auth.getSession()); }
+    catch(e){ return abrirDemo('Não consegui verificar a sessão aqui. Abrindo em modo demonstração.'); }
+
+    if(!session){ location.replace(LOGIN_URL); return; }
+    const user = session.user;
+
+    let prev = null, hadState = false;
+    try {
+      prev = localStorage.getItem('orbit.uid');
+      hadState = !!localStorage.getItem('orbit.state');
+    } catch(e){}
+    if(prev !== user.id){
+      try { localStorage.removeItem('orbit.state'); localStorage.setItem('orbit.uid', user.id); } catch(e){}
+      if(hadState){ location.reload(); return; }
+    }
+
+    const acct = await window.orbitRefreshAccount();
+
+    const meta = user.user_metadata || {};
+    const nome = (acct && acct.name) || meta.name || meta.full_name
+              || (user.email ? user.email.split('@')[0] : 'você');
+
+    if(window.orbitApplyUser) window.orbitApplyUser({
+      name:  nome,
+      email: user.email || '',
+      plan:  (acct && acct.plan && acct.plan.name) || 'Orbit Basic',
+      saldo: (acct && acct.credits) ? Number(acct.credits.balance) : 0,
+      cota:  (acct && acct.plan) ? Number(acct.plan.monthly_oc) : 500,
+      admin: !!(acct && acct.is_admin),
+      planId:(acct && acct.plan && acct.plan.id) || 'basic',
+      models:(acct && acct.plan && acct.plan.models) || ['blend'],
+      cicloFim:(acct && acct.credits && acct.credits.cycle_end) || null
+    });
+
+    const gate = document.getElementById('authgate');
+    if(gate){ gate.classList.add('gone'); setTimeout(() => gate.remove(), 450); }
+  })();
+
+  sb.auth.onAuthStateChange((event) => {
+    if(event === 'SIGNED_OUT') location.replace(LOGIN_URL);
+  });
+}
 </script>
 </body>
 </html>
