@@ -874,9 +874,8 @@ const MODOS = [
   {id:'prof',   nm:'Modo professor', sub:'pergunta antes de entregar'}
 ];
 const MODELOS = [
-  {id:'blend',   nm:'Orbit Blend',      sub:'rápido, ótimo para o dia a dia',           oc:'1 OC entrada / 5 OC saída por 1k tokens'},
-  {id:'fusion',  nm:'Orbit Fusion',     sub:'raciocínio avançado, projetos complexos',  oc:'2,5 OC entrada / 12,5 OC saída por 1k tokens', pro:true},
-  {id:'eclipse', nm:'Orbit Eclipse 3.4', sub:'o mais forte: raciocínio longo e projetos difíceis', oc:'5 OC entrada / 25 OC saída por 1k tokens', pro:true, top:true}
+  {id:'blend',  nm:'Orbit Blend',  sub:'rápido, ótimo para o dia a dia',        oc:'~1 OC entrada / 5 OC saída por 1k tokens'},
+  {id:'fusion', nm:'Orbit Fusion', sub:'raciocínio avançado, projetos complexos', oc:'~2,5 OC entrada / 12,5 OC saída por 1k tokens', pro:true}
 ];
 const PROJ_TIPOS = [
   {id:'site', nm:'Site'}, {id:'app', nm:'Aplicativo'}, {id:'jogo', nm:'Jogo'},
@@ -2147,13 +2146,6 @@ textarea.inp2{resize:vertical;min-height:110px;line-height:1.55}
   .sheet .card{width:100%;border-radius:20px 20px 0 0}
 }
 
-/* densidade compacta */
-body.compacto .mrow{margin-bottom:15px}
-body.compacto .bub{padding:11px 14px;font-size:.89rem;line-height:1.62}
-body.compacto .msgs{padding-top:14px}
-body.compacto .comp-in textarea{min-height:38px;padding:10px 14px 2px}
-body.compacto .composer{padding:4px 18px 10px}
-body.compacto .comp-note{display:none}
 
 /* tabelas fora das mensagens (configuracoes, ajuda) */
 .bigbody .tablewrap{overflow-x:auto;margin:13px 0;border:1px solid var(--line);border-radius:11px}
@@ -2161,79 +2153,13 @@ body.compacto .comp-note{display:none}
 .bigbody th,.bigbody td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line)}
 .bigbody th{background:rgba(255,255,255,.04);font-weight:600;color:#fff;white-space:nowrap}
 .bigbody tr:last-child td{border-bottom:0}
-
-/* ============================================================
-   camada 3 — painel lateral, edições, menu de perfil
-   ============================================================ */
-
-/* ---------- painel lateral fecha sem deixar buraco ---------- */
-@media(min-width:901px){
-  #app{transition:grid-template-columns .3s cubic-bezier(.4,0,.2,1)}
-  #app.railoff{grid-template-columns:0 1fr}
-  #app.railoff .rail{margin-left:0;border-right-color:transparent}
-  .rail{min-width:0;overflow:hidden}
-  .rail-hd,.rail-act,.rail-list,.rail-ft{min-width:var(--rail)}
-  #app:not(.railoff) #railOpen{display:none}
-}
-
-/* ---------- aviso de resposta continuando ---------- */
-.contando{display:inline-flex;align-items:center;gap:7px;margin-top:9px;font-size:.71rem;
-  color:var(--accent-soft);background:rgba(123,97,255,.1);border:1px solid rgba(123,97,255,.22);
-  border-radius:99px;padding:4px 11px}
-.contando i{width:6px;height:6px;border-radius:50%;background:currentColor;animation:ocp 1.3s ease-in-out infinite}
-
-/* ---------- cartão de alteração pontual ---------- */
-.editbox{margin:13px 0;border:1px solid rgba(123,97,255,.3);border-radius:12px;overflow:hidden;
-  background:rgba(123,97,255,.05)}
-.eb-hd{display:flex;align-items:center;gap:9px;padding:9px 13px;
-  background:rgba(123,97,255,.1);border-bottom:1px solid rgba(123,97,255,.22)}
-.eb-hd .ico{color:var(--accent-soft)}
-.eb-hd b{font-family:'JetBrains Mono';font-size:.74rem;font-weight:500;color:#EAEAF2}
-.eb-hd span{margin-left:auto;font-size:.7rem;color:var(--muted)}
-.eb-diff{font-family:'JetBrains Mono';font-size:.73rem;line-height:1.6;overflow-x:auto;
-  border-bottom:1px solid rgba(255,255,255,.05)}
-.eb-diff:last-child{border-bottom:0}
-.eb-diff .ln{display:flex;gap:9px;padding:1px 13px;white-space:pre}
-.eb-diff .ln i{font-style:normal;opacity:.6;flex:none;width:9px;text-align:center}
-.eb-diff .ln.del{background:rgba(227,107,122,.09);color:#E9A6AE}
-.eb-diff .ln.add{background:rgba(125,216,143,.09);color:#9FDDAE}
-.eb-diff .ln span{flex:1;min-width:0}
-
-/* ---------- menu de perfil ---------- */
-.sheet .card{width:min(322px,94vw);padding:0;overflow:hidden}
-.sh-mail{padding:13px 16px 11px;font-size:.78rem;color:var(--muted);word-break:break-all;
-  border-bottom:1px solid var(--line)}
-.sh-me{display:flex;align-items:center;gap:11px;padding:13px 14px 12px}
-.sh-av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex:none;
-  font-family:'Space Grotesk';font-weight:600;font-size:.92rem;color:#fff;
-  background:linear-gradient(140deg,var(--accent),#4A36AF);
-  box-shadow:0 0 0 1px rgba(255,255,255,.08)}
-.sh-txt{min-width:0;flex:1}
-.sh-txt b{display:block;font-family:'Space Grotesk';font-size:.92rem;color:#fff;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sh-txt span{display:block;font-size:.74rem;color:var(--muted)}
-.sh-up{flex:none;font-size:.73rem;font-weight:600;color:#fff;background:var(--accent);
-  border-radius:8px;padding:5px 11px;transition:.18s}
-.sh-up:hover{background:var(--accent-soft)}
-.sh-badge{flex:none;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:#8FDDA0;
-  background:rgba(125,216,143,.12);border:1px solid rgba(125,216,143,.28);border-radius:99px;padding:3px 9px}
-.sh-oc{padding:0 16px 13px}
-.sh-ocl{display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
-.sh-ocl b{font-family:'Space Grotesk';font-size:.92rem;color:#fff}
-.sh-ocl span{font-size:.72rem;color:var(--muted)}
-.sh-ocl i{margin-left:auto;font-style:normal;font-size:.68rem;color:var(--dim)}
-.sh-bar{height:4px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
-.sh-bar i{display:block;height:100%;border-radius:99px;
-  background:linear-gradient(90deg,var(--accent),var(--accent-soft));transition:width .5s}
-.sh-bar.low i{background:linear-gradient(90deg,#E36B7A,#F0A05A)}
-.sh-sep{height:1px;background:var(--line);margin:5px 0}
-.sheet button.it,.sheet a.it{gap:12px;padding:10px 16px;border-radius:0;font-size:.865rem}
-.sheet button.it:hover,.sheet a.it:hover{background:rgba(255,255,255,.055)}
-.sheet a.it.adm{color:#C9BBFF}
-.sheet a.it.adm .ico{color:var(--accent-soft)}
-.sheet a.it.adm:hover{background:rgba(123,97,255,.14)}
-.sheet a.it.adm .seta{margin-left:auto;opacity:.5}
-.sheet .card > *:last-child{margin-bottom:6px}
+/* densidade compacta */
+body.compacto .mrow{margin-bottom:15px}
+body.compacto .bub{padding:11px 14px;font-size:.89rem;line-height:1.62}
+body.compacto .msgs{padding-top:14px}
+body.compacto .comp-in textarea{min-height:38px;padding:10px 14px 2px}
+body.compacto .composer{padding:4px 18px 10px}
+body.compacto .comp-note{display:none}
 
 </style>
 <script>
@@ -2325,32 +2251,6 @@ function hl(code, lang){
     (_,k)=>bag[+k.replace(/[QWERTYUIOP]/g, c => 'QWERTYUIOP'.indexOf(c))]);
 }
 
-
-/* cartão visual para os blocos de edição pontual */
-function editCard(arquivo, corpo, aberto){
-  const pr = /@@\s*PROCURAR\s*\n([\s\S]*?)\n@@\s*SUBSTITUIR\s*\n([\s\S]*?)(?=\n@@\s*FIM|\n@@\s*PROCURAR|$)/g;
-  const itens = [];
-  let m;
-  while((m = pr.exec(corpo||'')) !== null){
-    itens.push({de:m[1], para:m[2].replace(/\n@@\s*FIM\s*$/,'')});
-  }
-  const nome = esc(arquivo || 'projeto');
-  if(!itens.length){
-    return `<div class="editbox"><div class="eb-hd"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>
-      <b>${nome}</b><span>${aberto?'escrevendo a alteração…':'preparando alteração'}</span></div></div>`;
-  }
-  const linhas = (txt, tipo)=> String(txt).replace(/\n+$/,'').split('\n')
-    .map(l=>`<div class="ln ${tipo}"><i>${tipo==='del'?'−':'+'}</i><span>${esc(l) || '&nbsp;'}</span></div>`).join('');
-  return `<div class="editbox">
-    <div class="eb-hd">
-      <svg class="ico sm" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>
-      <b>${nome}</b>
-      <span>${itens.length === 1 ? '1 alteração' : itens.length+' alterações'}${aberto?' · escrevendo…':''}</span>
-    </div>
-    ${itens.map(it=>`<div class="eb-diff">${linhas(it.de,'del')}${linhas(it.para,'add')}</div>`).join('')}
-  </div>`;
-}
-
 function inlineMd(s){
   s = s.replace(/`([^`]+)`/g, (m,c)=>'<code>'+c+'</code>');
   s = s.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
@@ -2364,12 +2264,12 @@ function fmt(text, opts){
   const stream = opts && opts.stream;
   const raw = String(text ?? '');
   const parts = [];
-  const re = /```([a-zA-Z0-9+#._-]*)([^\n]*)\n([\s\S]*?)(?:```|$)/g;
+  const re = /```([a-zA-Z0-9+#._-]*)[^\n]*\n([\s\S]*?)(?:```|$)/g;
   let last = 0, m;
   while((m = re.exec(raw)) !== null){
     parts.push({txt: raw.slice(last, m.index)});
     const closed = raw.slice(m.index).includes('\n```') || /```\s*$/.test(raw.slice(m.index));
-    parts.push({code: m[3], lang: m[1] || '', info: (m[2]||'').trim(), open: !closed && stream});
+    parts.push({code: m[2], lang: m[1] || '', open: !closed && stream});
     last = re.lastIndex;
   }
   parts.push({txt: raw.slice(last)});
@@ -2378,7 +2278,6 @@ function fmt(text, opts){
   let fileHint = '';
   parts.forEach(p=>{
     if(p.code !== undefined){
-      if((p.lang||'').toLowerCase() === 'edit'){ html += editCard(p.info, p.code, p.open); return; }
       const lname = LANG_NM[(p.lang||'').toLowerCase()] || (p.lang ? p.lang.toUpperCase() : 'código');
       const nm = fileHint || lname;
       fileHint = '';
@@ -2736,87 +2635,11 @@ function sendMessage(text, auto, pane, atts){
 /* ---------------- resposta em streaming ---------------- */
 const ENDPOINT = 'https://vbjtqwflriyueqpcltqc.supabase.co/functions/v1/orbit-chat';
 
-/* resposta local para o modo demonstração (painel de visualização) */
-function respostaDemo(prompt){
-  const q = String(prompt||'').toLowerCase();
-  if(/jogo|game|cobrinha|snake|3d/.test(q)){
-    return ["Aqui vai um exemplo rodando no DualView ao lado.",
-"",
-"**index.html**",
-"```html",
-"<!doctype html>",
-'<html lang="pt-BR"><head><meta charset="utf-8"><title>Alvo</title>',
-"<style>",
-"  body{margin:0;height:100vh;display:grid;place-items:center;background:#0E0E14;",
-"       font-family:system-ui;color:#EEE;overflow:hidden}",
-"  #a{width:64px;height:64px;border-radius:50%;cursor:pointer;position:absolute;",
-"     background:radial-gradient(circle at 35% 30%,#A48CFF,#4B37B0);",
-"     box-shadow:0 0 34px -4px #7B61FF;transition:transform .09s}",
-"  #a:active{transform:scale(.88)}",
-"  #p{position:fixed;top:18px;left:20px;font-size:20px;font-weight:600}",
-"</style></head><body>",
-'<div id="p">Pontos: <span id="n">0</span></div>',
-'<div id="a"></div>',
-"<script>",
-"  const a = document.getElementById('a'), n = document.getElementById('n');",
-"  let pts = 0;",
-"  function mover(){",
-"    a.style.left = (Math.random() * (innerWidth  - 90) + 12) + 'px';",
-"    a.style.top  = (Math.random() * (innerHeight - 90) + 12) + 'px';",
-"  }",
-"  a.addEventListener('click', () => { pts++; n.textContent = pts; mover(); });",
-"  mover();",
-"<\/script></body></html>",
-"```",
-"",
-"Clique no círculo para pontuar. No site publicado o Orbit escreve projetos bem maiores que este."].join("\n");
-  }
-  if(/tabela|compar/.test(q)){
-    return ["Exemplo de tabela:","",
-"| Modelo | Velocidade | Custo por 1k de saída | Melhor para |",
-"|---|---|---|---|",
-"| Orbit Blend | rápida | 5 OC | dúvidas, sites, scripts |",
-"| Orbit Fusion | média | 12,5 OC | projetos grandes, código difícil |",
-"",
-"Esta é uma resposta de exemplo — no site publicado ela vem da IA de verdade."].join("\n");
-  }
-  return ["Esta é uma **demonstração da interface**: o chat, o DualView 1.3, os anexos e os painéis "
-        + "funcionam, mas não há IA conectada aqui.",
-"",
-"Para conversar de verdade, abra [orbitdual.vercel.app](https://orbitdual.vercel.app/app.html) e entre na sua conta.",
-"",
-"Enquanto isso, experimente pedir **um jogo** ou **uma tabela** que eu mostro como o resultado aparece."].join("\n");
-}
-
-async function respondDemo(c, prompt, pane){
-  const bot = {id:uid(), role:'bot', text:'', at:Date.now(), streaming:true};
-  c.msgs.push(bot);
-  RUNS[c.id] = {ctrl:{abort(){}}, msgId:bot.id, aborted:false};
-  markBusy(c, true);
-  renderStreamRow(c, bot, pane);
-  const alvo = respostaDemo(prompt);
-  await new Promise(res=>{
-    let i = 0;
-    const passo = ()=>{
-      if(RUNS[c.id] && RUNS[c.id].aborted) return res();
-      i = Math.min(alvo.length, i + 14);
-      bot.text = alvo.slice(0, i);
-      paintStream(c, bot);
-      if(i < alvo.length) setTimeout(passo, 16); else res();
-    };
-    setTimeout(passo, 420);
-  });
-  bot.streaming = false;
-  finish(c, bot, pane);
-}
-
 async function respond(c, prompt, pane, atts){
-  if(window.ORBIT_DEMO) return respondDemo(c, prompt, pane);
-
   const bot = {id:uid(), role:'bot', text:'', at:Date.now(), streaming:true};
   c.msgs.push(bot);
-  const run = {ctrl:null, aborted:false, msgId:bot.id};
-  RUNS[c.id] = run;
+  const ctrl = new AbortController();
+  RUNS[c.id] = {ctrl, msgId:bot.id, aborted:false};
   markBusy(c, true);
   renderStreamRow(c, bot, pane);
 
@@ -2827,232 +2650,68 @@ async function respond(c, prompt, pane, atts){
     paintStream(c, bot);
   };
 
-  const MAX_RODADAS = 16;     // só para quando terminar, cancelar ou faltar OC
-  const MAX_QUEDAS  = 4;
-  let rodada = 0, quedas = 0, ocTotal = 0, parar = false, motivo = '';
+  try{
+    const token = window.orbitToken ? await window.orbitToken() : null;
+    const r = await fetch(ENDPOINT, {
+      method:'POST',
+      signal: ctrl.signal,
+      headers:{ 'Content-Type':'application/json',
+                ...(token ? {Authorization:'Bearer '+token} : {}) },
+      body: JSON.stringify({
+        model: S.model, mode: c.mode||S.mode, lang: c.lang, intent: c.intent,
+        messages: c.msgs.filter(m=>!m.streaming).slice(-24).map(m=>({role:m.role, text:m.text})),
+        attachments: atts || []
+      })
+    });
 
-  while(!parar && rodada < MAX_RODADAS){
-    rodada++;
-    const continuando = rodada > 1;
-    const ctrl = new AbortController();
-    run.ctrl = ctrl;
+    const ct = r.headers.get('content-type') || '';
+    if(!r.ok || ct.includes('application/json')){
+      let d = {}; try{ d = await r.json(); }catch(e){}
+      bot.text = d.message || 'Não consegui falar com o servidor agora. Tente de novo em instantes.';
+      bot.streaming = false;
+      if(d.upgrade) bot.text += '\n\n[Ver os planos do Orbit](planos.html)';
+      bump(true); finish(c, bot, pane); return;
+    }
 
-    let recebeuDone = false, incompleto = false, houveTexto = false, veioVazio = false;
-    let pend = '', emendado = !continuando;   // na 1ª rodada não precisa emendar
-
-    const receber = (txt)=>{
-      houveTexto = true;
-      if(emendado){ bot.text += txt; bump(); return; }
-      pend += txt;
-      if(pend.length >= 300){
-        bot.text += emendar(bot.text, pend);
-        pend = ''; emendado = true; bump(true);
-      }
-    };
-    const fecharPendente = ()=>{
-      if(!emendado && pend){ bot.text += emendar(bot.text, pend); pend = ''; emendado = true; bump(true); }
-    };
-
-    try{
-      const token = window.orbitToken ? await window.orbitToken() : null;
-      const r = await fetch(ENDPOINT, {
-        method:'POST',
-        signal: ctrl.signal,
-        headers:{ 'Content-Type':'application/json',
-                  ...(token ? {Authorization:'Bearer '+token} : {}) },
-        body: JSON.stringify({
-          model: S.model, mode: c.mode||S.mode, lang: c.lang, intent: c.intent,
-          messages: c.msgs.filter(m=>!m.streaming).slice(-24).map(m=>({role:m.role, text:m.text})),
-          attachments: continuando ? [] : (atts || []),
-          projeto: projetoAtual(c),
-          continuar: continuando,
-          parcial: continuando ? bot.text : ''
-        })
-      });
-
-      const ct = r.headers.get('content-type') || '';
-      if(!r.ok || ct.includes('application/json')){
-        let d = {}; try{ d = await r.json(); }catch(e){}
-        const msg = d.message || 'Não consegui falar com o servidor agora. Tente de novo em instantes.';
-        bot.text += (bot.text ? '\n\n' : '') + '_' + msg + '_';
-        if(d.upgrade) bot.text += '\n\n[Ver os planos do Orbit](planos.html)';
-        motivo = d.error || 'http';
-        bump(true); parar = true; break;
-      }
-
-      const reader = r.body.getReader();
-      const dec = new TextDecoder();
-      let buf = '';
-      while(true){
-        const {done, value} = await reader.read();
-        if(done) break;
-        buf += dec.decode(value, {stream:true});
-        let nl;
-        while((nl = buf.indexOf('\n')) >= 0){
-          let line = buf.slice(0,nl).trim(); buf = buf.slice(nl+1);
-          if(!line || line[0] === ':') continue;
-          if(line.startsWith('data:')) line = line.slice(5).trim();
-          if(!line) continue;
-          let ev; try{ ev = JSON.parse(line); }catch(e){ continue; }
-          if(ev.type === 'delta'){ receber(ev.text); }
-          else if(ev.type === 'error'){ /* registrado no done */ }
-          else if(ev.type === 'done'){
-            recebeuDone = true;
-            incompleto = !!ev.incompleto;
-            veioVazio = !!ev.vazio;
-            ocTotal += Number(ev.oc || 0);
-            if(typeof ev.balance === 'number'){ S.user.saldo = ev.balance; paintOC(); }
-          }
+    const reader = r.body.getReader();
+    const dec = new TextDecoder();
+    let buf = '';
+    while(true){
+      const {done, value} = await reader.read();
+      if(done) break;
+      buf += dec.decode(value, {stream:true});
+      let nl;
+      while((nl = buf.indexOf('\n')) >= 0){
+        let line = buf.slice(0,nl).trim(); buf = buf.slice(nl+1);
+        if(!line || line[0] === ':') continue;
+        if(line.startsWith('data:')) line = line.slice(5).trim();
+        if(!line) continue;
+        let ev; try{ ev = JSON.parse(line); }catch(e){ continue; }
+        if(ev.type === 'delta'){ bot.text += ev.text; bump(); }
+        else if(ev.type === 'error'){ bot.text += '\n\n_'+ev.message+'_'; bump(); }
+        else if(ev.type === 'done'){
+          bot.oc = ev.oc;
+          if(typeof ev.balance === 'number'){ S.user.saldo = ev.balance; paintOC(); }
         }
       }
-      fecharPendente();
-    }catch(e){
-      fecharPendente();
-      if(run.aborted){
-        bot.text += bot.text ? '\n\n_(resposta interrompida por você)_' : '_Resposta cancelada._';
-        parar = true; break;
-      }
-      quedas++;
-      if(quedas > MAX_QUEDAS){ motivo = 'queda'; parar = true; break; }
-      bump(true);
-      marcarContinuando(bot, rodada, 'reconectando');
-      await new Promise(r2=>setTimeout(r2, 800 * quedas));
-      continue;
     }
-
-    if(run.aborted){ parar = true; break; }
-
-    // terminou de verdade
-    if(recebeuDone && !incompleto && !veioVazio){ parar = true; break; }
-
-    // não veio nada nesta rodada: tenta de novo em vez de entregar vazio
-    if(!houveTexto){
-      quedas++;
-      if(quedas > MAX_QUEDAS){ motivo = 'vazio'; parar = true; break; }
-      bump(true);
-      marcarContinuando(bot, rodada, 'tentando de novo');
-      await new Promise(r2=>setTimeout(r2, 800 * quedas));
-      continue;
+  }catch(e){
+    if(RUNS[c.id] && RUNS[c.id].aborted){
+      if(bot.text) bot.text += '\n\n_(resposta interrompida por você)_';
+      else bot.text = '_Resposta cancelada._';
+    } else {
+      bot.text = bot.text
+        ? bot.text + '\n\n_A conexão caiu no meio. O texto acima foi mantido — peça "continue" que eu sigo daqui._'
+        : 'Não consegui falar com o servidor agora. Verifique sua internet e tente de novo.';
     }
-
-    // veio texto mas o stream caiu antes do fim
-    if(!recebeuDone){
-      quedas++;
-      if(quedas > MAX_QUEDAS){ motivo = 'queda'; parar = true; break; }
-    }
-
-    bump(true);
-    marcarContinuando(bot, rodada, 'continuando a resposta');
   }
 
-  if(!parar && rodada >= MAX_RODADAS) motivo = motivo || 'longa';
-
-  if(!bot.text.trim()){
-    bot.text = motivo === 'vazio'
-      ? 'A IA não devolveu nada dessa vez, mesmo depois de algumas tentativas. Isso costuma ser um engasgo momentâneo — manda de novo, ou tenta com o **Orbit Blend**, que é mais rápido para pedidos grandes.'
-      : 'Não consegui completar a resposta agora. Tenta de novo em instantes.';
-  } else if(motivo === 'queda'){
-    bot.text += '\n\n_A conexão caiu algumas vezes e eu parei por aqui. Escreva **continue** que eu sigo exatamente de onde parou._';
-  } else if(motivo === 'longa'){
-    bot.text += '\n\n_Esta resposta ficou muito longa e eu pausei. Escreva **continue** para eu seguir._';
-  }
-
-  bot.oc = ocTotal || bot.oc;
   bot.streaming = false;
   finish(c, bot, pane);
 }
 
-/* emenda a continuação sem repetir o que já estava escrito */
-function emendar(base, novo){
-  if(!base || !novo) return novo || '';
-  const max = Math.min(500, base.length, novo.length);
-  for(let n = max; n >= 12; n--){
-    if(base.slice(-n) === novo.slice(0, n)) return novo.slice(n);
-  }
-  const corte = novo.replace(/^\s*(continuando|continua\u00e7\u00e3o)[^\n]*\n+/i, '');
-  return corte;
-}
-
-function marcarContinuando(bot, rodada, rotulo){
-  const row = document.querySelector(`[data-mid="${bot.id}"] .bub`);
-  if(!row) return;
-  let tag = row.parentElement.querySelector('.contando');
-  if(!tag){
-    tag = document.createElement('div');
-    tag.className = 'contando';
-    row.parentElement.appendChild(tag);
-  }
-  tag.innerHTML = `<i></i> ${esc(rotulo || 'continuando a resposta')} · parte ${rodada+1}`;
-}
-
-function projetoAtual(c){
-  const fs = (c.files || []).filter(f=>f && f.code);
-  if(!fs.length) return null;
-  let total = 0;
-  const out = [];
-  for(const f of fs.slice(0,6)){
-    if(total > 110000) break;
-    out.push({name:f.name, code:f.code});
-    total += f.code.length;
-  }
-  return {files: out};
-}
-
-/* ---------------- edições pontuais no projeto ---------------- */
-function extrairEdicoes(text){
-  const out = [];
-  const re = /```edit[ \t]*([^\n]*)\n([\s\S]*?)(?:```|$)/g;
-  let m;
-  while((m = re.exec(String(text||''))) !== null){
-    const arquivo = (m[1]||'').trim();
-    const corpo = m[2] || '';
-    const pr = /@@\s*PROCURAR\s*\n([\s\S]*?)\n@@\s*SUBSTITUIR\s*\n([\s\S]*?)(?=\n@@\s*FIM|\n@@\s*PROCURAR|$)/g;
-    let p;
-    while((p = pr.exec(corpo)) !== null){
-      out.push({arquivo, procurar:p[1], substituir:p[2].replace(/\n@@\s*FIM\s*$/,'')});
-    }
-  }
-  return out;
-}
-
-function aplicarEdicoes(c, eds){
-  const res = {ok:0, falhas:[]};
-  if(!eds.length) return res;
-  if(!c.files || !c.files.length){ res.falhas.push('não há arquivo aberto no DualView'); return res; }
-  const semRabo = s => String(s).split('\n').map(l=>l.replace(/[ \t]+$/,'')).join('\n').replace(/^\n+|\n+$/g,'');
-
-  eds.forEach(e=>{
-    const f = c.files.find(x=>x.name === e.arquivo)
-           || (c.files.length === 1 ? c.files[0] : null);
-    if(!f){ res.falhas.push(`${e.arquivo||'arquivo'}: não encontrei esse arquivo`); return; }
-
-    const alvo = semRabo(e.procurar);
-    const novo = semRabo(e.substituir);
-    if(!alvo){ res.falhas.push(`${f.name}: bloco de busca vazio`); return; }
-
-    let i = f.code.indexOf(alvo);
-    if(i >= 0){
-      if(f.code.indexOf(alvo, i + 1) >= 0){
-        res.falhas.push(`${f.name}: o trecho aparece mais de uma vez`); return;
-      }
-      f.code = f.code.slice(0,i) + novo + f.code.slice(i + alvo.length);
-      res.ok++; return;
-    }
-    const cn = semRabo(f.code);
-    const j = cn.indexOf(alvo);
-    if(j < 0){ res.falhas.push(`${f.name}: não achei o trecho no arquivo`); return; }
-    f.code = cn.slice(0,j) + novo + cn.slice(j + alvo.length);
-    res.ok++;
-  });
-
-  if(res.ok){ c.code = c.files.map(f=>f.code).join('\n\n'); save(); }
-  return res;
-}
-
 function finish(c, bot, pane){
   delete RUNS[c.id];
-  const tg = document.querySelector(`[data-mid="${bot.id}"] .contando`);
-  if(tg) tg.remove();
   bot.streaming = false;
   save();
   markBusy(c, false);
@@ -3069,27 +2728,12 @@ function finish(c, bot, pane){
       </div>`);
     }
   }
-  const eds = extrairEdicoes(bot.text);
-  if(eds.length){
-    const r = aplicarEdicoes(c, eds);
-    if(r.ok){
-      toast(r.ok === 1 ? 'Uma alteração aplicada no projeto' : `${r.ok} alterações aplicadas no projeto`, CHECK);
-      if(!S.panes.some(x=>x.kind==='preview')) abrirDualView('live'); else renderGrid();
-    }
-    if(r.falhas.length){
-      bot.text += '\n\n_Não consegui aplicar: ' + r.falhas.join('; ') + '._';
-      save();
-      const h = document.querySelector(`[data-mid="${bot.id}"] [data-body]`);
-      if(h) h.innerHTML = fmt(bot.text);
-    }
-  } else {
-    const files = extractFiles(bot.text);
-    if(files.length){
-      setFiles(c, files);
-      if(PREFS.autoPreview && tool('dualview') && !S.panes.some(x=>x.kind==='preview') && ehVisual(files)){
-        abrirDualView('live');
-      } else if(S.panes.some(x=>x.kind==='preview')) renderGrid();
-    }
+  const files = extractFiles(bot.text);
+  if(files.length){
+    setFiles(c, files);
+    if(PREFS.autoPreview && tool('dualview') && !S.panes.some(x=>x.kind==='preview') && ehVisual(files)){
+      abrirDualView('live');
+    } else if(S.panes.some(x=>x.kind==='preview')) renderGrid();
   }
   renderRail();
   if(window.orbitRefreshAccount) window.orbitRefreshAccount();
@@ -3128,7 +2772,6 @@ function extractFiles(text){
     const code = (m[3]||'').replace(/\s+$/,'');
     if(code.split('\n').length < 2 && code.length < 40) continue;
     const lang = (m[2]||'').toLowerCase();
-    if(lang === 'edit') continue;
     let name = (m[1]||'').trim();
     if(!/^[\w./-]+\.[a-zA-Z0-9]{1,5}$/.test(name)) name = '';
     if(!name) name = nomeArquivo(lang);
@@ -3374,66 +3017,25 @@ function openBig(titulo, secoes, render, wire, inicial){
 function openProfile(){
   closeMenus();
   const u = S.user;
-  const admin = !!(u.admin || (window.ORBIT_ACCOUNT && window.ORBIT_ACCOUNT.is_admin));
   const saldo = Math.max(0, Math.round(u.saldo ?? 0));
-  const cota  = Math.max(1, u.cota ?? 500);
-  const pct   = Math.min(100, saldo / cota * 100);
-  const dia   = u.cicloFim ? new Date(u.cicloFim) : null;
-  const ini   = (u.name || u.email || 'o')[0].toUpperCase();
-
   const o = document.createElement('div'); o.className = 'sheet';
   o.innerHTML = `<div class="bg"></div><div class="card">
-    <div class="sh-mail">${esc(u.email || 'conta OrbitDual')}</div>
-
-    <div class="sh-me">
-      <span class="sh-av">${esc(ini)}</span>
-      <div class="sh-txt">
-        <b>${esc(u.name || 'você')}</b>
-        <span>${esc(u.plan || 'Orbit Basic')}</span>
+    <div class="who">
+      <div class="nm">${esc(u.name||'você')}</div>
+      <div class="em">${esc(u.email || 'conta OrbitDual')}</div>
+      <div class="plnrow">
+        <svg class="ico sm" viewBox="0 0 24 24" style="color:var(--accent-soft)"><path d="M12 3l2.6 5.6 6.4.8-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.8z"/></svg>
+        <b>${esc(u.plan||'Orbit Basic')}</b><span>${saldo.toLocaleString('pt-BR')} OC</span>
       </div>
-      ${u.planId === 'basic'
-        ? '<a class="sh-up" href="planos.html">Melhorar</a>'
-        : '<span class="sh-badge">ativo</span>'}
     </div>
-
-    <div class="sh-oc">
-      <div class="sh-ocl"><b>${saldo.toLocaleString('pt-BR')}</b> <span>de ${cota.toLocaleString('pt-BR')} OC</span>
-        ${dia && !isNaN(dia) ? `<i>renova ${dia.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'})}</i>` : ''}</div>
-      <div class="sh-bar ${pct<15?'low':''}"><i style="width:${pct}%"></i></div>
-    </div>
-
-    <div class="sh-sep"></div>
-
-    <button class="it" data-a="config">
-      <svg class="ico sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-2.7 1.1V21a2 2 0 11-4 0v-.1A1.6 1.6 0 007 19.4a1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1A1.6 1.6 0 003 15a2 2 0 010-4 1.6 1.6 0 001.1-2.7l-.1-.1a2 2 0 112.8-2.8l.1.1A1.6 1.6 0 009 4.6V4a2 2 0 114 0v.1A1.6 1.6 0 0017 4.6l.1-.1a2 2 0 112.8 2.8l-.1.1A1.6 1.6 0 0021 11a2 2 0 010 4"/></svg>
-      Configurações</button>
-
-    <a class="it" href="planos.html">
-      <svg class="ico sm" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.4.8-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.8z"/></svg>
-      Planos e créditos</a>
-
-    <button class="it" data-a="ajuda">
-      <svg class="ico sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a2.9 2.9 0 015.5 1c0 1.9-2.7 2.5-2.7 2.5M12 17h.01"/></svg>
-      Receber ajuda</button>
-
-    <button class="it" data-a="feed">
-      <svg class="ico sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-      Dar feedback</button>
-
-    ${admin ? `<div class="sh-sep"></div>
-    <a class="it adm" href="admin.html">
-      <svg class="ico sm" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V7z"/><path d="M9.5 12l1.8 1.8 3.4-3.6"/></svg>
-      Painel de administrador
-      <svg class="ico sm seta" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/></svg></a>` : ''}
-
-    <div class="sh-sep"></div>
-
-    <button class="it" data-a="logout">
-      <svg class="ico sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
-      Sair da conta</button>
-    <button class="it danger" data-a="reset">
-      <svg class="ico sm" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>
-      Apagar conversas deste aparelho</button>
+    <button class="it" data-a="config"><svg class="ico sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-2.7 1.1V21a2 2 0 11-4 0v-.1A1.6 1.6 0 007 19.4a1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1A1.6 1.6 0 003 15a2 2 0 010-4 1.6 1.6 0 001.1-2.7l-.1-.1a2 2 0 112.8-2.8l.1.1A1.6 1.6 0 009 4.6V4a2 2 0 114 0v.1A1.6 1.6 0 0017 4.6l.1-.1a2 2 0 112.8 2.8l-.1.1A1.6 1.6 0 0021 11a2 2 0 010 4"/></svg>Configurações</button>
+    <a class="it" href="planos.html"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.4.8-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.8z"/></svg>Planos e créditos</a>
+    <button class="it" data-a="ajuda"><svg class="ico sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a2.9 2.9 0 015.5 1c0 1.9-2.7 2.5-2.7 2.5M12 17h.01"/></svg>Receber ajuda</button>
+    <button class="it" data-a="feed"><svg class="ico sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Dar feedback</button>
+    ${u.admin?`<hr><a class="it" href="admin.html"><svg class="ico sm" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V7z"/></svg>Painel de administrador</a>`:''}
+    <hr>
+    <button class="it" data-a="logout"><svg class="ico sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>Sair da conta</button>
+    <button class="it danger" data-a="reset"><svg class="ico sm" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Apagar conversas deste aparelho</button>
   </div>`;
   document.body.appendChild(o);
   o.addEventListener('click', e=>{
@@ -3784,109 +3386,80 @@ addEventListener('beforeunload', e=>{
 <script type="module">
 /* =========================================================
    Sessão, conta, plano e créditos (OC)
-   Em contexto sem origem http (painel de visualização, arquivo
-   local), o app entra em modo demonstração em vez de travar.
    ========================================================= */
-const ONLINE = /^https?:$/.test(location.protocol);
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/+esm';
 
-function urlRel(p){ try{ return new URL(p, location.href).href; }catch(e){ return p; } }
-window.orbitUrl = urlRel;
+const SUPABASE_URL = 'https://vbjtqwflriyueqpcltqc.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_qPpQZNv3WQE2dI126isv0Q_r_kZCwpY';
+const LOGIN_URL    = new URL('login.html', location.href).href;
 
-function abrirDemo(motivo){
-  window.ORBIT_DEMO = true;
-  window.orbitToken = async () => null;
-  window.orbitLogout = async () => { alert('No modo demonstração não há sessão para encerrar.'); };
-  window.orbitRefreshAccount = async () => null;
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true, flowType:'pkce' }
+});
+window.ORBIT_SB = sb;
+
+window.orbitToken = async () => {
+  const { data:{ session } } = await sb.auth.getSession();
+  return session ? session.access_token : null;
+};
+
+window.orbitLogout = async () => {
+  try { await sb.auth.signOut(); } catch(e){}
+  try { localStorage.removeItem('orbit.state'); localStorage.removeItem('orbit.uid'); } catch(e){}
+  location.replace(LOGIN_URL);
+};
+
+/* recarrega plano + saldo do servidor */
+window.orbitRefreshAccount = async () => {
+  try {
+    const { data, error } = await sb.rpc('my_account');
+    if(error || !data || data.error) return null;
+    window.ORBIT_ACCOUNT = data;
+    if(window.orbitApplyAccount) window.orbitApplyAccount(data);
+    return data;
+  } catch(e){ return null; }
+};
+
+(async () => {
+  const { data:{ session } } = await sb.auth.getSession();
+  if(!session){ location.replace(LOGIN_URL); return; }
+  const user = session.user;
+
+  let prev = null, hadState = false;
+  try {
+    prev = localStorage.getItem('orbit.uid');
+    hadState = !!localStorage.getItem('orbit.state');
+  } catch(e){}
+  if(prev !== user.id){
+    try { localStorage.removeItem('orbit.state'); localStorage.setItem('orbit.uid', user.id); } catch(e){}
+    if(hadState){ location.reload(); return; }
+  }
+
+  const acct = await window.orbitRefreshAccount();
+
+  const meta = user.user_metadata || {};
+  const nome = (acct && acct.name) || meta.name || meta.full_name
+            || (user.email ? user.email.split('@')[0] : 'você');
+
   if(window.orbitApplyUser) window.orbitApplyUser({
-    name:'Visitante', email:'demonstração', plan:'Orbit Insider',
-    saldo:6000, cota:6000, admin:false, planId:'insider',
-    models:['blend','fusion'],
-    cicloFim:new Date(Date.now()+30*864e5).toISOString()
+    name:  nome,
+    email: user.email || '',
+    plan:  (acct && acct.plan && acct.plan.name) || 'Orbit Basic',
+    saldo: (acct && acct.credits) ? Number(acct.credits.balance) : 0,
+    cota:  (acct && acct.plan) ? Number(acct.plan.monthly_oc) : 500,
+    admin: !!(acct && acct.is_admin),
+    planId:(acct && acct.plan && acct.plan.id) || 'basic',
+    models:(acct && acct.plan && acct.plan.models) || ['blend'],
+    cicloFim:(acct && acct.credits && acct.credits.cycle_end) || null
   });
+
   const gate = document.getElementById('authgate');
-  if(gate){ gate.classList.add('gone'); setTimeout(() => gate.remove(), 400); }
-  if(window.toast) setTimeout(()=> window.toast(motivo || 'Modo demonstração: a interface funciona, mas sem conta e sem IA de verdade.'), 900);
-}
+  if(gate){ gate.classList.add('gone'); setTimeout(() => gate.remove(), 450); }
+})();
 
-if(!ONLINE){
-  abrirDemo('Modo demonstração — abra o site publicado para conversar de verdade.');
-} else {
-  const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/+esm');
-
-  const SUPABASE_URL = 'https://vbjtqwflriyueqpcltqc.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_qPpQZNv3WQE2dI126isv0Q_r_kZCwpY';
-  const LOGIN_URL    = urlRel('login.html');
-
-  const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
-    auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true, flowType:'pkce' }
-  });
-  window.ORBIT_SB = sb;
-
-  window.orbitToken = async () => {
-    const { data:{ session } } = await sb.auth.getSession();
-    return session ? session.access_token : null;
-  };
-
-  window.orbitLogout = async () => {
-    try { await sb.auth.signOut(); } catch(e){}
-    try { localStorage.removeItem('orbit.state'); localStorage.removeItem('orbit.uid'); } catch(e){}
-    location.replace(LOGIN_URL);
-  };
-
-  window.orbitRefreshAccount = async () => {
-    try {
-      const { data, error } = await sb.rpc('my_account');
-      if(error || !data || data.error) return null;
-      window.ORBIT_ACCOUNT = data;
-      if(window.orbitApplyAccount) window.orbitApplyAccount(data);
-      return data;
-    } catch(e){ return null; }
-  };
-
-  (async () => {
-    let session = null;
-    try { ({ data:{ session } } = await sb.auth.getSession()); }
-    catch(e){ return abrirDemo('Não consegui verificar a sessão aqui. Abrindo em modo demonstração.'); }
-
-    if(!session){ location.replace(LOGIN_URL); return; }
-    const user = session.user;
-
-    let prev = null, hadState = false;
-    try {
-      prev = localStorage.getItem('orbit.uid');
-      hadState = !!localStorage.getItem('orbit.state');
-    } catch(e){}
-    if(prev !== user.id){
-      try { localStorage.removeItem('orbit.state'); localStorage.setItem('orbit.uid', user.id); } catch(e){}
-      if(hadState){ location.reload(); return; }
-    }
-
-    const acct = await window.orbitRefreshAccount();
-
-    const meta = user.user_metadata || {};
-    const nome = (acct && acct.name) || meta.name || meta.full_name
-              || (user.email ? user.email.split('@')[0] : 'você');
-
-    if(window.orbitApplyUser) window.orbitApplyUser({
-      name:  nome,
-      email: user.email || '',
-      plan:  (acct && acct.plan && acct.plan.name) || 'Orbit Basic',
-      saldo: (acct && acct.credits) ? Number(acct.credits.balance) : 0,
-      cota:  (acct && acct.plan) ? Number(acct.plan.monthly_oc) : 500,
-      admin: !!(acct && acct.is_admin),
-      planId:(acct && acct.plan && acct.plan.id) || 'basic',
-      models:(acct && acct.plan && acct.plan.models) || ['blend'],
-      cicloFim:(acct && acct.credits && acct.credits.cycle_end) || null
-    });
-
-    const gate = document.getElementById('authgate');
-    if(gate){ gate.classList.add('gone'); setTimeout(() => gate.remove(), 450); }
-  })();
-
-  sb.auth.onAuthStateChange((event) => {
-    if(event === 'SIGNED_OUT') location.replace(LOGIN_URL);
-  });
-}
+sb.auth.onAuthStateChange((event) => {
+  if(event === 'SIGNED_OUT') location.replace(LOGIN_URL);
+});
 </script>
 </body>
 </html>
