@@ -2795,6 +2795,45 @@ function abrirDualView(tab){
   renderGrid(); syncToggles();
 }
 
+const DV_PRELUDIO = `<script>(function(){
+  function mem(){ var m={}; return {
+    getItem:function(k){ return Object.prototype.hasOwnProperty.call(m,k)?m[k]:null; },
+    setItem:function(k,v){ m[k]=String(v); },
+    removeItem:function(k){ delete m[k]; },
+    clear:function(){ m={}; },
+    key:function(i){ var ks=Object.keys(m); return i<ks.length?ks[i]:null; },
+    get length(){ return Object.keys(m).length; } }; }
+  ['localStorage','sessionStorage'].forEach(function(n){
+    var ok=false;
+    try{ var s=window[n]; s.setItem('__dv','1'); s.removeItem('__dv'); ok=true; }catch(e){}
+    if(!ok){ try{ Object.defineProperty(window,n,{value:mem(),configurable:true,writable:true}); }catch(e){} }
+  });
+  function aviso(msg){
+    try{
+      var d=document.getElementById('__dverr');
+      if(!d){ d=document.createElement('div'); d.id='__dverr';
+        d.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:2147483647;'+
+          'background:#2A1116;color:#FFC7CE;border-top:1px solid #7A2B38;'+
+          'font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:8px 12px;'+
+          'max-height:35%;overflow:auto;white-space:pre-wrap';
+        (document.body||document.documentElement).appendChild(d); }
+      d.textContent = String(msg).slice(0,600);
+    }catch(e){}
+  }
+  window.addEventListener('error', function(e){
+    aviso('Erro no c\u00f3digo: ' + (e.message||'') + (e.lineno?('  (linha '+e.lineno+')'):''));
+  });
+  window.addEventListener('unhandledrejection', function(e){
+    aviso('Promessa rejeitada: ' + ((e.reason && e.reason.message) || e.reason || ''));
+  });
+})();<\/script>`;
+
+function injetarPrelude(doc){
+  if(/<head[^>]*>/i.test(doc)) return doc.replace(/<head[^>]*>/i, m => m + DV_PRELUDIO);
+  if(/<html[^>]*>/i.test(doc)) return doc.replace(/<html[^>]*>/i, m => m + DV_PRELUDIO);
+  return DV_PRELUDIO + doc;
+}
+
 function montarPreview(files){
   if(!files || !files.length) return '';
   const html = files.find(f=> /<!doctype html|<html/i.test(f.code));
@@ -2804,10 +2843,10 @@ function montarPreview(files){
     let doc = html.code;
     if(css && !doc.includes(css.slice(0,40))) doc = doc.replace(/<\/head>/i, `<style>\n${css}\n</style></head>`);
     if(js && !doc.includes(js.slice(0,40)))  doc = doc.replace(/<\/body>/i, `<script>\n${js}\n<\/script></body>`);
-    return doc;
+    return injetarPrelude(doc);
   }
   const frag = files.filter(f=> f.lang==='html' || /\.html?$/i.test(f.name)).map(f=>f.code).join('\n');
-  return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+  return `<!doctype html><html lang="pt-BR"><head>${DV_PRELUDIO}<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>*{box-sizing:border-box}html,body{margin:0;height:100%}
 body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0E0E14;color:#EEE;
