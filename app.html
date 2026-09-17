@@ -2398,6 +2398,75 @@ body.compacto .comp-note{display:none}
 
 /* a tela de boas-vindas some assim que a conversa começa */
 .chatscroll:has(.msgs .mrow) .core{display:none!important}
+
+/* ============================================================
+   OrbitDual — camada 5
+   Geração de imagem (Orbit Imagem / Nano Banana)
+   ============================================================ */
+
+.imgbtn{display:flex;align-items:center;gap:7px;height:33px;padding:0 11px;border-radius:10px;
+  font-size:.79rem;color:#B6B6C4;border:1px solid var(--line);transition:.2s;white-space:nowrap;flex:none}
+.imgbtn:hover{border-color:rgba(123,97,255,.45);background:rgba(123,97,255,.12);color:#fff}
+.imgbtn .ico{width:16px;height:16px}
+
+/* painel de geração */
+.imgpane{position:fixed;inset:0;z-index:130;display:grid;place-items:center;padding:20px}
+.imgpane .bg{position:absolute;inset:0;background:rgba(4,4,8,.66);backdrop-filter:blur(3px)}
+.imgpane .card{position:relative;width:min(560px,100%);max-height:88vh;overflow:auto;
+  background:var(--panel);border:1px solid var(--line-2);border-radius:20px;padding:22px;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.8);animation:popIn .18s cubic-bezier(.2,.9,.3,1)}
+.imgpane h3{font-family:'Space Grotesk';font-size:1.1rem;margin-bottom:4px}
+.imgpane .sub{font-size:.82rem;color:var(--dim);margin-bottom:16px}
+.imgpane textarea{width:100%;min-height:92px;resize:vertical;background:var(--panel-2);
+  border:1px solid var(--line);border-radius:13px;padding:12px 14px;color:var(--white);
+  font-size:.9rem;line-height:1.6;outline:none;transition:.2s}
+.imgpane textarea:focus{border-color:rgba(123,97,255,.6);box-shadow:0 0 0 3px rgba(123,97,255,.1)}
+.imgpane .rot{font-family:'Space Grotesk';font-size:.72rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--dim);margin:18px 0 9px}
+.imgopts{display:grid;gap:8px}
+.imgopt{display:flex;align-items:center;gap:11px;padding:11px 13px;border:1px solid var(--line);
+  border-radius:12px;cursor:pointer;transition:.18s;text-align:left;width:100%}
+.imgopt:hover{border-color:var(--line-2);background:rgba(255,255,255,.03)}
+.imgopt.on{border-color:rgba(123,97,255,.55);background:rgba(123,97,255,.12)}
+.imgopt .nm{flex:1;min-width:0}
+.imgopt .nm b{display:block;font-size:.88rem;color:var(--white)}
+.imgopt .nm span{display:block;font-size:.76rem;color:var(--dim);margin-top:1px}
+.imgopt .oc{flex:none;font-family:'Space Grotesk';font-size:.82rem;font-weight:600;color:var(--accent-soft)}
+.imgprop{display:flex;flex-wrap:wrap;gap:7px}
+.imgprop button{padding:7px 13px;border-radius:9px;border:1px solid var(--line);font-size:.78rem;
+  color:#B6B6C4;transition:.18s}
+.imgprop button:hover{border-color:var(--line-2);color:#fff}
+.imgprop button.on{border-color:rgba(123,97,255,.55);background:rgba(123,97,255,.14);color:#fff}
+.imgpane .pe{display:flex;align-items:center;gap:10px;margin-top:20px}
+.imgpane .saldo{font-size:.78rem;color:var(--dim);margin-right:auto}
+.imgpane .saldo b{color:var(--white)}
+.imgpane .saldo.low b{color:#FF9AA7}
+.imgpane .btn-x{padding:9px 15px;border-radius:11px;font-size:.84rem;color:var(--muted);border:1px solid var(--line)}
+.imgpane .btn-x:hover{color:#fff;background:rgba(255,255,255,.06)}
+.imgpane .btn-g{padding:9px 17px;border-radius:11px;font-size:.84rem;font-weight:600;
+  background:var(--accent);color:#fff;transition:.2s}
+.imgpane .btn-g:hover{background:var(--accent-soft)}
+.imgpane .btn-g:disabled{background:rgba(255,255,255,.08);color:var(--dim);cursor:not-allowed}
+.imgpane .erro{margin-top:13px;padding:10px 13px;border-radius:11px;font-size:.82rem;
+  background:rgba(227,107,122,.12);border:1px solid rgba(227,107,122,.3);color:#FF9AA7}
+
+/* imagem na conversa */
+.imgcard{margin:4px 0 2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  background:#08080C;max-width:520px}
+.imgcard img{display:block;width:100%;height:auto}
+.imgcard .ft{display:flex;align-items:center;gap:8px;padding:9px 12px;border-top:1px solid var(--line)}
+.imgcard .ft .q{flex:1;min-width:0;font-size:.76rem;color:var(--dim);overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.imgcard .ft button,.imgcard .ft a{display:flex;align-items:center;gap:5px;font-size:.75rem;
+  color:var(--muted);padding:4px 8px;border-radius:7px;flex:none}
+.imgcard .ft button:hover,.imgcard .ft a:hover{background:rgba(255,255,255,.07);color:#fff}
+.imgload{display:flex;align-items:center;gap:11px;padding:16px 18px;border:1px dashed var(--line-2);
+  border-radius:16px;max-width:520px;font-size:.85rem;color:var(--muted)}
+.imgload .orb{width:22px;height:22px;border-radius:50%;flex:none;
+  background:radial-gradient(circle at 34% 30%,#C9B6FF,#7B61FF 55%,#2E2360);
+  animation:imgpulse 1.4s ease-in-out infinite}
+@keyframes imgpulse{0%,100%{transform:scale(.86);opacity:.7}50%{transform:scale(1.06);opacity:1}}
+.imgcard img{max-height:60vh;object-fit:contain;background:#050508}
 </style>
 <script>
 /* ============================================================
@@ -4468,6 +4537,246 @@ document.addEventListener('click', function(e){
   e.preventDefault(); e.stopImmediatePropagation();
   openProfile({currentTarget:b});
 }, true);
+
+/* ============================================================
+   OrbitDual — camada 5
+   Orbit Imagem: geração de imagem pela edge function orbit-image.
+   ============================================================ */
+
+const ENDPOINT_IMG = 'https://vbjtqwflriyueqpcltqc.supabase.co/functions/v1/orbit-image';
+const PROPORCOES = [
+  {id:'1:1',  nm:'Quadrada'},
+  {id:'16:9', nm:'Paisagem'},
+  {id:'9:16', nm:'Retrato'},
+  {id:'4:3',  nm:'Clássica'},
+  {id:'3:2',  nm:'Foto'}
+];
+/* vazio até o banco dizer que existe algum modelo ligado —
+   assim o botão só aparece quando a geração está mesmo no ar */
+let IMG_MODELOS = [];
+function carregarModelosImagem(){
+  const sb = window.ORBIT_SB;
+  if(!sb) return;
+  sb.from('image_models').select('*').eq('enabled', true).order('sort').then(({data})=>{
+    if(data && data.length){
+      IMG_MODELOS = data;
+      if(window.__orbitInjetarImagem) window.__orbitInjetarImagem();
+    }
+  }, ()=>{});
+}
+setTimeout(carregarModelosImagem, 900);
+
+function custoImagem(id){
+  const m = IMG_MODELOS.find(x=>x.id===id) || IMG_MODELOS[1] || IMG_MODELOS[0];
+  return Number((m && m.oc_per_image) || 80);
+}
+
+/* ---------- painel de geração ---------- */
+function openImagem(textoInicial){
+  if(window.ORBIT_DEMO){ toast('No modo demonstração não dá para gerar imagem.'); return; }
+  closeMenus();
+  const o = document.createElement('div');
+  o.className = 'imgpane';
+  if(!IMG_MODELOS.length){ toast('A geração de imagem ainda não está ligada.'); return; }
+  let modelo = IMG_MODELOS.some(m=>m.id===PREFS.imgModelo) ? PREFS.imgModelo
+             : (IMG_MODELOS.find(m=>m.id==='img-std') ? 'img-std' : IMG_MODELOS[0].id);
+  let prop   = PREFS.imgProp   || '1:1';
+
+  const pintar = ()=>{
+    const custo = custoImagem(modelo);
+    const saldo = Math.max(0, Math.round(S.user.saldo ?? 0));
+    const falta = saldo < custo;
+    o.innerHTML = `<div class="bg"></div><div class="card">
+      <h3>Gerar uma imagem</h3>
+      <p class="sub">Descreva o que você quer ver. Quanto mais específico, melhor o resultado.</p>
+      <textarea data-p placeholder="Ex.: um astronauta sentado numa lua roxa, ilustração chapada, fundo escuro, sem texto">${esc(textoInicial||'')}</textarea>
+      <div class="rot">Qualidade</div>
+      <div class="imgopts">${IMG_MODELOS.map(m=>`
+        <button class="imgopt ${m.id===modelo?'on':''}" data-m="${esc(m.id)}">
+          <span class="nm"><b>${esc(m.display_name)}</b><span>${esc(m.subtitle||'')}</span></span>
+          <span class="oc">${Number(m.oc_per_image)} OC</span>
+        </button>`).join('')}</div>
+      <div class="rot">Formato</div>
+      <div class="imgprop">${PROPORCOES.map(p=>`
+        <button data-r="${p.id}" class="${p.id===prop?'on':''}">${esc(p.nm)} · ${p.id}</button>`).join('')}</div>
+      <div class="pe">
+        <span class="saldo ${falta?'low':''}">Você tem <b>${saldo.toLocaleString('pt-BR')} OC</b>${falta?' — não dá para esta qualidade':''}</span>
+        <button class="btn-x" data-x>Cancelar</button>
+        <button class="btn-g" data-go ${falta?'disabled':''}>Gerar por ${custo} OC</button>
+      </div>
+      <div class="erro" data-erro hidden></div>
+    </div>`;
+  };
+  pintar();
+  document.body.appendChild(o);
+  const ta = ()=> $('[data-p]', o);
+  setTimeout(()=>{ const t = ta(); if(t){ t.focus(); t.setSelectionRange(t.value.length, t.value.length); } }, 40);
+
+  const fechar = ()=>{ o.remove(); removeEventListener('keydown', key); };
+  const key = e=>{ if(e.key==='Escape') fechar(); };
+  addEventListener('keydown', key);
+
+  o.addEventListener('click', e=>{
+    if(e.target.classList.contains('bg') || e.target.closest('[data-x]')) return fechar();
+    const m = e.target.closest('[data-m]');
+    if(m){ const txt = ta().value; modelo = m.dataset.m; PREFS.imgModelo = modelo; savePrefs(); pintar(); ta().value = txt; return; }
+    const r = e.target.closest('[data-r]');
+    if(r){ const txt = ta().value; prop = r.dataset.r; PREFS.imgProp = prop; savePrefs(); pintar(); ta().value = txt; return; }
+    const g = e.target.closest('[data-go]');
+    if(g){
+      const texto = ta().value.trim();
+      if(!texto){ ta().focus(); return; }
+      fechar();
+      gerarImagem(texto, modelo, prop);
+    }
+  });
+  o.addEventListener('keydown', e=>{
+    if(e.key==='Enter' && (e.ctrlKey||e.metaKey)){ const g = $('[data-go]', o); if(g && !g.disabled) g.click(); }
+  });
+}
+
+/* ---------- geração ---------- */
+async function gerarImagem(texto, modelo, prop){
+  const c = cur();
+  const pedido = {id:uid(), role:'user', text:'Gerar imagem: ' + texto, at:Date.now()};
+  c.msgs.push(pedido);
+  const bot = {id:uid(), role:'bot', kind:'imagem', prompt:texto, modelo, aspect:prop,
+               text:'Imagem gerada: ' + texto, carregando:true, at:Date.now()};
+  c.msgs.push(bot);
+  save();
+
+  const pane = S.panes.find(x=>x.kind==='chat') || S.panes[0];
+  const box = (pane && document.querySelector(`.pane[data-id="${pane.id}"] [data-msgs]`)) || document.querySelector('[data-msgs]');
+  if(box){
+    box.insertAdjacentHTML('beforeend', msgHTML(pedido) + msgHTML(bot));
+    box.scrollTop = box.scrollHeight;
+  }
+
+  const repinta = ()=>{
+    const row = document.querySelector(`[data-mid="${bot.id}"]`);
+    if(row) row.outerHTML = msgHTML(bot);
+    const b2 = box || document.querySelector('[data-msgs]');
+    if(b2) b2.scrollTop = b2.scrollHeight;
+    renderRail();
+  };
+
+  try{
+    const token = window.orbitToken ? await window.orbitToken() : null;
+    if(!token) throw new Error('sessao');
+    const r = await fetch(ENDPOINT_IMG, {
+      method:'POST',
+      headers:{'content-type':'application/json', 'Authorization':'Bearer ' + token},
+      body: JSON.stringify({model:modelo, prompt:texto, aspect:prop})
+    });
+    const d = await r.json().catch(()=>({}));
+    if(!r.ok){
+      bot.carregando = false;
+      bot.erro = d.message || 'Não consegui gerar a imagem agora.';
+      if(d.upgrade) bot.upgrade = true;
+      save(); repinta();
+      if(d.upgrade && typeof openPlanos === 'function') openPlanos(bot.erro);
+      return;
+    }
+    bot.carregando = false;
+    bot.url = d.url;
+    bot.oc  = d.oc;
+    if(typeof d.balance === 'number'){ S.user.saldo = d.balance; paintOC(); }
+    save(); repinta();
+  }catch(e){
+    bot.carregando = false;
+    bot.erro = 'A conexão caiu antes de a imagem chegar. Tente de novo.';
+    save(); repinta();
+  }
+  if(window.orbitRefreshAccount) window.orbitRefreshAccount();
+}
+
+/* ---------- mensagem com imagem ---------- */
+function imagemHTML(m){
+  if(m.carregando){
+    return `<div class="imgload"><i class="orb"></i> Desenhando “${esc((m.prompt||'').slice(0,60))}${(m.prompt||'').length>60?'…':''}”</div>`;
+  }
+  if(m.erro){
+    return `<div class="erro" style="max-width:520px;padding:11px 14px;border-radius:12px;font-size:.85rem;
+      background:rgba(227,107,122,.12);border:1px solid rgba(227,107,122,.3);color:#FF9AA7">${esc(m.erro)}</div>`;
+  }
+  return `<div class="imgcard">
+      <img src="${esc(m.url)}" alt="${esc(m.prompt||'imagem gerada')}" loading="lazy">
+      <div class="ft">
+        <span class="q" title="${esc(m.prompt||'')}">${esc(m.prompt||'')}</span>
+        ${m.oc?`<span style="font-size:.72rem;color:var(--dim);flex:none">${m.oc} OC</span>`:''}
+        <a href="${esc(m.url)}" target="_blank" rel="noopener" title="Abrir em tamanho cheio">
+          <svg class="ico sm" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></a>
+        <button data-imgnovo title="Gerar outra com a mesma descrição">
+          <svg class="ico sm" viewBox="0 0 24 24"><path d="M20 11a8 8 0 10-2.3 5.7M20 5v6h-6"/></svg></button>
+      </div>
+    </div>`;
+}
+
+function msgHTML(m){
+  if(!m.id) m.id = uid();
+  if(m.role === 'user'){
+    const at = (m.atts||[]).map(a=> a.kind==='image'
+      ? `<span class="att"><img src="data:${a.media_type};base64,${a.data}" alt=""><span class="nm">${esc(a.name||'imagem')}</span></span>`
+      : `<span class="att"><svg class="ico sm" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/></svg><span class="nm">${esc(a.name||'arquivo')}</span></span>`
+    ).join('');
+    return `<div class="mrow me" data-mid="${m.id}"><div class="ubox">`
+         + (at?`<div class="attach-row" style="justify-content:flex-end;padding:0 0 7px">${at}</div>`:'')
+         + `<div class="bub">${fmt(m.text)}</div></div></div>`;
+  }
+  if(m.kind === 'imagem'){
+    return `<div class="mrow ai" data-mid="${m.id}" data-img="${esc(m.prompt||'')}" data-imgm="${esc(m.modelo||'')}" data-imgp="${esc(m.aspect||'')}">
+      <div class="abody"><div class="mwho"><i></i>Orbit</div>${imagemHTML(m)}</div></div>`;
+  }
+  const meta = m.streaming ? '' : `<div class="mmeta">
+      <button data-copy><svg class="ico sm" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>Copiar</button>
+      <button data-again><svg class="ico sm" viewBox="0 0 24 24"><path d="M20 11a8 8 0 10-2.3 5.7M20 5v6h-6"/></svg>Outra resposta</button>
+      ${m.oc?`<span style="font-size:.68rem;color:var(--dim);align-self:center;margin-left:4px">${m.oc} OC</span>`:''}
+    </div>`;
+  const st = m.streaming
+    ? `<div class="status" data-status><span class="sp3"><i></i><i></i><i></i></span><span class="txt">Pensando…</span></div>`
+    : '';
+  const inner = fmt(m.text || '', {stream:m.streaming});
+  return `<div class="mrow ai" data-mid="${m.id}">
+    <div class="abody"><div class="mwho"><i></i>Orbit</div>${st}<div class="bub" data-body>${inner}</div>${meta}</div></div>`;
+}
+
+/* ---------- botão no compositor + "gerar outra" ---------- */
+(function(){
+  const BOTAO = `<button class="imgbtn" data-imagem title="Gerar uma imagem com o Orbit">
+    <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M5 17l4.5-4.5L13 16l2.5-2.5L20 18"/></svg>
+    Imagem</button>`;
+  const injetar = ()=>{
+    if(!IMG_MODELOS.length) return;
+    document.querySelectorAll('.comp-bar').forEach(bar=>{
+      if(bar.querySelector('[data-imagem]')) return;
+      const pick = bar.querySelector('[data-mode]') || bar.querySelector('[data-model]');
+      if(pick) pick.insertAdjacentHTML('afterend', BOTAO);
+      else bar.insertAdjacentHTML('afterbegin', BOTAO);
+    });
+  };
+  window.__orbitInjetarImagem = injetar;
+  injetar();
+  const alvo = document.getElementById('grid') || document.body;
+  new MutationObserver(injetar).observe(alvo, {childList:true, subtree:true});
+
+  document.addEventListener('click', e=>{
+    const b = e.target.closest && e.target.closest('[data-imagem]');
+    if(b){
+      e.preventDefault();
+      const ta = b.closest('.comp-in') && b.closest('.comp-in').querySelector('[data-input]');
+      const texto = ta ? ta.value.trim() : '';
+      if(ta) ta.value = '';
+      openImagem(texto);
+      return;
+    }
+    const n = e.target.closest && e.target.closest('[data-imgnovo]');
+    if(n){
+      e.preventDefault();
+      const row = n.closest('[data-mid]');
+      if(row) gerarImagem(row.dataset.img || '', row.dataset.imgm || 'img-std', row.dataset.imgp || '1:1');
+    }
+  });
+})();
 </script>
 <script type="module">
 /* =========================================================
